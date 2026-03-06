@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<title>Einblick</title>
+
+<style>
+
+body{
+background:#0b0f14;
+color:white;
+font-family:Arial;
+text-align:center;
+margin:0;
+padding:20px;
+}
+
+.logo{
+font-size:60px;
+margin-top:20px;
+}
+
+.card{
+background:#151a21;
+padding:20px;
+margin:20px;
+border-radius:16px;
+}
+
+input{
+width:80%;
+padding:12px;
+font-size:16px;
+border-radius:10px;
+border:none;
+background:#1e2530;
+color:white;
+}
+
+button{
+padding:14px;
+margin:8px;
+font-size:15px;
+border-radius:12px;
+border:none;
+background:#00c2ff;
+color:black;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>EINBLICK</h1>
+
+<div class="logo">👁</div>
+
+<div class="card">
+
+<h2>Chronometer</h2>
+
+<div id="clock" style="font-size:34px"></div>
+
+</div>
+
+<div class="card">
+
+<input placeholder="Ask Ein...">
+
+</div>
+
+<div class="card">
+
+<button>Calculator</button>
+<button>Dictionary</button>
+<button>Currency</button>
+
+</div>
+
+<div class="card">
+
+<button>Breathing</button>
+
+</div>
+
+<script>
+
+function updateClock(){
+let now=new Date()
+document.getElementById("clock").innerHTML=now.toLocaleTimeString()
+}
+
+setInterval(updateClock,1000)
+
+updateClock()
+
+</script>
+
+</body>
+
+</html>
