@@ -3,302 +3,251 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Einblick</title>
 
 <style>
 
-/* FONT */
-
-@font-face{
-font-family:"Neue Einstellung";
-src:url("fonts/NeueEinstellung-Regular.woff2") format("woff2");
-font-weight:400;
-}
-
-@font-face{
-font-family:"Neue Einstellung";
-src:url("fonts/NeueEinstellung-Medium.woff2") format("woff2");
-font-weight:500;
-}
-
-@font-face{
-font-family:"Neue Einstellung";
-src:url("fonts/NeueEinstellung-SemiBold.woff2") format("woff2");
-font-weight:600;
-}
-
-/* GLOBAL */
+/* ---------------- GLOBAL ---------------- */
 
 body{
-
 margin:0;
-font-family:"Neue Einstellung",sans-serif;
+font-family:"Neue Einstellung",system-ui,sans-serif;
 color:#e8eaed;
-
-background:linear-gradient(135deg,#0f1115,#141821,#0f1115);
-background-size:400% 400%;
-animation:nordicBackground 120s ease infinite;
-
 display:flex;
 justify-content:center;
 
+/* Nordic dynamic background */
+
+background:linear-gradient(135deg,#0f1115,#141821,#0f1115);
+background-size:400% 400%;
+animation:bgmove 120s ease infinite;
 }
 
-@keyframes nordicBackground{
-
+@keyframes bgmove{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
-
 }
 
 .container{
-
 max-width:1100px;
 width:100%;
 text-align:center;
 padding:40px 20px;
-
 }
 
-/* EYE */
+/* ---------------- AI EYE ---------------- */
 
 .eye{
-
 width:70px;
 height:70px;
-
-border-radius:50%;
 border:2px solid #9aa4b2;
-
+border-radius:50%;
 margin:auto;
 margin-bottom:10px;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 }
 
 .pupil{
-
 width:16px;
 height:16px;
 border-radius:50%;
 background:#e8eaed;
-
-transition:all .25s;
-
+transition:all .2s ease;
 }
 
-/* BRAND */
+/* ---------------- BRAND ---------------- */
 
 .brand{
-
 font-size:28px;
 font-weight:600;
 margin-bottom:6px;
-
 }
 
 .slogan{
-
 font-size:14px;
 opacity:.65;
 margin-bottom:36px;
-
 }
 
-/* WIDGETS */
+/* ---------------- WIDGETS ---------------- */
 
 .widgets{
-
 display:flex;
 justify-content:center;
 gap:24px;
 margin-bottom:32px;
-
 }
 
 .widget{
-
 width:162px;
 height:100px;
-
 background:#171a21;
-
 border-radius:10px;
-
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-
-cursor:pointer;
-
 }
 
-/* SEARCH */
+/* clock dial */
+
+.clockdial{
+width:48px;
+height:48px;
+border:1px solid #aaa;
+border-radius:50%;
+position:relative;
+margin-bottom:6px;
+}
+
+.hand{
+width:1px;
+height:20px;
+background:white;
+position:absolute;
+top:4px;
+left:50%;
+transform-origin:bottom;
+}
+
+/* ---------------- SEARCH ---------------- */
 
 .searchbar{
-
 display:flex;
 justify-content:center;
 gap:8px;
-
 margin-bottom:30px;
-
+position:relative;
 }
 
 .searchbar input{
-
 width:380px;
 height:40px;
-
-background:#171a21;
-
-border:none;
 border-radius:8px;
-
+border:none;
+background:#171a21;
 color:white;
 padding-left:12px;
-
 }
 
 .btn{
-
 height:40px;
 padding:0 16px;
-
 background:#171a21;
-color:white;
-
 border:none;
+color:white;
 border-radius:8px;
-
 cursor:pointer;
-
 transition:.2s;
-
 }
 
-/* REFLECTION */
+/* suggestions */
+
+.suggestions{
+position:absolute;
+top:45px;
+width:380px;
+background:#171a21;
+border-radius:8px;
+display:none;
+flex-direction:column;
+}
+
+.suggestions div{
+padding:8px;
+cursor:pointer;
+}
+
+.suggestions div:hover{
+background:#222;
+}
+
+/* ---------------- REFLECTION ---------------- */
 
 .reflection{
-
 background:#171a21;
-border-radius:10px;
-
 padding:16px;
-
+border-radius:10px;
 margin-bottom:32px;
-
 }
 
-/* PANELS */
+/* ---------------- PANELS ---------------- */
 
 .panels{
-
 display:flex;
 gap:24px;
 overflow-x:auto;
-
 justify-content:center;
-
 margin-bottom:40px;
-
 }
 
 .panel{
-
 width:146px;
 height:90px;
-
 background:#171a21;
-
 border-radius:10px;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
-cursor:pointer;
-
 position:relative;
-
-}
-
-.panelLabel{
-
-opacity:0;
 transition:.15s;
-font-size:13px;
-
+cursor:pointer;
 }
 
-.panel:hover .panelLabel{
-
-opacity:1;
-
+.panel:hover{
+transform:translateY(-2px);
+box-shadow:0 4px 10px rgba(0,0,0,0.4);
 }
 
-/* CREATOR */
+.panel svg{
+width:28px;
+height:28px;
+stroke:white;
+fill:none;
+stroke-width:1.5;
+}
+
+/* ---------------- CREATOR ---------------- */
 
 .creator{
-
 font-size:12px;
 opacity:.6;
-
 }
 
-/* POPUP */
+/* ---------------- POPUP ---------------- */
 
 .popup{
-
 position:fixed;
-
 top:0;
 left:0;
-
 width:100%;
 height:100%;
-
-background:rgba(0,0,0,0.45);
-
+background:rgba(0,0,0,.45);
 display:none;
-
 align-items:center;
 justify-content:center;
-
 }
 
-.popup-content{
-
+.popupcontent{
 background:#171a21;
-
 width:80%;
 height:70%;
-
 border-radius:12px;
-
 padding:30px;
-
 overflow:auto;
-
 }
 
 .close{
-
 float:right;
 cursor:pointer;
-font-size:20px;
-
+font-size:18px;
 }
 
 </style>
-
 </head>
 
 <body>
@@ -310,28 +259,35 @@ font-size:20px;
 </div>
 
 <div class="brand">Einblick</div>
-
 <div class="slogan">Where Knowledge Becomes Insight</div>
+
+<!-- Widgets -->
 
 <div class="widgets">
 
 <div class="widget">
-<div id="clock"></div>
+<div class="clockdial">
+<div class="hand" id="clockhand"></div>
+</div>
+<div id="clocktext"></div>
 </div>
 
 <div class="widget">
+<div id="day"></div>
 <div id="date"></div>
 </div>
 
 <div class="widget">
-News
+<div id="news">Loading news…</div>
 </div>
 
 <div class="widget">
-Weather
+<div id="weather">☀ 26°C</div>
 </div>
 
 </div>
+
+<!-- Search -->
 
 <div class="searchbar">
 
@@ -341,22 +297,28 @@ Weather
 
 <button class="btn" id="searchBtn">Search</button>
 
+<div class="suggestions" id="suggestions"></div>
+
 </div>
+
+<!-- Reflection -->
 
 <div class="reflection">
 Today's Reflection
 </div>
 
+<!-- Panels -->
+
 <div class="panels">
 
-<div class="panel"><span class="panelLabel">Insight</span></div>
-<div class="panel"><span class="panelLabel">Learning</span></div>
-<div class="panel"><span class="panelLabel">Research</span></div>
-<div class="panel"><span class="panelLabel">Instruments</span></div>
-<div class="panel"><span class="panelLabel">Health</span></div>
-<div class="panel"><span class="panelLabel">Pursuits</span></div>
-<div class="panel"><span class="panelLabel">Preferences</span></div>
-<div class="panel"><span class="panelLabel">System</span></div>
+<div class="panel"><svg><circle cx="12" cy="12" r="6"/></svg></div>
+<div class="panel"><svg><rect x="6" y="6" width="12" height="12"/></svg></div>
+<div class="panel"><svg><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+<div class="panel"><svg><polygon points="12,4 20,20 4,20"/></svg></div>
+<div class="panel"><svg><path d="M4 12 L20 12"/></svg></div>
+<div class="panel"><svg><path d="M6 18 L18 6"/></svg></div>
+<div class="panel"><svg><circle cx="12" cy="12" r="3"/></svg></div>
+<div class="panel"><svg><rect x="4" y="4" width="16" height="16"/></svg></div>
 
 </div>
 
@@ -366,14 +328,15 @@ Created by Dr. Aishvarya Adhaulia
 
 </div>
 
+<!-- Popup -->
+
 <div class="popup" id="popup">
 
-<div class="popup-content">
+<div class="popupcontent">
 
 <span class="close" onclick="closePopup()">✕</span>
 
 <h2 id="resultTitle"></h2>
-
 <p id="resultText"></p>
 
 </div>
@@ -388,111 +351,125 @@ function updateClock(){
 
 const now=new Date();
 
-document.getElementById("clock").innerText=
+document.getElementById("clocktext").innerText=
 now.toLocaleTimeString();
 
 document.getElementById("date").innerText=
 now.toDateString();
+
+document.getElementById("day").innerText=
+now.toLocaleDateString(undefined,{weekday:"long"});
+
+const sec=now.getSeconds();
+document.getElementById("clockhand")
+.style.transform=`rotate(${sec*6}deg)`;
 
 }
 
 setInterval(updateClock,1000);
 updateClock();
 
-/* EYE BLINK */
+/* NEWS ROTATION */
+
+const headlines=[
+"Global climate summit begins",
+"New AI research breakthrough",
+"Space telescope captures distant galaxy"
+];
+
+let newsIndex=0;
 
 setInterval(()=>{
+newsIndex=(newsIndex+1)%headlines.length;
+document.getElementById("news").innerText=headlines[newsIndex];
+},40000);
 
-const pupil=document.getElementById("pupil");
+/* AI EYE BLINK */
 
-pupil.style.height="4px";
-
-setTimeout(()=>{
-
-pupil.style.height="16px";
-
-},150);
-
+setInterval(()=>{
+const p=document.getElementById("pupil");
+p.style.height="4px";
+setTimeout(()=>p.style.height="16px",150);
 },5000);
 
-/* EYE MOVEMENT */
+/* AI EYE MOVEMENT */
 
-document.addEventListener("mousemove",(e)=>{
-
-const pupil=document.getElementById("pupil");
-
-const x=(e.clientX/window.innerWidth-0.5)*8;
-const y=(e.clientY/window.innerHeight-0.5)*6;
-
-pupil.style.transform=`translate(${x}px,${y}px)`;
-
+document.addEventListener("mousemove",e=>{
+const p=document.getElementById("pupil");
+const x=(e.clientX/window.innerWidth-.5)*8;
+const y=(e.clientY/window.innerHeight-.5)*6;
+p.style.transform=`translate(${x}px,${y}px)`;
 });
 
-/* SEARCH BUTTON */
+/* SEARCH */
 
 const btn=document.getElementById("searchBtn");
 
-let pressTimer;
-let longPress=false;
+let timer,longPress=false;
 
 btn.addEventListener("mousedown",()=>{
-
 longPress=false;
-
-pressTimer=setTimeout(()=>{
-
+timer=setTimeout(()=>{
 longPress=true;
-
-btn.style.boxShadow="0 0 16px #9aa4b2";
-
-deepResearch();
-
+deepSearch();
 },800);
-
 });
 
 btn.addEventListener("mouseup",()=>{
-
-clearTimeout(pressTimer);
-
-if(!longPress){
-normalSearch();
-}
-
+clearTimeout(timer);
+if(!longPress) normalSearch();
 });
 
-/* SEARCH MODES */
-
 function normalSearch(){
-
-openPopup("Quick Insight",
-"Prototype search result.");
-
+openPopup("Quick Insight","Prototype result.");
 }
 
-function deepResearch(){
-
-openPopup("Deep Research",
-"Advanced analysis mode activated.");
-
+function deepSearch(){
+btn.style.boxShadow="0 0 16px #9aa4b2";
+openPopup("Deep Research","Advanced analysis activated.");
 }
 
 /* POPUP */
 
-function openPopup(title,text){
-
+function openPopup(t,x){
 document.getElementById("popup").style.display="flex";
-
-document.getElementById("resultTitle").innerText=title;
-document.getElementById("resultText").innerText=text;
-
+document.getElementById("resultTitle").innerText=t;
+document.getElementById("resultText").innerText=x;
 }
 
 function closePopup(){
-
 document.getElementById("popup").style.display="none";
-
 }
+
+/* SEARCH SUGGESTIONS */
+
+const suggestions=["black hole","gravity","dna","evolution"];
+
+const input=document.getElementById("searchInput");
+const sug=document.getElementById("suggestions");
+
+input.addEventListener("input",()=>{
+let v=input.value.toLowerCase();
+sug.innerHTML="";
+if(v===""){sug.style.display="none";return;}
+
+suggestions
+.filter(s=>s.includes(v))
+.forEach(s=>{
+let d=document.createElement("div");
+d.innerText=s;
+d.onclick=()=>{input.value=s;sug.style.display="none";}
+sug.appendChild(d);
+});
+
+sug.style.display="flex";
+});
+
+/* keyboard shortcut */
+
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape") closePopup();
+});
 
 </script>
 
