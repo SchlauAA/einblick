@@ -20,14 +20,14 @@ margin:0;
 padding:20px;
 }
 
-/* Title */
+/* TITLE */
 
 h1{
 letter-spacing:3px;
 font-weight:600;
 }
 
-/* Eye */
+/* EYE */
 
 .eye-container{
 display:flex;
@@ -37,18 +37,18 @@ margin-bottom:25px;
 }
 
 .eye{
-width:95px;
-height:55px;
+width:100px;
+height:60px;
 background:#e6e6e6;
 border-radius:50%/60%;
 position:relative;
-box-shadow:0 0 10px rgba(0,0,0,0.6) inset;
-animation:blink 7s infinite;
+box-shadow:0 0 12px rgba(0,0,0,0.6) inset;
+animation:blink 8s infinite;
 }
 
 .pupil{
-width:24px;
-height:24px;
+width:26px;
+height:26px;
 background:#1a1a1a;
 border-radius:50%;
 position:absolute;
@@ -58,16 +58,20 @@ transform:translate(-50%,-50%);
 transition:all 0.25s;
 }
 
+.eye.thinking{
+box-shadow:0 0 20px rgba(255,255,255,0.6);
+}
+
 @keyframes blink{
 
 0%{transform:scaleY(1)}
-94%{transform:scaleY(1)}
-97%{transform:scaleY(0.05)}
+95%{transform:scaleY(1)}
+98%{transform:scaleY(0.05)}
 100%{transform:scaleY(1)}
 
 }
 
-/* Cards */
+/* CARDS */
 
 .card{
 background:#151a21;
@@ -75,9 +79,14 @@ padding:22px;
 margin:22px;
 border-radius:18px;
 box-shadow:0 10px 20px rgba(0,0,0,0.35);
+transition:transform 0.2s;
 }
 
-/* Chronometer */
+.card:active{
+transform:scale(1.03);
+}
+
+/* CLOCK */
 
 .clock{
 font-size:34px;
@@ -85,7 +94,7 @@ margin-top:10px;
 font-weight:500;
 }
 
-/* Search */
+/* SEARCH */
 
 input{
 width:85%;
@@ -98,7 +107,7 @@ color:white;
 outline:none;
 }
 
-/* Section labels */
+/* SECTIONS */
 
 .section{
 margin-top:25px;
@@ -106,7 +115,7 @@ opacity:0.7;
 font-size:18px;
 }
 
-/* Buttons */
+/* BUTTONS */
 
 button{
 
@@ -115,10 +124,46 @@ margin:10px;
 font-size:15px;
 border-radius:14px;
 border:none;
-background:#63b6e6;
+background:#d8d8d8;
 color:black;
 font-weight:500;
+transition:transform 0.15s;
 
+}
+
+button:active{
+transform:scale(0.92);
+}
+
+/* BREATHING CIRCLE */
+
+.breath-circle{
+
+width:80px;
+height:80px;
+border-radius:50%;
+background:#444;
+margin:auto;
+animation:breathe 6s infinite;
+
+}
+
+@keyframes breathe{
+
+0%{transform:scale(1)}
+50%{transform:scale(1.4)}
+100%{transform:scale(1)}
+
+}
+
+/* INSIGHT */
+
+#insightCard{
+display:none;
+}
+
+.focus-hidden{
+display:none;
 }
 
 </style>
@@ -131,7 +176,7 @@ font-weight:500;
 
 <div class="eye-container">
 
-<div class="eye">
+<div class="eye" id="eye">
 <div class="pupil" id="pupil"></div>
 </div>
 
@@ -147,17 +192,25 @@ font-weight:500;
 
 <div class="card">
 
-<input id="query" placeholder="Ask Ein...">
+<input id="query" placeholder="Ask Ein..." onkeydown="if(event.key==='Enter'){searchInsight()}">
 
 </div>
 
-<div class="section">
+<div class="card" id="insightCard">
+
+<h2>Insight</h2>
+
+<p id="insightText"></p>
+
+</div>
+
+<div class="section" id="instrumentLabel">
 
 Instruments
 
 </div>
 
-<div class="card">
+<div class="card" id="instruments">
 
 <button>Calculator</button>
 <button>Dictionary</button>
@@ -165,21 +218,29 @@ Instruments
 
 </div>
 
-<div class="section">
+<div class="section" id="wellnessLabel">
 
 Wellness
 
 </div>
 
+<div class="card" id="wellness">
+
+<div class="breath-circle"></div>
+
+<p>Breathing Guide</p>
+
+</div>
+
 <div class="card">
 
-<button>Breathing</button>
+<button onclick="toggleFocus()">Focus Mode</button>
 
 </div>
 
 <script>
 
-/* Chronometer */
+/* CLOCK */
 
 function updateClock(){
 
@@ -194,22 +255,71 @@ setInterval(updateClock,1000)
 
 updateClock()
 
-/* Eye follows typing */
+/* EYE FOLLOW TOUCH */
 
-let input=document.getElementById("query")
 let pupil=document.getElementById("pupil")
 
-input.addEventListener("input",function(){
+document.addEventListener("touchstart",function(e){
 
-pupil.style.transform="translate(-50%,-50%) translate(6px,0)"
+let x=(e.touches[0].clientX/window.innerWidth-0.5)*20
+let y=(e.touches[0].clientY/window.innerHeight-0.5)*20
 
-setTimeout(function(){
-
-pupil.style.transform="translate(-50%,-50%)"
-
-},400)
+pupil.style.transform=
+"translate(-50%,-50%) translate("+x+"px,"+y+"px)"
 
 })
+
+/* SEARCH INSIGHT */
+
+async function searchInsight(){
+
+let query=document.getElementById("query").value
+
+let eye=document.getElementById("eye")
+
+eye.classList.add("thinking")
+
+try{
+
+let response=await fetch(
+"https://en.wikipedia.org/api/rest_v1/page/summary/"+query
+)
+
+let data=await response.json()
+
+document.getElementById("insightText").innerText=
+data.extract || "No insight found."
+
+document.getElementById("insightCard").style.display="block"
+
+}catch{
+
+document.getElementById("insightText").innerText=
+"Unable to retrieve information."
+
+document.getElementById("insightCard").style.display="block"
+
+}
+
+eye.classList.remove("thinking")
+
+}
+
+/* FOCUS MODE */
+
+function toggleFocus(){
+
+let instruments=document.getElementById("instruments")
+let wellness=document.getElementById("wellness")
+let instrumentLabel=document.getElementById("instrumentLabel")
+let wellnessLabel=document.getElementById("wellnessLabel")
+
+instruments.classList.toggle("focus-hidden")
+wellness.classList.toggle("focus-hidden")
+instrumentLabel.classList.toggle("focus-hidden")
+wellnessLabel.classList.toggle("focus-hidden")
+
+}
 
 </script>
 
