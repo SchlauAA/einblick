@@ -4,7 +4,6 @@
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Einblick</title>
 
 <link href="https://fonts.cdnfonts.com/css/neue-einstellung" rel="stylesheet">
@@ -14,24 +13,21 @@
 /* ---------- COLOR SYSTEM ---------- */
 
 :root{
-
 --heading:#e8edf3;
 --sub:#b8c1cc;
 --text:#8f99a6;
-
 }
 
-/* ---------- BACKGROUND ---------- */
+/* ---------- BODY ---------- */
 
 body{
 
 font-family:"Neue Einstellung",-apple-system,sans-serif;
 
 margin:0;
-padding:40px;
+padding:30px;
 
 color:var(--text);
-
 text-align:center;
 
 background:
@@ -39,60 +35,54 @@ radial-gradient(circle at 50% 20%,rgba(255,255,255,.05),transparent 40%),
 linear-gradient(140deg,#0a0f16,#121a24,#0a0f16);
 
 background-size:200% 200%;
-
 animation:bgShift 40s ease infinite;
 
 }
 
 @keyframes bgShift{
-
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
-
 }
 
 h1{color:var(--heading)}
 h3,h4{color:var(--sub)}
 
-/* ---------- PANELS ---------- */
+/* ---------- PANEL SYSTEM ---------- */
 
 .panel{
 
-width:260px;
-height:160px;
+width:220px;
+height:130px;
 
 background:rgba(22,29,39,.92);
 
-border-radius:14px;
+border-radius:12px;
 
-padding:16px;
+padding:10px;
 
-box-shadow:0 8px 22px rgba(0,0,0,.45);
+box-shadow:0 6px 18px rgba(0,0,0,.45);
 
 display:flex;
-
 flex-direction:column;
-
 justify-content:center;
-
 align-items:center;
 
 }
 
-/* ---------- DASHBOARD ---------- */
+/* ---------- GRID LAYOUT ---------- */
 
-.dashboard{
+.grid{
 
-display:flex;
+display:grid;
+
+grid-template-columns:repeat(4,220px);
+
+gap:16px;
 
 justify-content:center;
 
-gap:24px;
-
-flex-wrap:wrap;
-
-margin-top:40px;
+margin-top:25px;
 
 }
 
@@ -100,42 +90,44 @@ margin-top:40px;
 
 .searchPanel{
 
-max-width:920px;
-
-margin:40px auto;
+margin:30px auto;
+max-width:900px;
 
 }
 
 .searchPanel input{
 
 width:100%;
+padding:16px;
 
-padding:18px;
-
-border-radius:18px;
-
+border-radius:16px;
 border:none;
 
 background:#242d3a;
-
 color:white;
+
+font-size:16px;
 
 }
 
-/* ---------- SECTIONS ---------- */
+/* ---------- COLLAPSIBLE ---------- */
 
-.section{
+.collapseHeader{
+cursor:pointer;
+font-weight:600;
+}
 
-margin-top:50px;
-
+.collapseBody{
+display:none;
+margin-top:10px;
 }
 
 /* ---------- EYE ---------- */
 
 .eye{
 
-width:110px;
-height:65px;
+width:100px;
+height:60px;
 
 background:#e6e6e6;
 
@@ -151,8 +143,8 @@ animation:blink 7s infinite;
 
 .pupil{
 
-width:28px;
-height:28px;
+width:26px;
+height:26px;
 
 background:#111;
 
@@ -176,34 +168,10 @@ transform:translate(-50%,-50%);
 
 }
 
-/* ---------- COLLAPSIBLE ---------- */
-
-.collapseHeader{
-
-cursor:pointer;
-
-font-weight:600;
-
-}
-
-.collapseBody{
-
-display:none;
-
-margin-top:12px;
-
-}
-
-/* ---------- CREATOR ---------- */
-
 .creator{
-
 margin-top:40px;
-
 opacity:.7;
-
 font-size:13px;
-
 }
 
 </style>
@@ -222,50 +190,27 @@ font-size:13px;
 
 <!-- Observation Panel -->
 
-<div class="dashboard">
-
-<!-- Chronometer -->
+<div class="grid">
 
 <div class="panel">
-
 <h4>Chronometer</h4>
-
-<canvas id="clockCanvas" width="120" height="120"></canvas>
-
-<div id="digitalClock"></div>
-
+<canvas id="clockCanvas" width="90" height="90"></canvas>
 </div>
 
-<!-- Calendar -->
-
 <div class="panel">
-
 <h4>Calendar</h4>
-
-<canvas id="calendarCanvas" width="160" height="120"></canvas>
-
+<canvas id="calendarCanvas" width="120" height="90"></canvas>
 </div>
 
-<!-- News -->
-
 <div class="panel">
-
 <h4>News Brief</h4>
-
 <div id="newsHeadline">Loading…</div>
-
 </div>
 
-<!-- Weather -->
-
 <div class="panel">
-
 <h4>Weather Monitor</h4>
-
 <div id="weatherIcon"></div>
-
 <div id="weatherTemp"></div>
-
 </div>
 
 </div>
@@ -275,164 +220,104 @@ font-size:13px;
 <div class="searchPanel">
 
 <input id="query"
-
 placeholder="Ask Ein anything..."
-
 onkeydown="if(event.key==='Enter'){searchInsight()}">
 
 </div>
 
-<!-- Insight Panel -->
+<!-- LOWER PANELS -->
 
-<div class="panel section" id="resultsPanel" style="display:none">
-
-<h3>Insight Panel</h3>
-
-<div id="resultText"></div>
-
-<h4>Insight Visualization</h4>
-
-<canvas id="infographicCanvas" width="500" height="220"></canvas>
-
-</div>
-
-<!-- Reflection Panel -->
-
-<div class="section">
+<div class="grid">
 
 <div class="panel">
-
-<h3>Featured Insight</h3>
-
-The universe is under no obligation to make sense to you.
-
+<h4>Featured Insight</h4>
+Curiosity is the engine of discovery
 </div>
 
 <div class="panel">
-
-<h3>Daily Reflection</h3>
-
-Curiosity is the engine of discovery.
-
+<h4>Daily Reflection</h4>
+The universe is under no obligation to make sense to you
 </div>
 
-</div>
-
-<!-- Instrument Console -->
-
-<div class="panel section">
-
+<div class="panel">
 <div class="collapseHeader"
 onclick="togglePanel('instrumentPanel')">
-
 Instrument Console
-
 </div>
 
 <div class="collapseBody" id="instrumentPanel">
-
-Calculator  
-Stopwatch  
-Countdown Timer  
-Unit Converter  
-Dictionary  
-Thesaurus  
-Currency Converter  
-
+Calculator<br>
+Stopwatch<br>
+Countdown Timer<br>
+Unit Converter
+</div>
 </div>
 
-</div>
-
-<!-- Health Suite -->
-
-<div class="panel section">
-
+<div class="panel">
 <div class="collapseHeader"
 onclick="togglePanel('healthPanel')">
-
 Health Suite
-
 </div>
 
 <div class="collapseBody" id="healthPanel">
-
-Breathing Guide  
-Meditation  
-Vitals Reference  
-Mental Wellness  
-
+Meditation<br>
+Breathing Guide<br>
+Vitals Reference
+</div>
 </div>
 
-</div>
-
-<!-- Pursuits -->
-
-<div class="panel section">
-
+<div class="panel">
 <div class="collapseHeader"
 onclick="togglePanel('pursuitsPanel')">
-
 Pursuits
-
 </div>
 
 <div class="collapseBody" id="pursuitsPanel">
 
 <button onclick="togglePanel('playgroundPanel')">Playground</button>
 
-<button onclick="togglePanel('readingPanel')">Reading Room</button>
-
 <div id="playgroundPanel" style="display:none">
 
 <button onclick="startChess()">Chess</button>
-
 <button onclick="startTicTacToe()">Tic Tac Toe</button>
-
 <button onclick="startSpider()">Spider Solitaire</button>
-
 <button onclick="startFoundations()">Solitaire Foundations</button>
-
 <button onclick="startClock()">Clock Solitaire</button>
 
 <div id="gameArea"></div>
 
 </div>
 
-<div id="readingPanel" style="display:none">
-
-Curated Reading  
-Classic Literature  
-Saved Articles  
-
+</div>
 </div>
 
-</div>
-
-</div>
-
-<!-- System -->
-
-<div class="panel section">
-
+<div class="panel">
 <div class="collapseHeader"
 onclick="togglePanel('systemPanel')">
-
 System Panel
-
 </div>
 
 <div class="collapseBody" id="systemPanel">
-
-About • Terms • Privacy • Sources • Contact
+About • Terms • Privacy
+</div>
+</div>
 
 </div>
+
+<!-- RESULTS -->
+
+<div id="resultsPanel" style="margin-top:30px; display:none;">
+
+<h3>Insight Panel</h3>
+
+<div id="resultText" style="max-width:800px;margin:auto;"></div>
+
+<canvas id="infographicCanvas" width="600" height="220"></canvas>
 
 </div>
 
 <div class="creator">
-
 Created by Dr. Aishvarya Adhaulia
-
 </div>
 
 <script>
@@ -441,7 +326,7 @@ Created by Dr. Aishvarya Adhaulia
 
 let h=new Date().getHours()
 
-greeting.innerText=
+document.getElementById("greeting").innerText =
 h<12?"Good morning, Dr. Aishvarya.":
 h<18?"Good afternoon, Dr. Aishvarya.":
 "Good evening, Dr. Aishvarya."
@@ -452,7 +337,7 @@ function togglePanel(id){
 
 let p=document.getElementById(id)
 
-p.style.display=p.style.display==="block"?"none":"block"
+p.style.display = p.style.display==="block"?"none":"block"
 
 }
 
@@ -461,7 +346,6 @@ p.style.display=p.style.display==="block"?"none":"block"
 function drawCalendar(){
 
 let canvas=document.getElementById("calendarCanvas")
-
 let ctx=canvas.getContext("2d")
 
 let now=new Date()
@@ -470,19 +354,16 @@ let day=now.toLocaleDateString(undefined,{weekday:"short"})
 let date=now.getDate()
 
 ctx.fillStyle="#111827"
-
-ctx.fillRect(0,0,160,120)
+ctx.fillRect(0,0,120,90)
 
 ctx.fillStyle="#e8edf3"
-
-ctx.font="22px Neue Einstellung"
+ctx.font="18px Neue Einstellung"
 ctx.textAlign="center"
 
-ctx.fillText(day,80,45)
+ctx.fillText(day,60,35)
 
-ctx.font="42px Neue Einstellung"
-
-ctx.fillText(date,80,90)
+ctx.font="36px Neue Einstellung"
+ctx.fillText(date,60,75)
 
 }
 
@@ -490,49 +371,20 @@ drawCalendar()
 
 /* Clock */
 
-let canvas=clockCanvas
+let canvas=document.getElementById("clockCanvas")
 let ctx=canvas.getContext("2d")
 
 let radius=canvas.height/2
 
 ctx.translate(radius,radius)
-
 radius*=0.9
 
 function drawClock(){
 
-drawFace()
-drawTime()
-
-requestAnimationFrame(drawClock)
-
-}
-
-function drawFace(){
-
-let hour=new Date().getHours()
-
-let color="#0f141c"
-
-if(hour>=6&&hour<12)color="#1b2735"
-else if(hour>=12&&hour<18)color="#223548"
-else if(hour>=18&&hour<21)color="#1a2430"
-
 ctx.beginPath()
-
 ctx.arc(0,0,radius,0,2*Math.PI)
-
-ctx.fillStyle=color
-
+ctx.fillStyle="#0f141c"
 ctx.fill()
-
-ctx.strokeStyle="#aaa"
-
-ctx.stroke()
-
-}
-
-function drawTime(){
 
 let now=new Date()
 
@@ -541,32 +393,28 @@ let minute=now.getMinutes()
 let second=now.getSeconds()
 
 hour=(hour*Math.PI/6)+(minute*Math.PI/(6*60))
-drawHand(hour,radius*.5,4)
+drawHand(hour,radius*.5,3)
 
 minute=(minute*Math.PI/30)
-drawHand(minute,radius*.75,3)
+drawHand(minute,radius*.75,2)
 
 second=(second*Math.PI/30)
-drawHand(second,radius*.85,2)
+drawHand(second,radius*.85,1)
 
-digitalClock.innerText=now.toLocaleTimeString()
+requestAnimationFrame(drawClock)
 
 }
 
 function drawHand(pos,length,width){
 
 ctx.beginPath()
-
 ctx.lineWidth=width
 
 ctx.moveTo(0,0)
-
 ctx.rotate(pos)
-
 ctx.lineTo(0,-length)
 
 ctx.strokeStyle="#fff"
-
 ctx.stroke()
 
 ctx.rotate(-pos)
@@ -575,7 +423,58 @@ ctx.rotate(-pos)
 
 drawClock()
 
-/* News */
+/* SEARCH ENGINE */
+
+async function searchInsight(){
+
+let q=document.getElementById("query").value
+
+try{
+
+let r=await fetch(
+"https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(q)
+)
+
+let d=await r.json()
+
+document.getElementById("resultText").innerText=d.extract
+
+document.getElementById("resultsPanel").style.display="block"
+
+generateInfographic()
+
+}catch{
+
+document.getElementById("resultText").innerText="No result available."
+
+}
+
+}
+
+/* INFOGRAPHIC */
+
+function generateInfographic(){
+
+let canvas=document.getElementById("infographicCanvas")
+
+let ctx=canvas.getContext("2d")
+
+ctx.fillStyle="#111827"
+ctx.fillRect(0,0,600,220)
+
+ctx.strokeStyle="#4aa3ff"
+
+ctx.beginPath()
+
+ctx.moveTo(100,150)
+ctx.lineTo(300,60)
+ctx.lineTo(500,150)
+
+ctx.stroke()
+
+}
+
+/* NEWS */
 
 async function loadNews(){
 
@@ -589,7 +488,7 @@ let t=await r.text()
 
 let xml=new DOMParser().parseFromString(t,"text/xml")
 
-newsHeadline.innerText=
+document.getElementById("newsHeadline").innerText=
 xml.querySelector("item title").textContent
 
 }catch{}
@@ -598,7 +497,7 @@ xml.querySelector("item title").textContent
 
 loadNews()
 
-/* Weather */
+/* WEATHER */
 
 async function loadWeather(){
 
@@ -608,9 +507,10 @@ let r=await fetch("https://wttr.in/?format=j1")
 
 let d=await r.json()
 
-weatherTemp.innerText=d.current_condition[0].temp_C+"°C"
+document.getElementById("weatherTemp").innerText=
+d.current_condition[0].temp_C+"°C"
 
-weatherIcon.innerText="☁"
+document.getElementById("weatherIcon").innerText="☁"
 
 }catch{}
 
@@ -618,17 +518,12 @@ weatherIcon.innerText="☁"
 
 loadWeather()
 
-/* Playground placeholders */
+/* PLAYGROUND PLACEHOLDERS */
 
-function startChess(){gameArea.innerHTML="Chess coming soon."}
-
-function startSpider(){gameArea.innerHTML="Spider Solitaire coming soon."}
-
-function startFoundations(){gameArea.innerHTML="Solitaire Foundations coming soon."}
-
-function startClock(){gameArea.innerHTML="Clock Solitaire coming soon."}
-
-/* Tic Tac Toe */
+function startChess(){gameArea.innerHTML="Chess coming soon"}
+function startSpider(){gameArea.innerHTML="Spider Solitaire coming soon"}
+function startFoundations(){gameArea.innerHTML="Solitaire Foundations coming soon"}
+function startClock(){gameArea.innerHTML="Clock Solitaire coming soon"}
 
 function startTicTacToe(){
 
@@ -643,11 +538,8 @@ let b=document.createElement("button")
 b.onclick=function(){
 
 if(board[i]==""){
-
 board[i]="X"
-
 b.innerText="X"
-
 }
 
 }
