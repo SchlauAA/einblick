@@ -10,7 +10,7 @@
 
 <style>
 
-/* ---------- GLOBAL DESIGN ---------- */
+/* DESIGN VARIABLES */
 
 :root{
 --heading:#e8edf3;
@@ -18,12 +18,14 @@
 --text:#8f99a6;
 }
 
+/* BODY */
+
 body{
 
 font-family:"Neue Einstellung",-apple-system,sans-serif;
 
 margin:0;
-padding:30px;
+padding:40px;
 
 color:var(--text);
 text-align:center;
@@ -38,96 +40,143 @@ animation:bgShift 40s ease infinite;
 }
 
 @keyframes bgShift{
+
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
+
 }
 
 h1{color:var(--heading)}
-h3,h4{color:var(--sub)}
+h4{color:var(--sub)}
 
-/* ---------- PANEL SYSTEM ---------- */
+/* PANEL SYSTEM */
 
 .panel{
 
-width:220px;
-height:130px;
+width:320px;
+height:198px;
 
 background:rgba(22,29,39,.92);
 
-border-radius:12px;
+border-radius:14px;
 
-padding:10px;
+padding:16px;
 
 box-shadow:0 6px 18px rgba(0,0,0,.45);
 
 display:flex;
 flex-direction:column;
-justify-content:center;
+justify-content:flex-start;
 align-items:center;
+
+overflow:hidden;
 
 }
 
-/* ---------- GRID ---------- */
+/* PANEL CONTENT SCROLL */
+
+.panelContent{
+
+overflow-y:auto;
+font-size:14px;
+
+width:100%;
+height:140px;
+
+}
+
+/* GRID */
 
 .grid{
 
 display:grid;
 
-grid-template-columns:repeat(4,220px);
+grid-template-columns:repeat(4,320px);
 
-gap:16px;
+gap:20px;
 
 justify-content:center;
 
-margin-top:25px;
+margin-top:30px;
 
 }
 
-/* ---------- SEARCH ---------- */
+/* SEARCH BAR */
 
-.searchPanel{
+.searchBar{
+
+width:1320px;
 
 margin:30px auto;
-max-width:900px;
+
+display:flex;
+
+background:#242d3a;
+
+border-radius:16px;
+
+overflow:hidden;
 
 }
 
-.searchPanel input{
+.searchBar input{
 
-width:100%;
-padding:16px;
+flex:1;
 
-border-radius:16px;
 border:none;
 
-background:#242d3a;
+padding:18px;
+
+background:transparent;
+
 color:white;
 
 font-size:16px;
 
 }
 
-/* ---------- REFLECTION STRIP ---------- */
+.attachBtn{
 
-.reflection{
-
-width:900px;
-margin:20px auto;
-
-background:#111827;
-
-padding:14px;
-
-border-radius:10px;
-
-color:#e8edf3;
-
-font-style:italic;
+background:#1f2937;
+border:none;
+color:white;
+padding:0 20px;
+cursor:pointer;
 
 }
 
-/* ---------- COLLAPSIBLE ---------- */
+.searchBtn{
+
+background:#3a4a5a;
+border:none;
+color:white;
+padding:0 22px;
+cursor:pointer;
+
+}
+
+/* REFLECTION */
+
+.reflection{
+
+width:1320px;
+
+margin:auto;
+
+background:#111827;
+
+padding:16px;
+
+border-radius:10px;
+
+font-style:italic;
+
+color:#e8edf3;
+
+}
+
+/* COLLAPSE */
 
 .collapseHeader{
 cursor:pointer;
@@ -136,15 +185,15 @@ font-weight:600;
 
 .collapseBody{
 display:none;
-margin-top:10px;
+margin-top:8px;
 }
 
-/* ---------- AI EYE ---------- */
+/* AI EYE */
 
 .eye{
 
-width:100px;
-height:60px;
+width:110px;
+height:65px;
 
 background:#e6e6e6;
 
@@ -160,8 +209,8 @@ animation:blink 7s infinite;
 
 .pupil{
 
-width:26px;
-height:26px;
+width:28px;
+height:28px;
 
 background:#111;
 
@@ -205,46 +254,74 @@ font-size:13px;
 
 <div id="greeting"></div>
 
-<!-- Observation Row -->
+<!-- OBSERVATION -->
 
 <div class="grid">
 
 <div class="panel">
+
 <h4>Chronometer</h4>
-<canvas id="clockCanvas" width="90" height="90"></canvas>
+
+<canvas id="clockCanvas" width="120" height="120"></canvas>
+
 </div>
 
 <div class="panel">
+
 <h4>Calendar</h4>
-<canvas id="calendarCanvas" width="120" height="90"></canvas>
+
+<canvas id="calendarCanvas" width="160" height="120"></canvas>
+
 </div>
 
 <div class="panel">
+
 <h4>News</h4>
-<div id="newsHeadline">Loading…</div>
+
+<div class="panelContent" id="newsHeadline">
+
+Loading news...
+
+</div>
+
 </div>
 
 <div class="panel">
+
 <h4>Weather</h4>
+
+<div class="panelContent">
+
 <div id="weatherIcon"></div>
 <div id="weatherTemp"></div>
+
+</div>
+
 </div>
 
 </div>
 
-<!-- Search -->
+<!-- SEARCH -->
 
-<div class="searchPanel">
+<div class="searchBar">
+
+<button class="attachBtn">+</button>
 
 <input id="query"
-placeholder="Ask Ein anything..."
-onkeydown="if(event.key==='Enter'){searchInsight()}"
+placeholder="Ask Ein anything...">
+
+<button class="searchBtn"
 onmousedown="startPress()"
-onmouseup="endPress()">
+onmouseup="endPress()"
+onclick="searchInsight()">
+
+Search
+
+</button>
 
 </div>
 
-<!-- Reflection -->
+<!-- REFLECTION -->
 
 <div class="reflection">
 
@@ -252,25 +329,48 @@ Curiosity is the engine of discovery.
 
 </div>
 
-<!-- Lower Panels -->
+<!-- MAIN PANELS -->
 
 <div class="grid">
 
 <div class="panel">
+
 <h4>Insight</h4>
-Knowledge summaries and visual explanations
+
+<div class="panelContent">
+
+<div id="resultText"></div>
+
+<b>Recent Advances</b>
+<div id="recentAdvances"></div>
+
+<b>Today in History</b>
+<div id="historyToday"></div>
+
+<b>Birth Anniversaries</b>
+<div id="birthdaysToday"></div>
+
+</div>
+
 </div>
 
 <div class="panel">
 
-<div class="collapseHeader"
-onclick="togglePanel('instrumentPanel')">
+<h4>Research</h4>
 
-Instruments
+<div class="panelContent">
+
+Deep research tools and extended analysis.
 
 </div>
 
-<div class="collapseBody" id="instrumentPanel">
+</div>
+
+<div class="panel">
+
+<h4>Instruments</h4>
+
+<div class="panelContent">
 
 Calculator<br>
 Stopwatch<br>
@@ -283,33 +383,9 @@ Unit Converter
 
 <div class="panel">
 
-<div class="collapseHeader"
-onclick="togglePanel('healthPanel')">
+<h4>Studies</h4>
 
-Health Suite
-
-</div>
-
-<div class="collapseBody" id="healthPanel">
-
-Meditation<br>
-Breathing Guide<br>
-Vitals Reference
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<div class="collapseHeader"
-onclick="togglePanel('studiesPanel')">
-
-Studies
-
-</div>
-
-<div class="collapseBody" id="studiesPanel">
+<div class="panelContent">
 
 Courses<br>
 Lectures<br>
@@ -321,22 +397,13 @@ Reading Paths
 
 <div class="panel">
 
-<div class="collapseHeader"
-onclick="togglePanel('pursuitsPanel')">
+<h4>Health</h4>
 
-Pursuits
+<div class="panelContent">
 
-</div>
-
-<div class="collapseBody" id="pursuitsPanel">
-
-<button onclick="startChess()">Chess</button>
-<button onclick="startTicTacToe()">Tic Tac Toe</button>
-<button onclick="startSpider()">Spider Solitaire</button>
-<button onclick="startFoundations()">Solitaire Foundations</button>
-<button onclick="startClock()">Clock Solitaire</button>
-
-<div id="gameArea"></div>
+Meditation<br>
+Breathing Guide<br>
+Vitals Reference
 
 </div>
 
@@ -344,32 +411,47 @@ Pursuits
 
 <div class="panel">
 
-<div class="collapseHeader"
-onclick="togglePanel('systemPanel')">
+<h4>Pursuits</h4>
 
-System
+<div class="panelContent">
 
-</div>
-
-<div class="collapseBody" id="systemPanel">
-
-About • Terms • Privacy
-
-</div>
+Chess<br>
+Tic Tac Toe<br>
+Spider Solitaire<br>
+Solitaire Foundations<br>
+Clock Solitaire
 
 </div>
 
 </div>
 
-<!-- Results -->
+<div class="panel">
 
-<div id="resultsPanel" style="margin-top:30px; display:none;">
+<h4>Preferences</h4>
 
-<h3>Insight</h3>
+<div class="panelContent">
 
-<div id="resultText" style="max-width:800px;margin:auto;"></div>
+Appearance<br>
+Privacy<br>
+Notifications
 
-<canvas id="infographicCanvas" width="600" height="220"></canvas>
+</div>
+
+</div>
+
+<div class="panel">
+
+<h4>System</h4>
+
+<div class="panelContent">
+
+About<br>
+Terms<br>
+Privacy
+
+</div>
+
+</div>
 
 </div>
 
@@ -381,7 +463,7 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
-/* Greeting */
+/* GREETING */
 
 let h=new Date().getHours()
 
@@ -390,45 +472,7 @@ h<12?"Good morning, Dr. Aishvarya.":
 h<18?"Good afternoon, Dr. Aishvarya.":
 "Good evening, Dr. Aishvarya."
 
-/* Toggle */
-
-function togglePanel(id){
-
-let p=document.getElementById(id)
-
-p.style.display = p.style.display==="block"?"none":"block"
-
-}
-
-/* Calendar */
-
-function drawCalendar(){
-
-let canvas=document.getElementById("calendarCanvas")
-let ctx=canvas.getContext("2d")
-
-let now=new Date()
-
-let day=now.toLocaleDateString(undefined,{weekday:"short"})
-let date=now.getDate()
-
-ctx.fillStyle="#111827"
-ctx.fillRect(0,0,120,90)
-
-ctx.fillStyle="#e8edf3"
-ctx.font="18px Neue Einstellung"
-ctx.textAlign="center"
-
-ctx.fillText(day,60,35)
-
-ctx.font="36px Neue Einstellung"
-ctx.fillText(date,60,75)
-
-}
-
-drawCalendar()
-
-/* Clock */
+/* CLOCK */
 
 let canvas=document.getElementById("clockCanvas")
 let ctx=canvas.getContext("2d")
@@ -452,13 +496,13 @@ let minute=now.getMinutes()
 let second=now.getSeconds()
 
 hour=(hour*Math.PI/6)+(minute*Math.PI/(6*60))
-drawHand(hour,radius*.5,3)
+drawHand(hour,radius*.5,4)
 
 minute=(minute*Math.PI/30)
-drawHand(minute,radius*.75,2)
+drawHand(minute,radius*.75,3)
 
 second=(second*Math.PI/30)
-drawHand(second,radius*.85,1)
+drawHand(second,radius*.9,2)
 
 requestAnimationFrame(drawClock)
 
@@ -482,33 +526,41 @@ ctx.rotate(-pos)
 
 drawClock()
 
-/* Deep Research Long Press */
+/* CALENDAR */
 
-let pressTimer
+function drawCalendar(){
 
-function startPress(){
+let canvas=document.getElementById("calendarCanvas")
+let ctx=canvas.getContext("2d")
 
-pressTimer = setTimeout(function(){
+let now=new Date()
 
-alert("Deep Research Mode Activated")
+let day=now.toLocaleDateString(undefined,{weekday:"short"})
+let date=now.getDate()
 
-},1200)
+ctx.fillStyle="#111827"
+ctx.fillRect(0,0,160,120)
+
+ctx.fillStyle="#e8edf3"
+
+ctx.font="22px Neue Einstellung"
+ctx.textAlign="center"
+
+ctx.fillText(day,80,45)
+
+ctx.font="42px Neue Einstellung"
+
+ctx.fillText(date,80,95)
 
 }
 
-function endPress(){
+drawCalendar()
 
-clearTimeout(pressTimer)
-
-}
-
-/* Search */
+/* SEARCH */
 
 async function searchInsight(){
 
 let q=document.getElementById("query").value
-
-try{
 
 let r=await fetch(
 "https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(q)
@@ -518,42 +570,71 @@ let d=await r.json()
 
 document.getElementById("resultText").innerText=d.extract
 
-document.getElementById("resultsPanel").style.display="block"
+loadHistoryToday()
+loadBirthdaysToday()
 
-generateInfographic()
-
-}catch{
-
-document.getElementById("resultText").innerText="No result available."
+document.getElementById("recentAdvances").innerText=
+"Latest developments will appear once research feeds are integrated."
 
 }
 
+/* HISTORY */
+
+async function loadHistoryToday(){
+
+try{
+
+let today=new Date()
+
+let url="https://byabbe.se/on-this-day/"+(today.getMonth()+1)+"/"+today.getDate()+"/events.json"
+
+let r=await fetch(url)
+
+let d=await r.json()
+
+let events=d.events.slice(0,2)
+
+let html=""
+
+events.forEach(e=>{
+html+=e.year+" – "+e.description+"<br>"
+})
+
+document.getElementById("historyToday").innerHTML=html
+
+}catch{}
+
 }
 
-/* Infographic */
+/* BIRTHDAYS */
 
-function generateInfographic(){
+async function loadBirthdaysToday(){
 
-let canvas=document.getElementById("infographicCanvas")
+try{
 
-let ctx=canvas.getContext("2d")
+let today=new Date()
 
-ctx.fillStyle="#111827"
-ctx.fillRect(0,0,600,220)
+let url="https://byabbe.se/on-this-day/"+(today.getMonth()+1)+"/"+today.getDate()+"/births.json"
 
-ctx.strokeStyle="#4aa3ff"
+let r=await fetch(url)
 
-ctx.beginPath()
+let d=await r.json()
 
-ctx.moveTo(100,150)
-ctx.lineTo(300,60)
-ctx.lineTo(500,150)
+let births=d.births.slice(0,2)
 
-ctx.stroke()
+let html=""
+
+births.forEach(b=>{
+html+=b.year+" – "+b.description+"<br>"
+})
+
+document.getElementById("birthdaysToday").innerHTML=html
+
+}catch{}
 
 }
 
-/* News */
+/* NEWS */
 
 async function loadNews(){
 
@@ -576,7 +657,7 @@ xml.querySelector("item title").textContent
 
 loadNews()
 
-/* Weather */
+/* WEATHER */
 
 async function loadWeather(){
 
@@ -597,37 +678,23 @@ document.getElementById("weatherIcon").innerText="☁"
 
 loadWeather()
 
-/* Playground placeholders */
+/* LONG PRESS */
 
-function startChess(){gameArea.innerHTML="Chess coming soon"}
-function startSpider(){gameArea.innerHTML="Spider Solitaire coming soon"}
-function startFoundations(){gameArea.innerHTML="Solitaire Foundations coming soon"}
-function startClock(){gameArea.innerHTML="Clock Solitaire coming soon"}
+let pressTimer
 
-function startTicTacToe(){
+function startPress(){
 
-gameArea.innerHTML=""
+pressTimer=setTimeout(function(){
 
-let board=["","","","","","","","",""]
+alert("Deep Research Mode Activated")
 
-for(let i=0;i<9;i++){
-
-let b=document.createElement("button")
-
-b.onclick=function(){
-
-if(board[i]==""){
-board[i]="X"
-b.innerText="X"
-}
+},1200)
 
 }
 
-gameArea.appendChild(b)
+function endPress(){
 
-if((i+1)%3==0)gameArea.appendChild(document.createElement("br"))
-
-}
+clearTimeout(pressTimer)
 
 }
 
