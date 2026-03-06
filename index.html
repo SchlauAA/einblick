@@ -10,15 +10,13 @@
 
 <style>
 
-/* ---------- COLOR SYSTEM ---------- */
+/* ---------- GLOBAL DESIGN ---------- */
 
 :root{
 --heading:#e8edf3;
 --sub:#b8c1cc;
 --text:#8f99a6;
 }
-
-/* ---------- BODY ---------- */
 
 body{
 
@@ -70,7 +68,7 @@ align-items:center;
 
 }
 
-/* ---------- GRID LAYOUT ---------- */
+/* ---------- GRID ---------- */
 
 .grid{
 
@@ -110,6 +108,25 @@ font-size:16px;
 
 }
 
+/* ---------- REFLECTION STRIP ---------- */
+
+.reflection{
+
+width:900px;
+margin:20px auto;
+
+background:#111827;
+
+padding:14px;
+
+border-radius:10px;
+
+color:#e8edf3;
+
+font-style:italic;
+
+}
+
 /* ---------- COLLAPSIBLE ---------- */
 
 .collapseHeader{
@@ -122,7 +139,7 @@ display:none;
 margin-top:10px;
 }
 
-/* ---------- EYE ---------- */
+/* ---------- AI EYE ---------- */
 
 .eye{
 
@@ -188,7 +205,7 @@ font-size:13px;
 
 <div id="greeting"></div>
 
-<!-- Observation Panel -->
+<!-- Observation Row -->
 
 <div class="grid">
 
@@ -203,80 +220,115 @@ font-size:13px;
 </div>
 
 <div class="panel">
-<h4>News Brief</h4>
+<h4>News</h4>
 <div id="newsHeadline">Loading…</div>
 </div>
 
 <div class="panel">
-<h4>Weather Monitor</h4>
+<h4>Weather</h4>
 <div id="weatherIcon"></div>
 <div id="weatherTemp"></div>
 </div>
 
 </div>
 
-<!-- SEARCH -->
+<!-- Search -->
 
 <div class="searchPanel">
 
 <input id="query"
 placeholder="Ask Ein anything..."
-onkeydown="if(event.key==='Enter'){searchInsight()}">
+onkeydown="if(event.key==='Enter'){searchInsight()}"
+onmousedown="startPress()"
+onmouseup="endPress()">
 
 </div>
 
-<!-- LOWER PANELS -->
+<!-- Reflection -->
+
+<div class="reflection">
+
+Curiosity is the engine of discovery.
+
+</div>
+
+<!-- Lower Panels -->
 
 <div class="grid">
 
 <div class="panel">
-<h4>Featured Insight</h4>
-Curiosity is the engine of discovery
+<h4>Insight</h4>
+Knowledge summaries and visual explanations
 </div>
 
 <div class="panel">
-<h4>Daily Reflection</h4>
-The universe is under no obligation to make sense to you
-</div>
 
-<div class="panel">
 <div class="collapseHeader"
 onclick="togglePanel('instrumentPanel')">
-Instrument Console
+
+Instruments
+
 </div>
 
 <div class="collapseBody" id="instrumentPanel">
+
 Calculator<br>
 Stopwatch<br>
 Countdown Timer<br>
 Unit Converter
+
 </div>
+
 </div>
 
 <div class="panel">
+
 <div class="collapseHeader"
 onclick="togglePanel('healthPanel')">
+
 Health Suite
+
 </div>
 
 <div class="collapseBody" id="healthPanel">
+
 Meditation<br>
 Breathing Guide<br>
 Vitals Reference
+
 </div>
+
 </div>
 
 <div class="panel">
+
+<div class="collapseHeader"
+onclick="togglePanel('studiesPanel')">
+
+Studies
+
+</div>
+
+<div class="collapseBody" id="studiesPanel">
+
+Courses<br>
+Lectures<br>
+Reading Paths
+
+</div>
+
+</div>
+
+<div class="panel">
+
 <div class="collapseHeader"
 onclick="togglePanel('pursuitsPanel')">
+
 Pursuits
+
 </div>
 
 <div class="collapseBody" id="pursuitsPanel">
-
-<button onclick="togglePanel('playgroundPanel')">Playground</button>
-
-<div id="playgroundPanel" style="display:none">
 
 <button onclick="startChess()">Chess</button>
 <button onclick="startTicTacToe()">Tic Tac Toe</button>
@@ -289,26 +341,31 @@ Pursuits
 </div>
 
 </div>
-</div>
 
 <div class="panel">
+
 <div class="collapseHeader"
 onclick="togglePanel('systemPanel')">
-System Panel
+
+System
+
 </div>
 
 <div class="collapseBody" id="systemPanel">
+
 About • Terms • Privacy
+
 </div>
+
 </div>
 
 </div>
 
-<!-- RESULTS -->
+<!-- Results -->
 
 <div id="resultsPanel" style="margin-top:30px; display:none;">
 
-<h3>Insight Panel</h3>
+<h3>Insight</h3>
 
 <div id="resultText" style="max-width:800px;margin:auto;"></div>
 
@@ -317,7 +374,9 @@ About • Terms • Privacy
 </div>
 
 <div class="creator">
+
 Created by Dr. Aishvarya Adhaulia
+
 </div>
 
 <script>
@@ -423,7 +482,27 @@ ctx.rotate(-pos)
 
 drawClock()
 
-/* SEARCH ENGINE */
+/* Deep Research Long Press */
+
+let pressTimer
+
+function startPress(){
+
+pressTimer = setTimeout(function(){
+
+alert("Deep Research Mode Activated")
+
+},1200)
+
+}
+
+function endPress(){
+
+clearTimeout(pressTimer)
+
+}
+
+/* Search */
 
 async function searchInsight(){
 
@@ -451,7 +530,7 @@ document.getElementById("resultText").innerText="No result available."
 
 }
 
-/* INFOGRAPHIC */
+/* Infographic */
 
 function generateInfographic(){
 
@@ -474,7 +553,7 @@ ctx.stroke()
 
 }
 
-/* NEWS */
+/* News */
 
 async function loadNews(){
 
@@ -497,7 +576,7 @@ xml.querySelector("item title").textContent
 
 loadNews()
 
-/* WEATHER */
+/* Weather */
 
 async function loadWeather(){
 
@@ -518,7 +597,7 @@ document.getElementById("weatherIcon").innerText="☁"
 
 loadWeather()
 
-/* PLAYGROUND PLACEHOLDERS */
+/* Playground placeholders */
 
 function startChess(){gameArea.innerHTML="Chess coming soon"}
 function startSpider(){gameArea.innerHTML="Spider Solitaire coming soon"}
