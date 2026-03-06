@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Einblick</title>
 
 <style>
@@ -22,26 +21,33 @@ display:flex;
 justify-content:center;
 }
 
+/* MASTER CONTAINER */
+
 .container{
-width:90%;
+width:92%;
 max-width:1100px;
 padding:60px 0;
 }
 
-/* ZONES */
+/* EVERY ZONE SAME WIDTH */
 
 .zone{
 width:100%;
 margin-bottom:48px;
+}
+
+/* CENTERED TEXT ZONES */
+
+.center{
 text-align:center;
 }
 
-/* EYE LOGO */
+/* LOGO */
 
 .logo-eye{
 display:flex;
 justify-content:center;
-margin-bottom:18px;
+margin-bottom:16px;
 }
 
 .eye{
@@ -49,11 +55,10 @@ width:80px;
 height:50px;
 border:2px solid #cfd3dc;
 border-radius:50px/30px;
-position:relative;
-overflow:hidden;
 display:flex;
 align-items:center;
 justify-content:center;
+position:relative;
 }
 
 .pupil{
@@ -61,29 +66,7 @@ width:14px;
 height:14px;
 background:#cfd3dc;
 border-radius:50%;
-position:absolute;
 box-shadow:0 0 8px rgba(140,160,255,.6);
-transition:transform .15s;
-}
-
-.eyelid{
-position:absolute;
-width:100%;
-height:100%;
-background:#05070d;
-top:-100%;
-}
-
-@keyframes blink{
-0%{top:-100%;}
-45%{top:-100%;}
-50%{top:0;}
-55%{top:-100%;}
-100%{top:-100%;}
-}
-
-.blink{
-animation:blink .5s ease;
 }
 
 /* BRAND */
@@ -92,15 +75,18 @@ animation:blink .5s ease;
 font-size:36px;
 font-weight:600;
 margin-bottom:6px;
+text-align:center;
 }
 
 .slogan{
 color:#9aa0aa;
+text-align:center;
 }
 
 /* WIDGET GRID */
 
 .widget-row{
+width:100%;
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:24px;
@@ -108,9 +94,10 @@ margin-top:48px;
 }
 
 .widget{
+width:100%;
+aspect-ratio:1/1;
 background:#14161c;
 border:1px solid #23252d;
-aspect-ratio:1/1;
 border-radius:12px;
 display:flex;
 flex-direction:column;
@@ -149,7 +136,9 @@ background:#cfd3dc;
 .minute{width:2px;height:28px;}
 .second{width:1px;height:32px;background:#8aa4ff;}
 
-.digital{font-size:14px}
+.digital{
+font-size:14px;
+}
 
 /* CALENDAR */
 
@@ -163,9 +152,10 @@ font-size:14px;
 color:#9aa0aa;
 }
 
-/* SEARCH */
+/* SEARCH PANEL */
 
 .search-panel{
+width:100%;
 display:flex;
 background:#14161c;
 border:1px solid #23252d;
@@ -180,11 +170,6 @@ align-items:center;
 justify-content:center;
 border-right:1px solid #23252d;
 cursor:pointer;
-transition:.22s;
-}
-
-.attach:hover{
-background:#1d2028;
 }
 
 .search-input{
@@ -198,7 +183,6 @@ font-size:16px;
 
 .search-input:focus{
 outline:none;
-background:#11141a;
 }
 
 .search-btn{
@@ -207,20 +191,17 @@ background:#1c1f28;
 border:none;
 color:white;
 cursor:pointer;
-transition:.22s;
-}
-
-.search-btn:hover{
-background:#2a2f3c;
 }
 
 /* REFLECTION */
 
 .reflection{
+width:100%;
 background:#14161c;
 border:1px solid #23252d;
 border-radius:12px;
 padding:28px;
+text-align:center;
 }
 
 .reflection-title{
@@ -237,18 +218,20 @@ margin-bottom:10px;
 color:#9aa0aa;
 }
 
-/* PANEL GRID */
+/* PANELS GRID */
 
 .panel-row{
+width:100%;
 display:grid;
 grid-template-columns:repeat(8,1fr);
 gap:18px;
 }
 
 .panel{
+width:100%;
+aspect-ratio:1/1;
 background:#14161c;
 border:1px solid #23252d;
-aspect-ratio:1/1;
 border-radius:12px;
 display:flex;
 align-items:center;
@@ -270,10 +253,6 @@ border-color:#5b7cff;
 box-shadow:0 0 8px rgba(120,140,255,.25);
 }
 
-.panel:hover svg{
-stroke:#8aa4ff;
-}
-
 /* FOOTER */
 
 .footer{
@@ -292,21 +271,15 @@ margin-top:36px;
 
 <!-- ZONE 1 -->
 
-<div class="zone">
+<div class="zone center">
 
 <div class="logo-eye">
-
-<div class="eye" id="eye">
-
-<div class="pupil" id="pupil"></div>
-<div class="eyelid" id="eyelid"></div>
-
+<div class="eye">
+<div class="pupil"></div>
 </div>
-
 </div>
 
 <div class="brand-name">Einblick</div>
-
 <div class="slogan">Where Knowledge Becomes Insight</div>
 
 </div>
@@ -320,11 +293,9 @@ margin-top:36px;
 <div class="widget">
 
 <div class="clock">
-
 <div class="hand hour" id="hour"></div>
 <div class="hand minute" id="minute"></div>
 <div class="hand second" id="second"></div>
-
 </div>
 
 <div class="digital" id="digital"></div>
@@ -358,9 +329,9 @@ Loading news...
 
 <div class="attach">📎</div>
 
-<input class="search-input" id="searchInput" placeholder="Search Einblick">
+<input class="search-input" placeholder="Search Einblick">
 
-<button class="search-btn" id="searchBtn">Search</button>
+<button class="search-btn">Search</button>
 
 </div>
 
@@ -391,21 +362,14 @@ it is stranger than we can imagine.”
 
 <div class="panel-row">
 
-<div class="panel"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 14h4M12 2a7 7 0 00-4 12c1 1 1 2 1 3h6c0-1 0-2 1-3a7 7 0 00-4-12z"/></svg></div>
-
-<div class="panel"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 8h16"/></svg></div>
-
-<div class="panel"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></div>
-
-<div class="panel"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 3"/></svg></div>
-
-<div class="panel"><svg viewBox="0 0 24 24"><path d="M12 21s-6-4.5-6-10a6 6 0 1112 0c0 5.5-6 10-6 10z"/></svg></div>
-
-<div class="panel"><svg viewBox="0 0 24 24"><path d="M3 20l6-16 6 16 6-16"/></svg></div>
-
-<div class="panel"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg></div>
-
-<div class="panel"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/></svg></div>
+<div class="panel"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg></div>
+<div class="panel"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg></div>
+<div class="panel"><svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4"/></svg></div>
+<div class="panel"><svg viewBox="0 0 24 24"><polygon points="12,4 20,20 4,20"/></svg></div>
+<div class="panel"><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/></svg></div>
+<div class="panel"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/></svg></div>
+<div class="panel"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg></div>
+<div class="panel"><svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10"/></svg></div>
 
 </div>
 
@@ -414,9 +378,7 @@ it is stranger than we can imagine.”
 <!-- ZONE 6 -->
 
 <div class="footer">
-
 Created by Dr. Aishvarya Adhaulia
-
 </div>
 
 </div>
@@ -450,54 +412,6 @@ const today=new Date()
 
 document.getElementById("day").textContent=today.toLocaleDateString(undefined,{weekday:'long'})
 document.getElementById("date").textContent=today.toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})
-
-/* EYE CURSOR TRACK */
-
-const eye=document.getElementById("eye")
-const pupil=document.getElementById("pupil")
-
-document.addEventListener("mousemove",e=>{
-
-const rect=eye.getBoundingClientRect()
-
-const x=e.clientX-rect.left
-const y=e.clientY-rect.top
-
-const centerX=rect.width/2
-const centerY=rect.height/2
-
-const moveX=(x-centerX)/10
-const moveY=(y-centerY)/10
-
-pupil.style.transform=`translate(${moveX}px,${moveY}px)`
-
-})
-
-/* BLINK */
-
-const eyelid=document.getElementById("eyelid")
-
-setInterval(()=>{
-
-eyelid.classList.add("blink")
-
-setTimeout(()=>{
-eyelid.classList.remove("blink")
-},500)
-
-},4000)
-
-/* SEARCH FOCUS */
-
-const searchInput=document.getElementById("searchInput")
-
-searchInput.addEventListener("focus",()=>{
-pupil.style.transform="scale(1.4)"
-})
-
-searchInput.addEventListener("blur",()=>{
-pupil.style.transform="scale(1)"
-})
 
 </script>
 
