@@ -4,32 +4,37 @@
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Einblick</title>
+
+<link href="https://fonts.cdnfonts.com/css/neue-einstellung" rel="stylesheet">
 
 <style>
 
-/* ---------------- Background ---------------- */
+/* ---------- GLOBAL ---------- */
 
 body{
 
-margin:0;
-padding:32px;
+font-family:"Neue Einstellung", -apple-system, sans-serif;
 
-font-family:-apple-system,BlinkMacSystemFont,Segoe UI;
+margin:0;
+padding:36px;
 color:white;
 text-align:center;
 
+/* dynamic scientific background */
+
 background:
-radial-gradient(circle at 50% 20%, rgba(255,255,255,.05), transparent 40%),
-linear-gradient(135deg,#0a0f16,#141c27,#0b121a);
+radial-gradient(circle at 50% 20%, rgba(255,255,255,.05), transparent 45%),
+linear-gradient(140deg,#0a0f16,#121a24,#0a0f16);
 
 background-size:200% 200%;
 
-animation:bgDrift 35s ease infinite;
+animation:bgShift 40s ease infinite;
 
 }
 
-@keyframes bgDrift{
+@keyframes bgShift{
 
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
@@ -37,13 +42,14 @@ animation:bgDrift 35s ease infinite;
 
 }
 
-/* scientific grid */
+/* grid texture */
 
 body::before{
 
 content:"";
 
 position:fixed;
+
 top:0;
 left:0;
 
@@ -60,59 +66,25 @@ pointer-events:none;
 
 }
 
-/* ambient glow */
+/* ---------- PANELS ---------- */
 
-body::after{
+.section{margin-top:34px}
 
-content:"";
+.panel{
 
-position:fixed;
-top:-20%;
-left:-20%;
-
-width:140%;
-height:140%;
-
-background:
-radial-gradient(circle, rgba(255,255,255,.04), transparent 60%);
-
-pointer-events:none;
-
-animation:glowShift 40s ease infinite;
-
-}
-
-@keyframes glowShift{
-
-0%{transform:translateY(0)}
-50%{transform:translateY(-20px)}
-100%{transform:translateY(0)}
-
-}
-
-/* ---------------- Panels ---------------- */
-
-.section{
-
-margin-top:30px;
-
-}
-
-.widget{
-
-background:rgba(22,29,39,.85);
+background:rgba(22,29,39,.92);
 
 border-radius:18px;
 
-padding:18px;
+padding:20px;
 
-box-shadow:0 10px 28px rgba(0,0,0,.35);
+box-shadow:0 12px 30px rgba(0,0,0,.45);
 
-backdrop-filter:blur(10px);
+backdrop-filter:blur(12px);
 
 }
 
-/* ---------------- Eye ---------------- */
+/* ---------- EYE ---------- */
 
 .eye{
 
@@ -149,38 +121,22 @@ left:50%;
 
 transform:translate(-50%,-50%);
 
-transition:all .25s ease;
+transition:.25s;
 
 }
 
-.pupil.active{
-
-box-shadow:0 0 18px white;
-
-}
+.pupil.active{box-shadow:0 0 18px white}
 
 @keyframes blink{
 
 0%{transform:scaleY(1)}
-95%{transform:scaleY(1)}
-97%{transform:scaleY(.1)}
+96%{transform:scaleY(1)}
+98%{transform:scaleY(.1)}
 100%{transform:scaleY(1)}
 
 }
 
-/* ---------------- Greeting ---------------- */
-
-.greeting{
-
-margin-top:10px;
-
-opacity:.9;
-
-font-size:15px;
-
-}
-
-/* ---------------- Dashboard ---------------- */
+/* ---------- DASHBOARD ---------- */
 
 .dashboard{
 
@@ -188,21 +144,21 @@ display:grid;
 
 grid-template-columns:repeat(4,1fr);
 
-gap:18px;
+gap:20px;
 
-max-width:820px;
+max-width:880px;
 
 margin:auto;
 
 }
 
-/* ---------------- Search ---------------- */
+/* ---------- SEARCH ---------- */
 
 .searchPanel{
 
-max-width:820px;
+max-width:880px;
 
-margin:28px auto;
+margin:32px auto;
 
 }
 
@@ -210,7 +166,7 @@ margin:28px auto;
 
 width:100%;
 
-padding:16px;
+padding:18px;
 
 font-size:17px;
 
@@ -218,51 +174,49 @@ border-radius:18px;
 
 border:none;
 
-background:#222b36;
+background:#242d3a;
 
 color:white;
 
 }
 
-/* ---------------- Insight Row ---------------- */
+/* ---------- REFLECTION ---------- */
 
-.insightRow{
+.reflection{
 
 display:grid;
 
 grid-template-columns:1fr 1fr;
 
-gap:18px;
+gap:20px;
 
-max-width:820px;
+max-width:880px;
 
 margin:auto;
 
 }
 
-/* ---------------- Tools ---------------- */
+/* ---------- TOOLS ---------- */
 
-.toolsRow{
+.tools{
 
 display:grid;
 
 grid-template-columns:1fr 1fr;
 
-gap:18px;
+gap:20px;
 
-max-width:820px;
+max-width:880px;
 
-margin:30px auto;
+margin:32px auto;
 
 }
 
 .collapseHeader{
 
-font-weight:600;
-
 cursor:pointer;
 
-padding:10px;
+font-weight:600;
 
 }
 
@@ -270,41 +224,13 @@ padding:10px;
 
 display:none;
 
-margin-top:10px;
+margin-top:12px;
+
+line-height:1.7;
 
 }
 
-/* ---------------- Footer ---------------- */
-
-.footerPanel{
-
-max-width:820px;
-
-margin:40px auto;
-
-}
-
-.footerHeader{
-
-cursor:pointer;
-
-font-weight:600;
-
-}
-
-.footerBody{
-
-display:none;
-
-margin-top:10px;
-
-font-size:13px;
-
-opacity:.9;
-
-}
-
-/* ---------------- Breathing ---------------- */
+/* ---------- BREATHING ---------- */
 
 .breath{
 
@@ -329,6 +255,29 @@ animation:breathe 6s infinite;
 
 }
 
+/* ---------- GAME ---------- */
+
+#gameArea button{
+
+width:60px;
+height:60px;
+
+margin:2px;
+
+}
+
+/* ---------- CREATOR ---------- */
+
+.creator{
+
+margin-top:40px;
+
+opacity:.7;
+
+font-size:13px;
+
+}
+
 </style>
 
 </head>
@@ -341,32 +290,45 @@ animation:breathe 6s infinite;
 <div class="pupil" id="pupil"></div>
 </div>
 
-<div class="greeting" id="greeting"></div>
+<div id="greeting"></div>
 
 <!-- Observation Panel -->
 
 <div class="dashboard section">
 
-<div class="widget">
+<div class="panel">
+
 <h4>Chronometer</h4>
+
 <canvas id="clockCanvas" width="120" height="120"></canvas>
+
 <div id="digitalClock"></div>
+
 </div>
 
-<div class="widget">
+<div class="panel">
+
 <h4>Calendar</h4>
+
 <div id="calendarDate"></div>
 <div id="calendarDay"></div>
+
 </div>
 
-<div class="widget">
+<div class="panel">
+
 <h4>News</h4>
+
 <div id="newsHeadline">Loading…</div>
+
 </div>
 
-<div class="widget">
+<div class="panel">
+
 <h4>Weather</h4>
+
 <div id="weatherInfo">Loading…</div>
+
 </div>
 
 </div>
@@ -374,47 +336,61 @@ animation:breathe 6s infinite;
 <!-- Insight Search -->
 
 <div class="searchPanel">
+
 <input id="query"
+
 placeholder="Ask Ein anything..."
+
 onkeydown="if(event.key==='Enter'){searchInsight()}">
+
 </div>
 
 <!-- Insight Panel -->
 
-<div class="widget section" id="resultsPanel" style="display:none">
+<div class="panel section" id="resultsPanel" style="display:none">
 
-<h3>Insight</h3>
+<h3>Insight Panel</h3>
 
 <div id="resultText"></div>
 
+<h4>Insight Visualization</h4>
+
+<canvas id="infographicCanvas" width="500" height="220"></canvas>
+
 </div>
 
-<!-- Thought Panels -->
+<!-- Reflection Panel -->
 
-<div class="insightRow section">
+<div class="reflection section">
 
-<div class="widget">
+<div class="panel">
+
 <h3>Featured Insight</h3>
+
 The universe is under no obligation to make sense to you.
+
 </div>
 
-<div class="widget">
+<div class="panel">
+
 <h3>Thought of the Day</h3>
+
 Curiosity is the engine of discovery.
-</div>
 
 </div>
 
-<!-- Tools -->
+</div>
 
-<div class="toolsRow">
+<!-- Instrument Console & Health Suite -->
 
-<div class="widget">
+<div class="tools">
+
+<div class="panel">
 
 <div class="collapseHeader"
 onclick="togglePanel('instrumentPanel')">
 
-Instruments
+Instrument Console
 
 </div>
 
@@ -426,13 +402,13 @@ Countdown Timer
 Unit Converter  
 Dictionary  
 Thesaurus  
-Currency Converter
+Currency Converter  
 
 </div>
 
 </div>
 
-<div class="widget">
+<div class="panel">
 
 <div class="collapseHeader"
 onclick="togglePanel('healthPanel')">
@@ -448,9 +424,32 @@ Health Suite
 Breathing Guide  
 Meditation  
 Vitals Reference  
-Mental Wellness
+Mental Wellness  
 
 </div>
+
+</div>
+
+</div>
+
+<!-- Gaming Console -->
+
+<div class="panel section">
+
+<div class="collapseHeader"
+onclick="togglePanel('gamePanel')">
+
+Gaming Console
+
+</div>
+
+<div class="collapseBody" id="gamePanel">
+
+<button onclick="startTicTacToe()">Tic Tac Toe</button>
+
+<button onclick="startChess()">Chess</button>
+
+<div id="gameArea"></div>
 
 </div>
 
@@ -458,16 +457,16 @@ Mental Wellness
 
 <!-- System Panel -->
 
-<div class="footerPanel widget">
+<div class="panel section">
 
-<div class="footerHeader"
-onclick="togglePanel('footerBody')">
+<div class="collapseHeader"
+onclick="togglePanel('systemPanel')">
 
-System & Information
+System Panel
 
 </div>
 
-<div class="footerBody" id="footerBody">
+<div class="collapseBody" id="systemPanel">
 
 About • Terms • Privacy • Sources • Contact
 
@@ -475,33 +474,33 @@ About • Terms • Privacy • Sources • Contact
 
 </div>
 
+<div class="creator">
+
+Created by Dr. Aishvarya Adhaulia
+
+</div>
+
 <script>
 
-/* Greeting */
+/* greeting */
 
-let hour=new Date().getHours()
+let h=new Date().getHours()
 
-let greeting="Welcome"
+let g="Welcome"
 
-if(hour<12)
-greeting="Good morning, Dr. Aishvarya."
+if(h<12) g="Good morning, Dr. Aishvarya."
+else if(h<18) g="Good afternoon, Dr. Aishvarya."
+else g="Good evening, Dr. Aishvarya."
 
-else if(hour<18)
-greeting="Good afternoon, Dr. Aishvarya."
+greeting.innerText=g
 
-else
-greeting="Good evening, Dr. Aishvarya."
-
-document.getElementById("greeting").innerText=greeting
-
-/* Eye movement */
+/* eye tracking */
 
 document.addEventListener("mousemove",e=>{
 
 let pupil=document.getElementById("pupil")
 
 let x=(e.clientX/window.innerWidth-.5)*14
-
 let y=(e.clientY/window.innerHeight-.5)*14
 
 pupil.style.transform=
@@ -518,7 +517,7 @@ else setTimeout(()=>pupil.classList.remove("active"),200)
 
 }
 
-/* Collapsible */
+/* collapsible */
 
 function togglePanel(id){
 
@@ -529,7 +528,7 @@ p.style.display=
 
 }
 
-/* Calendar */
+/* calendar */
 
 let now=new Date()
 
@@ -538,10 +537,9 @@ calendarDate.innerText=now.toLocaleDateString()
 calendarDay.innerText=
 now.toLocaleDateString(undefined,{weekday:"long"})
 
-/* Clock */
+/* clock */
 
 let canvas=clockCanvas
-
 let ctx=canvas.getContext("2d")
 
 let radius=canvas.height/2
@@ -580,9 +578,7 @@ function drawTime(){
 let now=new Date()
 
 let hour=now.getHours()%12
-
 let minute=now.getMinutes()
-
 let second=now.getSeconds()
 
 hour=(hour*Math.PI/6)+(minute*Math.PI/(6*60))
@@ -623,7 +619,35 @@ ctx.rotate(-pos)
 
 drawClock()
 
-/* Search */
+/* infographic */
+
+function generateInfographic(){
+
+let canvas=document.getElementById("infographicCanvas")
+
+let ctx=canvas.getContext("2d")
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+
+ctx.fillStyle="#111827"
+
+ctx.fillRect(0,0,canvas.width,canvas.height)
+
+ctx.strokeStyle="#4aa3ff"
+
+ctx.lineWidth=2
+
+ctx.beginPath()
+
+ctx.moveTo(80,140)
+ctx.lineTo(250,60)
+ctx.lineTo(420,140)
+
+ctx.stroke()
+
+}
+
+/* search */
 
 async function searchInsight(){
 
@@ -643,6 +667,8 @@ resultText.innerText=d.extract
 
 resultsPanel.style.display="block"
 
+generateInfographic()
+
 }
 
 catch{
@@ -655,7 +681,7 @@ thinking(false)
 
 }
 
-/* News */
+/* news */
 
 async function loadNews(){
 
@@ -680,7 +706,7 @@ catch{newsHeadline.innerText="News unavailable"}
 
 loadNews()
 
-/* Weather */
+/* weather */
 
 async function loadWeather(){
 
@@ -700,8 +726,49 @@ catch{weatherInfo.innerText="Weather unavailable"}
 
 loadWeather()
 
+/* tic tac toe */
+
+function startTicTacToe(){
+
+let area=document.getElementById("gameArea")
+
+area.innerHTML=""
+
+let board=["","","","","","","","",""]
+
+for(let i=0;i<9;i++){
+
+let btn=document.createElement("button")
+
+btn.onclick=function(){
+
+if(board[i]==""){
+
+board[i]="X"
+
+btn.innerText="X"
+
+}
+
+}
+
+area.appendChild(btn)
+
+if((i+1)%3==0) area.appendChild(document.createElement("br"))
+
+}
+
+}
+
+/* chess placeholder */
+
+function startChess(){
+
+gameArea.innerHTML="Chess board coming soon."
+
+}
+
 </script>
 
 </body>
-
 </html>
