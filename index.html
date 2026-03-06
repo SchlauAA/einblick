@@ -27,18 +27,14 @@ max-width:1100px;
 padding:60px 0;
 }
 
-/* ZONES */
-
 .zone{
 width:100%;
 margin-bottom:48px;
 }
 
-.center{
-text-align:center;
-}
+.center{text-align:center}
 
-/* AI EYE */
+/* EYE */
 
 .logo-eye{
 display:flex;
@@ -77,16 +73,14 @@ top:-100%;
 }
 
 @keyframes blink{
-0%{top:-100%;}
-45%{top:-100%;}
-50%{top:0;}
-55%{top:-100%;}
-100%{top:-100%;}
+0%{top:-100%}
+45%{top:-100%}
+50%{top:0}
+55%{top:-100%}
+100%{top:-100%}
 }
 
-.blink{
-animation:blink .5s ease;
-}
+.blink{animation:blink .5s}
 
 /* BRAND */
 
@@ -96,14 +90,11 @@ font-weight:600;
 margin-bottom:6px;
 }
 
-.slogan{
-color:#9aa0aa;
-}
+.slogan{color:#9aa0aa}
 
 /* WIDGET GRID */
 
 .widget-row{
-width:100%;
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:24px;
@@ -148,23 +139,11 @@ transform-origin:bottom;
 background:#cfd3dc;
 }
 
-.hour{width:3px;height:20px;}
-.minute{width:2px;height:28px;}
-.second{width:1px;height:32px;background:#8aa4ff;}
+.hour{width:3px;height:20px}
+.minute{width:2px;height:28px}
+.second{width:1px;height:32px;background:#8aa4ff}
 
 .digital{font-size:14px}
-
-/* CALENDAR */
-
-.calendar-day{
-font-size:18px;
-font-weight:500;
-}
-
-.calendar-date{
-font-size:14px;
-color:#9aa0aa;
-}
 
 /* SEARCH */
 
@@ -183,7 +162,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 border-right:1px solid #23252d;
-cursor:pointer;
 }
 
 .search-input{
@@ -193,10 +171,6 @@ border:none;
 color:white;
 padding:16px;
 font-size:16px;
-}
-
-.search-input:focus{
-outline:none;
 }
 
 .search-btn{
@@ -210,7 +184,6 @@ cursor:pointer;
 /* REFLECTION */
 
 .reflection{
-width:100%;
 background:#14161c;
 border:1px solid #23252d;
 border-radius:12px;
@@ -228,14 +201,11 @@ font-size:18px;
 margin-bottom:10px;
 }
 
-.author{
-color:#9aa0aa;
-}
+.author{color:#9aa0aa}
 
-/* PANEL GRID */
+/* PANELS */
 
 .panel-row{
-width:100%;
 display:grid;
 grid-template-columns:repeat(8,1fr);
 gap:24px;
@@ -249,30 +219,57 @@ border-radius:12px;
 display:flex;
 align-items:center;
 justify-content:center;
+cursor:pointer;
 transition:.22s;
-}
-
-.panel svg{
-width:26px;
-height:26px;
-stroke:#cfd3dc;
-stroke-width:1.8;
-fill:none;
 }
 
 .panel:hover{
 transform:scale(1.04);
 border-color:#5b7cff;
-box-shadow:0 0 8px rgba(120,140,255,.25);
 }
 
-/* FOOTER */
+.panel svg{
+width:32px;
+height:32px;
+stroke:#cfd3dc;
+stroke-width:1.8;
+fill:none;
+}
+
+/* MODULE SCREEN */
+
+.module-screen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#05070d;
+display:none;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+z-index:10;
+}
+
+.module-title{
+font-size:32px;
+margin-bottom:20px;
+}
+
+.back-btn{
+padding:12px 24px;
+border:none;
+background:#1c1f28;
+color:white;
+cursor:pointer;
+border-radius:6px;
+}
 
 .footer{
 text-align:center;
 color:#888;
 font-size:14px;
-margin-top:36px;
 }
 
 </style>
@@ -280,9 +277,7 @@ margin-top:36px;
 
 <body>
 
-<div class="container">
-
-<!-- ZONE 1 -->
+<div class="container" id="home">
 
 <div class="zone center">
 
@@ -298,8 +293,6 @@ margin-top:36px;
 
 </div>
 
-<!-- ZONE 2 -->
-
 <div class="zone">
 
 <div class="widget-row">
@@ -313,10 +306,7 @@ margin-top:36px;
 <div class="digital" id="digital"></div>
 </div>
 
-<div class="widget">
-<div class="calendar-day" id="day"></div>
-<div class="calendar-date" id="date"></div>
-</div>
+<div class="widget" id="calendar"></div>
 
 <div class="widget">Loading news...</div>
 
@@ -326,65 +316,63 @@ margin-top:36px;
 
 </div>
 
-<!-- ZONE 3 -->
-
 <div class="zone">
 
 <div class="search-panel">
-
 <div class="attach">📎</div>
-
 <input class="search-input" placeholder="Search Einblick">
-
 <button class="search-btn">Search</button>
-
 </div>
 
 </div>
-
-<!-- ZONE 4 -->
 
 <div class="zone">
 
 <div class="reflection">
-
 <div class="reflection-title">Today's Reflection</div>
-
 <div class="quote">
-“The universe is not only stranger than we imagine,
-it is stranger than we can imagine.”
+“The universe is not only stranger than we imagine, it is stranger than we can imagine.”
 </div>
-
 <div class="author">— J. B. S. Haldane</div>
-
 </div>
 
 </div>
-
-<!-- ZONE 5 -->
 
 <div class="zone">
 
 <div class="panel-row">
 
-<div class="panel"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg></div>
-<div class="panel"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg></div>
-<div class="panel"><svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4"/></svg></div>
-<div class="panel"><svg viewBox="0 0 24 24"><polygon points="12,4 20,20 4,20"/></svg></div>
-<div class="panel"><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/></svg></div>
-<div class="panel"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/></svg></div>
-<div class="panel"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg></div>
-<div class="panel"><svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10"/></svg></div>
+<div class="panel" onclick="openModule('Insight')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg></div>
+
+<div class="panel" onclick="openModule('Learning')"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg></div>
+
+<div class="panel" onclick="openModule('Research')"><svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4"/></svg></div>
+
+<div class="panel" onclick="openModule('Instruments')"><svg viewBox="0 0 24 24"><polygon points="12,4 20,20 4,20"/></svg></div>
+
+<div class="panel" onclick="openModule('Health')"><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/></svg></div>
+
+<div class="panel" onclick="openModule('Pursuits')"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/></svg></div>
+
+<div class="panel" onclick="openModule('Preferences')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg></div>
+
+<div class="panel" onclick="openModule('System')"><svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10"/></svg></div>
 
 </div>
 
 </div>
-
-<!-- ZONE 6 -->
 
 <div class="footer">
 Created by Dr. Aishvarya Adhaulia
 </div>
+
+</div>
+
+<div class="module-screen" id="moduleScreen">
+
+<div class="module-title" id="moduleTitle"></div>
+
+<button class="back-btn" onclick="closeModule()">Back</button>
 
 </div>
 
@@ -393,7 +381,9 @@ Created by Dr. Aishvarya Adhaulia
 /* CLOCK */
 
 function updateClock(){
+
 const now=new Date()
+
 const sec=now.getSeconds()
 const min=now.getMinutes()
 const hr=now.getHours()
@@ -403,6 +393,7 @@ document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min
 document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
 
 document.getElementById("digital").textContent=now.toLocaleTimeString()
+
 }
 
 setInterval(updateClock,1000)
@@ -411,8 +402,14 @@ updateClock()
 /* CALENDAR */
 
 const today=new Date()
-document.getElementById("day").textContent=today.toLocaleDateString(undefined,{weekday:'long'})
-document.getElementById("date").textContent=today.toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})
+
+document.getElementById("calendar").innerHTML=
+today.toLocaleDateString(undefined,{
+weekday:'long',
+day:'numeric',
+month:'short',
+year:'numeric'
+})
 
 /* EYE TRACKING */
 
@@ -437,14 +434,30 @@ pupil.style.transform=`translate(${moveX}px,${moveY}px)`
 
 })
 
-/* BLINK */
-
 setInterval(()=>{
 eyelid.classList.add("blink")
-setTimeout(()=>{
-eyelid.classList.remove("blink")
-},500)
+setTimeout(()=>{eyelid.classList.remove("blink")},500)
 },4000)
+
+/* MODULE SYSTEM */
+
+function openModule(name){
+
+document.getElementById("home").style.display="none"
+
+document.getElementById("moduleScreen").style.display="flex"
+
+document.getElementById("moduleTitle").textContent=name
+
+}
+
+function closeModule(){
+
+document.getElementById("moduleScreen").style.display="none"
+
+document.getElementById("home").style.display="block"
+
+}
 
 </script>
 
