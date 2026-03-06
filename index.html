@@ -8,79 +8,60 @@
 
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+/* GLOBAL */
+
 body{
-font-family: system-ui;
-background:#f2f2f2;
 margin:0;
+font-family:"Neue Einstellung","Inter",sans-serif;
+background: radial-gradient(circle at top left,#141821,#0f1115);
+color:#e8eaed;
+display:flex;
+justify-content:center;
+}
+
+.container{
+max-width:1100px;
+width:100%;
 text-align:center;
-color:#111;
+padding:40px 20px;
 }
 
-/* HEADER */
-
-.header{
-padding:30px 20px 10px 20px;
-}
-
-.logo{
-font-size:30px;
-font-weight:600;
-margin-top:10px;
-}
-
-.slogan{
-font-size:14px;
-opacity:0.6;
-margin-top:4px;
-}
-
-/* AI EYE */
+/* LOGO */
 
 .eye{
-width:90px;
-height:90px;
+width:70px;
+height:70px;
+border:2px solid #9aa4b2;
 border-radius:50%;
-border:4px solid #111;
 margin:auto;
 display:flex;
 align-items:center;
 justify-content:center;
-margin-top:10px;
+margin-bottom:10px;
 }
 
 .pupil{
-width:28px;
-height:28px;
-background:#111;
+width:16px;
+height:16px;
+background:#e8eaed;
 border-radius:50%;
-transition:0.2s;
+transition:all .3s;
 }
 
-.eye.active .pupil{
-box-shadow:0 0 18px #000;
+/* BRAND */
+
+.brand{
+font-size:28px;
+font-weight:600;
+margin-bottom:6px;
 }
 
-/* SEARCH */
-
-.searchBox{
-margin-top:30px;
-}
-
-input{
-padding:12px;
-width:260px;
-border-radius:8px;
-border:1px solid #ccc;
-}
-
-button{
-padding:12px 18px;
-border:none;
-border-radius:8px;
-background:#111;
-color:white;
-cursor:pointer;
-margin-left:6px;
+.slogan{
+font-size:14px;
+opacity:.6;
+margin-bottom:36px;
 }
 
 /* WIDGETS */
@@ -88,64 +69,116 @@ margin-left:6px;
 .widgets{
 display:flex;
 justify-content:center;
-gap:18px;
-margin-top:40px;
-flex-wrap:wrap;
+gap:24px;
+margin-bottom:32px;
 }
 
 .widget{
-background:white;
-padding:15px;
+width:162px;
+height:100px;
+background:#171a21;
 border-radius:10px;
-width:130px;
-box-shadow:0 2px 8px rgba(0,0,0,0.1);
-font-size:14px;
-}
-
-/* RESULT PANEL */
-
-.result{
-max-width:620px;
-margin:auto;
-margin-top:40px;
-padding:22px;
-background:white;
-border-radius:12px;
-box-shadow:0 3px 12px rgba(0,0,0,0.12);
-display:none;
-}
-
-.infographic{
-margin-top:20px;
-}
-
-.node{
-display:inline-block;
-background:#111;
-color:white;
-padding:6px 12px;
-margin:5px;
-border-radius:20px;
-font-size:12px;
-}
-
-/* FOOTER */
-
-.footer{
-margin-top:50px;
-font-size:12px;
-opacity:0.7;
-}
-
-/* MOBILE */
-
-@media (max-width:600px){
-
-.widgets{
+display:flex;
 flex-direction:column;
 align-items:center;
+justify-content:center;
+cursor:pointer;
 }
 
+/* SEARCH */
+
+.searchbar{
+display:flex;
+justify-content:center;
+gap:8px;
+margin-bottom:30px;
+}
+
+.searchbar input{
+width:380px;
+height:40px;
+background:#171a21;
+border:none;
+border-radius:8px;
+color:white;
+padding-left:12px;
+}
+
+.btn{
+height:40px;
+padding:0 16px;
+border:none;
+border-radius:8px;
+background:#171a21;
+color:white;
+cursor:pointer;
+}
+
+/* REFLECTION */
+
+.reflection{
+background:#171a21;
+border-radius:10px;
+padding:16px;
+margin-bottom:32px;
+}
+
+/* PANELS */
+
+.panels{
+display:flex;
+gap:24px;
+overflow-x:auto;
+justify-content:center;
+margin-bottom:40px;
+}
+
+.panel{
+width:146px;
+height:90px;
+background:#171a21;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+/* CREATOR */
+
+.creator{
+font-size:12px;
+opacity:.6;
+margin-top:10px;
+}
+
+/* POPUP */
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.popup-content{
+background:#171a21;
+width:80%;
+height:70%;
+border-radius:12px;
+padding:30px;
+overflow:auto;
+}
+
+.close{
+float:right;
+cursor:pointer;
+font-size:18px;
 }
 
 </style>
@@ -153,71 +186,81 @@ align-items:center;
 
 <body>
 
-<div class="header">
+<div class="container">
 
 <div class="eye" id="eye">
-<div class="pupil"></div>
+<div class="pupil" id="pupil"></div>
 </div>
 
-<div class="logo">Einblick</div>
+<div class="brand">Einblick</div>
 <div class="slogan">Where Knowledge Becomes Insight</div>
-
-</div>
-
-
-<div class="searchBox">
-
-<input id="query" placeholder="Ask something">
-
-<button onclick="search()">Search</button>
-
-</div>
-
 
 <div class="widgets">
 
 <div class="widget">
-Time<br>
-<span id="clock"></span>
+<div id="clock"></div>
 </div>
 
 <div class="widget">
-Date<br>
-<span id="calendar"></span>
+<div id="date"></div>
 </div>
 
 <div class="widget">
-News<br>
-<span style="font-size:12px;">Demo feed</span>
+News
 </div>
 
 <div class="widget">
-Weather<br>
-<span style="font-size:12px;">Demo</span>
+Weather
 </div>
 
 </div>
 
+<div class="searchbar">
 
-<div id="result" class="result">
+<button class="btn">📎</button>
 
-<h3 id="title"></h3>
+<input id="searchInput" placeholder="Search">
 
-<p id="answer"></p>
-
-<div class="infographic" id="infographic"></div>
-
-<h4>Explore Further</h4>
-
-<div id="curiosity"></div>
+<button class="btn" id="searchBtn">Search</button>
 
 </div>
 
+<div class="reflection">
+Today's Reflection
+</div>
 
-<div class="footer">
+<div class="panels">
+
+<div class="panel">Insight</div>
+<div class="panel">Learning</div>
+<div class="panel">Research</div>
+<div class="panel">Instruments</div>
+<div class="panel">Health</div>
+<div class="panel">Pursuits</div>
+<div class="panel">Preferences</div>
+<div class="panel">System</div>
+
+</div>
+
+<div class="creator">
 Created by Dr. Aishvarya Adhaulia
 </div>
 
+</div>
+
+<div class="popup" id="popup">
+
+<div class="popup-content">
+
+<span class="close" onclick="closePopup()">✕</span>
+
+<h2 id="resultTitle"></h2>
+
+<p id="resultText"></p>
+
+</div>
+
+</div>
 
 <script>
 
@@ -225,159 +268,90 @@ Created by Dr. Aishvarya Adhaulia
 
 function updateClock(){
 
-let now = new Date();
+const now = new Date();
 
-document.getElementById("clock").innerHTML =
+document.getElementById("clock").innerText =
 now.toLocaleTimeString();
+
+document.getElementById("date").innerText =
+now.toDateString();
 
 }
 
 setInterval(updateClock,1000);
+updateClock();
 
-
-/* CALENDAR */
-
-let today = new Date();
-
-document.getElementById("calendar").innerHTML =
-today.toDateString();
-
-
-/* BLINKING EYE */
+/* BLINK */
 
 setInterval(()=>{
 
-let pupil=document.querySelector(".pupil");
+const pupil=document.getElementById("pupil");
 
-pupil.style.transform="scaleY(0.1)";
+pupil.style.height="4px";
 
 setTimeout(()=>{
-pupil.style.transform="scaleY(1)";
+
+pupil.style.height="16px";
+
 },150);
 
 },5000);
 
+/* SEARCH BUTTON */
 
-/* KNOWLEDGE DATABASE */
+let timer;
 
-const knowledge = [
+const btn=document.getElementById("searchBtn");
 
-{
-keywords:["black hole","black holes"],
-title:"Black Hole",
-text:"A black hole is a region of spacetime where gravity is so strong that nothing, not even light, can escape.",
-nodes:["Gravity","Relativity","Event Horizon","Singularity"],
-curiosity:[
-"How do black holes form?",
-"What is Hawking radiation?",
-"Can black holes evaporate?"
-]
-},
+btn.addEventListener("mousedown",()=>{
 
-{
-keywords:["dna","genetics"],
-title:"DNA",
-text:"DNA is the molecule that carries genetic instructions for the development and functioning of living organisms.",
-nodes:["Cells","Genes","Proteins","Evolution"],
-curiosity:[
-"How does DNA replicate?",
-"What are mutations?",
-"How does DNA influence evolution?"
-]
-},
+timer=setTimeout(()=>{
 
-{
-keywords:["gravity"],
-title:"Gravity",
-text:"Gravity is the force by which objects with mass attract each other.",
-nodes:["Newton","Relativity","Planets","Orbit"],
-curiosity:[
-"What is general relativity?",
-"How does gravity affect time?",
-"What are gravitational waves?"
-]
-}
+deepResearch();
 
-];
-
-
-/* ENTER KEY SEARCH */
-
-document.getElementById("query").addEventListener("keypress",function(e){
-
-if(e.key==="Enter"){
-search();
-}
+},800);
 
 });
 
+btn.addEventListener("mouseup",()=>{
 
-/* SEARCH FUNCTION */
+clearTimeout(timer);
 
-function search(){
+normalSearch();
 
-let q=document.getElementById("query").value.toLowerCase();
+});
 
-if(q.trim()==="") return;
+function normalSearch(){
 
-let eye=document.getElementById("eye");
-eye.classList.add("active");
-
-setTimeout(()=>eye.classList.remove("active"),1000);
-
-let data = knowledge.find(item =>
-item.keywords.some(k => q.includes(k))
-);
-
-if(!data){
-
-alert("No demo data yet. Try: black hole, dna, gravity");
-
-return;
+openPopup("Quick Insight",
+"Prototype search result.");
 
 }
 
-document.getElementById("result").style.display="block";
+function deepResearch(){
 
-document.getElementById("title").innerText=data.title;
+btn.style.boxShadow="0 0 16px #9aa4b2";
 
-document.getElementById("answer").innerText=data.text;
+openPopup("Deep Research",
+"Advanced analysis mode activated.");
 
+}
 
-/* INFOGRAPHIC */
+/* POPUP */
 
-let inf=document.getElementById("infographic");
+function openPopup(title,text){
 
-inf.innerHTML="";
+document.getElementById("popup").style.display="flex";
 
-data.nodes.forEach(n=>{
+document.getElementById("resultTitle").innerText=title;
 
-let span=document.createElement("span");
+document.getElementById("resultText").innerText=text;
 
-span.className="node";
+}
 
-span.innerText=n;
+function closePopup(){
 
-inf.appendChild(span);
-
-});
-
-
-/* CURIOSITY */
-
-let cur=document.getElementById("curiosity");
-
-cur.innerHTML="";
-
-data.curiosity.forEach(c=>{
-
-let div=document.createElement("div");
-
-div.innerText="• "+c;
-
-cur.appendChild(div);
-
-});
+document.getElementById("popup").style.display="none";
 
 }
 
