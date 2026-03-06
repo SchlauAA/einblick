@@ -15,11 +15,16 @@
 body{
 
 font-family:"Neue Einstellung",-apple-system,sans-serif;
+
 margin:0;
+
 background:linear-gradient(140deg,#0a0f16,#121a24,#0a0f16);
 background-size:200% 200%;
 animation:bgmove 30s infinite;
+
 color:white;
+
+overflow:auto;
 
 }
 
@@ -29,57 +34,25 @@ color:white;
 100%{background-position:0% 50%}
 }
 
-/* TOP NAV */
+/* SCROLLBARS */
 
-.topbar{
-
-height:60px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-bottom:1px solid #1f2937;
-
+::-webkit-scrollbar{
+width:10px;
+height:10px;
 }
 
-/* SIDEBAR */
-
-.sidebar{
-
-position:fixed;
-top:60px;
-left:0;
-width:70px;
-height:100%;
-background:#0f141c;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:22px;
-padding-top:25px;
-
-}
-
-/* NAV ICON */
-
-.navIcon{
-
-font-size:22px;
-opacity:.7;
-cursor:pointer;
-
-}
-
-.navIcon:hover{
-opacity:1;
+::-webkit-scrollbar-thumb{
+background:#374151;
+border-radius:6px;
 }
 
 /* MAIN */
 
 .main{
 
-margin-left:70px;
 padding:40px;
+
+min-width:1500px;
 
 }
 
@@ -88,65 +61,18 @@ padding:40px;
 .grid{
 
 display:grid;
+
 grid-template-columns:repeat(4,320px);
-gap:22px;
+
+gap:24px;
+
 justify-content:center;
 
-}
-
-/* PANEL */
-
-.panel{
-
-width:320px;
-height:198px;
-
-background:#111827;
-
-border-radius:14px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-font-size:36px;
-
-cursor:pointer;
-
-transition:.25s;
-
-position:relative;
+margin-bottom:30px;
 
 }
 
-.panel:hover{
-
-background:#1f2937;
-transform:scale(1.02);
-
-}
-
-/* TOOLTIP */
-
-.panel:hover::after{
-
-content:attr(title);
-
-position:absolute;
-
-bottom:10px;
-
-background:black;
-
-padding:4px 8px;
-
-font-size:12px;
-
-border-radius:4px;
-
-}
-
-/* WIDGETS */
+/* WIDGET */
 
 .widget{
 
@@ -157,14 +83,12 @@ background:#111827;
 
 border-radius:14px;
 
-padding:18px;
-
-position:relative;
-
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+
+position:relative;
 
 }
 
@@ -186,33 +110,64 @@ border-radius:4px;
 
 }
 
-/* CLOCK */
+/* PANEL */
 
-.clock{
+.panel{
 
-width:110px;
-height:110px;
+width:320px;
+height:198px;
 
-border:4px solid white;
+background:#111827;
 
-border-radius:50%;
+border-radius:14px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+cursor:pointer;
 
 position:relative;
 
+transition:.25s;
+
 }
 
-.hand{
+.panel:hover{
+
+background:#1f2937;
+transform:scale(1.02);
+
+}
+
+.panel:hover::after{
+
+content:attr(title);
 
 position:absolute;
-width:2px;
-height:40px;
 
-background:white;
+bottom:10px;
 
-top:15px;
-left:50%;
+background:black;
 
-transform-origin:bottom;
+padding:4px 8px;
+
+font-size:12px;
+
+border-radius:4px;
+
+}
+
+/* ICONS */
+
+.icon{
+
+width:48px;
+height:48px;
+
+stroke:white;
+fill:none;
+stroke-width:2;
 
 }
 
@@ -246,7 +201,7 @@ background:transparent;
 
 color:white;
 
-font-size:15px;
+font-size:16px;
 
 }
 
@@ -256,7 +211,7 @@ border:none;
 
 background:#374151;
 
-padding:0 20px;
+padding:0 22px;
 
 color:white;
 
@@ -264,12 +219,10 @@ cursor:pointer;
 
 }
 
-/* GAME MENU */
+/* PURSUITS */
 
 .hidden{
-
 display:none;
-
 }
 
 </style>
@@ -278,25 +231,6 @@ display:none;
 
 <body>
 
-<div class="topbar">
-
-Einblick
-
-</div>
-
-<div class="sidebar">
-
-<div class="navIcon">👁</div>
-<div class="navIcon">🔍</div>
-<div class="navIcon">🔬</div>
-<div class="navIcon">🧰</div>
-<div class="navIcon">📚</div>
-<div class="navIcon">❤️</div>
-<div class="navIcon">🎮</div>
-<div class="navIcon">⚙</div>
-
-</div>
-
 <div class="main">
 
 <!-- OBSERVATION WIDGETS -->
@@ -304,29 +238,19 @@ Einblick
 <div class="grid">
 
 <div class="widget" title="Chronometer">
-
-<div class="clock">
-<div class="hand" id="hand"></div>
-</div>
-
+<canvas id="clock" width="120" height="120"></canvas>
 </div>
 
 <div class="widget" title="Calendar">
-
 <div id="date"></div>
-
 </div>
 
 <div class="widget" title="News">
-
 <div id="news">Loading news...</div>
-
 </div>
 
 <div class="widget" title="Weather">
-
 <div id="weather">Loading weather...</div>
-
 </div>
 
 </div>
@@ -339,7 +263,7 @@ Einblick
 
 <input placeholder="Ask Ein anything">
 
-<button>Search</button>
+<button id="searchBtn">Search</button>
 
 </div>
 
@@ -347,21 +271,76 @@ Einblick
 
 <div class="grid">
 
-<div class="panel" title="Insight">💡</div>
+<div class="panel" title="Insight">
 
-<div class="panel" title="Research">🔬</div>
+<svg class="icon" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="8"/>
+<line x1="12" y1="8" x2="12" y2="12"/>
+<circle cx="12" cy="16" r="1"/>
+</svg>
 
-<div class="panel" title="Instruments">🧰</div>
+</div>
 
-<div class="panel" title="Studies">📚</div>
+<div class="panel" title="Research">
 
-<div class="panel" title="Health">❤️</div>
+<svg class="icon" viewBox="0 0 24 24">
+<circle cx="10" cy="10" r="6"/>
+<line x1="14" y1="14" x2="20" y2="20"/>
+</svg>
 
-<div class="panel" title="Pursuits" onclick="togglePursuits()">🎮</div>
+</div>
 
-<div class="panel" title="Preferences">⚙</div>
+<div class="panel" title="Learning">
 
-<div class="panel" title="System">🖥</div>
+<svg class="icon" viewBox="0 0 24 24">
+<path d="M4 6l8-4 8 4-8 4z"/>
+<path d="M4 10l8 4 8-4"/>
+</svg>
+
+</div>
+
+<div class="panel" title="Instruments">
+
+<svg class="icon" viewBox="0 0 24 24">
+<path d="M3 7h18M6 7v10M18 7v10"/>
+</svg>
+
+</div>
+
+<div class="panel" title="Health">
+
+<svg class="icon" viewBox="0 0 24 24">
+<path d="M12 21s-6-4.5-9-8a5 5 0 019-4 5 5 0 019 4c-3 3.5-9 8-9 8z"/>
+</svg>
+
+</div>
+
+<div class="panel" title="Pursuits" onclick="togglePursuits()">
+
+<svg class="icon" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<line x1="12" y1="12" x2="17" y2="7"/>
+</svg>
+
+</div>
+
+<div class="panel" title="Preferences">
+
+<svg class="icon" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<path d="M19 12a7 7 0 00-.1-1l2-1.5-2-3.5-2.3.5a7 7 0 00-1.7-1L14 2h-4l-.9 2.5a7 7 0 00-1.7 1L5 5l-2 3.5 2 1.5a7 7 0 000 2L3 13.5 5 17l2.3-.5a7 7 0 001.7 1L10 22h4l.9-2.5a7 7 0 001.7-1L19 19l2-3.5-2-1.5c.1-.3.1-.7.1-1z"/>
+</svg>
+
+</div>
+
+<div class="panel" title="System">
+
+<svg class="icon" viewBox="0 0 24 24">
+<rect x="3" y="4" width="18" height="12"/>
+<line x1="8" y1="20" x2="16" y2="20"/>
+</svg>
+
+</div>
 
 </div>
 
@@ -372,17 +351,24 @@ Einblick
 <h3>Reading Room</h3>
 
 Books<br>
-Saved Articles<br>
-Reading Lists
+Reading Lists<br>
+Saved Articles
 
 <h3>Gaming Room</h3>
 
 Chess<br>
 Tic Tac Toe<br>
+Snake<br>
+
+<div onclick="toggleSolitaire()">Solitaire</div>
+
+<div id="solitaireList" class="hidden">
+
 Spider Solitaire<br>
 Solitaire Foundations<br>
-Clock Solitaire<br>
-Snake
+Clock Solitaire
+
+</div>
 
 </div>
 
@@ -392,26 +378,46 @@ Snake
 
 /* CLOCK */
 
-function updateClock(){
+function drawClock(){
+
+let canvas=document.getElementById("clock")
+
+let ctx=canvas.getContext("2d")
+
+let r=canvas.height/2
+
+ctx.translate(r,r)
+
+setInterval(function(){
+
+ctx.clearRect(-r,-r,canvas.width,canvas.height)
 
 let now=new Date()
 
 let sec=now.getSeconds()
 
-let angle=sec*6
+let angle=sec*Math.PI/30
 
-document.getElementById("hand").style.transform="rotate("+angle+"deg)"
+ctx.beginPath()
+
+ctx.moveTo(0,0)
+
+ctx.lineTo(r*Math.sin(angle),-r*Math.cos(angle))
+
+ctx.strokeStyle="white"
+
+ctx.stroke()
+
+},1000)
 
 }
 
-setInterval(updateClock,1000)
+drawClock()
 
 /* DATE */
 
-let d=new Date()
-
 document.getElementById("date").innerText=
-d.toDateString()
+new Date().toDateString()
 
 /* PURSUITS */
 
@@ -419,10 +425,15 @@ function togglePursuits(){
 
 let m=document.getElementById("pursuitsMenu")
 
-if(m.classList.contains("hidden"))
-m.classList.remove("hidden")
-else
-m.classList.add("hidden")
+m.classList.toggle("hidden")
+
+}
+
+function toggleSolitaire(){
+
+let s=document.getElementById("solitaireList")
+
+s.classList.toggle("hidden")
 
 }
 
