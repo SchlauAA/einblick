@@ -10,75 +10,84 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:system-ui, -apple-system, Segoe UI, Roboto;
+font-family:system-ui,-apple-system,Segoe UI,Roboto;
 }
 
 body{
-background:#0b0b0c;
+background: radial-gradient(circle at top, #0f1d3a 0%, #05070d 60%, #000000 100%);
 color:#e8e8e8;
 display:flex;
-flex-direction:column;
-align-items:center;
+justify-content:center;
 }
-
-/* MAIN CONTAINER */
 
 .container{
 width:95%;
-max-width:1400px;
-}
-
-/* BRAND SECTION */
-
-.brand{
+max-width:1200px;
+padding:40px 0;
 text-align:center;
-margin-top:40px;
-margin-bottom:30px;
 }
+
+/* BRAND */
 
 .logo{
-font-size:40px;
-margin-bottom:10px;
+width:80px;
+height:80px;
+border:3px solid #cfd3dc;
+border-radius:50%;
+margin:0 auto 10px auto;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.logo::after{
+content:"";
+width:16px;
+height:16px;
+background:#cfd3dc;
+border-radius:50%;
 }
 
 .brand-name{
 font-size:34px;
 font-weight:600;
+margin-top:10px;
 }
 
 .slogan{
-font-size:16px;
-color:#aaa;
+color:#9aa0aa;
 margin-top:6px;
 }
 
-/* WIDGET ROW */
+/* WIDGETS */
 
 .widget-row{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:20px;
-margin-bottom:35px;
+margin:40px 0;
 }
 
 .widget{
-background:#18181c;
-border:1px solid #2a2a2a;
+background:#14161c;
+border:1px solid #23252d;
 aspect-ratio:1/1;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:16px;
+font-size:18px;
+border-radius:10px;
 }
 
-/* SEARCH PANEL */
+/* SEARCH */
 
 .search-panel{
 display:flex;
-width:100%;
-border:1px solid #2a2a2a;
-background:#18181c;
-margin-bottom:25px;
+margin:25px 0;
+background:#14161c;
+border:1px solid #23252d;
+border-radius:10px;
+overflow:hidden;
 }
 
 .attach{
@@ -86,14 +95,14 @@ width:60px;
 display:flex;
 align-items:center;
 justify-content:center;
-border-right:1px solid #2a2a2a;
+border-right:1px solid #23252d;
 cursor:pointer;
 }
 
 .search-input{
 flex:1;
-border:none;
 background:transparent;
+border:none;
 color:white;
 padding:14px;
 font-size:16px;
@@ -104,8 +113,8 @@ outline:none;
 }
 
 .search-btn{
-width:100px;
-background:#222226;
+width:110px;
+background:#1c1f28;
 border:none;
 color:white;
 cursor:pointer;
@@ -114,27 +123,25 @@ cursor:pointer;
 /* REFLECTION */
 
 .reflection{
-border:1px solid #2a2a2a;
-background:#18181c;
+margin:30px 0;
+background:#14161c;
+border:1px solid #23252d;
+border-radius:10px;
 padding:25px;
-text-align:center;
-margin-bottom:30px;
 }
 
 .reflection-title{
-font-size:14px;
-color:#aaa;
-margin-bottom:8px;
+color:#9aa0aa;
+margin-bottom:10px;
 }
 
 .quote{
 font-size:18px;
-margin-bottom:8px;
+margin-bottom:10px;
 }
 
 .author{
-font-size:14px;
-color:#aaa;
+color:#9aa0aa;
 }
 
 /* PANELS */
@@ -143,27 +150,26 @@ color:#aaa;
 display:grid;
 grid-template-columns:repeat(8,1fr);
 gap:15px;
-margin-bottom:35px;
+margin-top:30px;
 }
 
 .panel{
-background:#18181c;
-border:1px solid #2a2a2a;
+background:#14161c;
+border:1px solid #23252d;
 aspect-ratio:1/1;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:14px;
-text-align:center;
+font-size:26px;
+border-radius:10px;
 }
 
 /* FOOTER */
 
 .footer{
-text-align:center;
-font-size:13px;
-color:#777;
-margin-bottom:25px;
+margin-top:35px;
+color:#888;
+font-size:14px;
 }
 
 </style>
@@ -173,36 +179,43 @@ margin-bottom:25px;
 
 <div class="container">
 
-<!-- BRAND -->
+<!-- LOGO -->
 
-<div class="brand">
-
-<div class="logo">◉</div>
+<div class="logo"></div>
 
 <div class="brand-name">Einblick</div>
 
-<div class="slogan">Knowledge • Insight • Understanding</div>
-
-</div>
+<div class="slogan">Where Knowledge Becomes Insight</div>
 
 <!-- WIDGETS -->
 
 <div class="widget-row">
 
-<div class="widget">Chronometer</div>
-<div class="widget">Calendar</div>
-<div class="widget">News</div>
-<div class="widget">Weather</div>
+<div class="widget">
+<div id="clock"></div>
+</div>
+
+<div class="widget">
+<div id="calendar"></div>
+</div>
+
+<div class="widget">
+Loading news...
+</div>
+
+<div class="widget">
+☀️ 26°C
+</div>
 
 </div>
 
-<!-- SEARCH PANEL -->
+<!-- SEARCH -->
 
 <div class="search-panel">
 
-<div class="attach">+</div>
+<div class="attach">📎</div>
 
-<input class="search-input" placeholder="Search Einblick…">
+<input class="search-input" placeholder="Search">
 
 <button class="search-btn">Search</button>
 
@@ -227,14 +240,14 @@ it is stranger than we can imagine.”
 
 <div class="panel-row">
 
-<div class="panel">Insight</div>
-<div class="panel">Learning</div>
-<div class="panel">Research</div>
-<div class="panel">Instruments</div>
-<div class="panel">Health</div>
-<div class="panel">Pursuits</div>
-<div class="panel">Preferences</div>
-<div class="panel">System</div>
+<div class="panel">○</div>
+<div class="panel">□</div>
+<div class="panel">\</div>
+<div class="panel">△</div>
+<div class="panel">—</div>
+<div class="panel">/</div>
+<div class="panel">•</div>
+<div class="panel">□</div>
 
 </div>
 
@@ -245,6 +258,27 @@ Created by Dr. Aishvarya Adhaulia
 </div>
 
 </div>
+
+<script>
+
+/* CLOCK */
+
+function updateClock(){
+const now=new Date();
+document.getElementById("clock").textContent=
+now.toLocaleTimeString();
+}
+
+setInterval(updateClock,1000);
+updateClock();
+
+/* CALENDAR */
+
+const today=new Date();
+document.getElementById("calendar").textContent=
+today.toDateString();
+
+</script>
 
 </body>
 </html>
