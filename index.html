@@ -10,7 +10,7 @@
 
 <style>
 
-/* GLOBAL */
+/* BODY */
 
 body{
 
@@ -34,25 +34,85 @@ overflow:auto;
 100%{background-position:0% 50%}
 }
 
-/* SCROLLBARS */
-
-::-webkit-scrollbar{
-width:10px;
-height:10px;
-}
-
-::-webkit-scrollbar-thumb{
-background:#374151;
-border-radius:6px;
-}
-
 /* MAIN */
 
 .main{
 
-padding:40px;
+padding:60px;
 
 min-width:1500px;
+
+text-align:center;
+
+}
+
+/* AI EYE */
+
+.eyeContainer{
+
+margin-bottom:50px;
+
+}
+
+.eye{
+
+width:120px;
+height:70px;
+
+border:2px solid white;
+
+border-radius:60px/35px;
+
+margin:auto;
+
+position:relative;
+
+animation:glow 4s infinite;
+
+}
+
+@keyframes glow{
+
+0%{box-shadow:0 0 4px rgba(255,255,255,0.2)}
+50%{box-shadow:0 0 18px rgba(255,255,255,0.5)}
+100%{box-shadow:0 0 4px rgba(255,255,255,0.2)}
+
+}
+
+.iris{
+
+width:24px;
+height:24px;
+
+background:white;
+
+border-radius:50%;
+
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:translate(-50%,-50%);
+
+}
+
+/* BLINK */
+
+@keyframes blink{
+
+0%{height:70px}
+95%{height:70px}
+97%{height:5px}
+100%{height:70px}
+
+}
+
+.eye{
+
+animation:
+glow 4s infinite,
+blink 6s infinite;
 
 }
 
@@ -64,11 +124,11 @@ display:grid;
 
 grid-template-columns:repeat(4,320px);
 
-gap:24px;
+gap:40px;
 
 justify-content:center;
 
-margin-bottom:30px;
+margin-bottom:50px;
 
 }
 
@@ -84,7 +144,6 @@ background:#111827;
 border-radius:14px;
 
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
 
@@ -110,74 +169,13 @@ border-radius:4px;
 
 }
 
-/* PANEL */
-
-.panel{
-
-width:320px;
-height:198px;
-
-background:#111827;
-
-border-radius:14px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-cursor:pointer;
-
-position:relative;
-
-transition:.25s;
-
-}
-
-.panel:hover{
-
-background:#1f2937;
-transform:scale(1.02);
-
-}
-
-.panel:hover::after{
-
-content:attr(title);
-
-position:absolute;
-
-bottom:10px;
-
-background:black;
-
-padding:4px 8px;
-
-font-size:12px;
-
-border-radius:4px;
-
-}
-
-/* ICONS */
-
-.icon{
-
-width:48px;
-height:48px;
-
-stroke:white;
-fill:none;
-stroke-width:2;
-
-}
-
 /* SEARCH */
 
 .search{
 
 width:900px;
 
-margin:40px auto;
+margin:50px auto;
 
 display:flex;
 
@@ -195,7 +193,7 @@ flex:1;
 
 border:none;
 
-padding:18px;
+padding:20px;
 
 background:transparent;
 
@@ -211,7 +209,7 @@ border:none;
 
 background:#374151;
 
-padding:0 22px;
+padding:0 26px;
 
 color:white;
 
@@ -219,10 +217,101 @@ cursor:pointer;
 
 }
 
-/* PURSUITS */
+/* TODAY INSIGHT */
 
-.hidden{
-display:none;
+.insightStrip{
+
+width:900px;
+
+margin:35px auto;
+
+background:#111827;
+
+padding:18px;
+
+border-radius:10px;
+
+text-align:center;
+
+font-style:italic;
+
+}
+
+/* PANELS */
+
+.panelRow{
+
+display:flex;
+
+justify-content:center;
+
+gap:26px;
+
+overflow-x:auto;
+
+padding-bottom:20px;
+
+}
+
+/* PANEL */
+
+.panel{
+
+width:200px;
+height:124px;
+
+background:#111827;
+
+border-radius:12px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+cursor:pointer;
+
+position:relative;
+
+transition:.2s;
+
+}
+
+.panel:hover{
+
+background:#1f2937;
+transform:scale(1.05);
+
+}
+
+.panel:hover::after{
+
+content:attr(title);
+
+position:absolute;
+
+bottom:6px;
+
+background:black;
+
+padding:3px 6px;
+
+font-size:11px;
+
+border-radius:4px;
+
+}
+
+/* ICON */
+
+.icon{
+
+width:34px;
+height:34px;
+
+stroke:white;
+fill:none;
+stroke-width:2;
+
 }
 
 </style>
@@ -233,7 +322,19 @@ display:none;
 
 <div class="main">
 
-<!-- OBSERVATION WIDGETS -->
+<!-- AI CONCIERGE EYE -->
+
+<div class="eyeContainer">
+
+<div class="eye">
+
+<div class="iris"></div>
+
+</div>
+
+</div>
+
+<!-- WIDGETS -->
 
 <div class="grid">
 
@@ -263,13 +364,21 @@ display:none;
 
 <input placeholder="Ask Ein anything">
 
-<button id="searchBtn">Search</button>
+<button>Search</button>
+
+</div>
+
+<!-- TODAY'S INSIGHT -->
+
+<div class="insightStrip">
+
+Today's Insight — Curiosity is the engine of discovery.
 
 </div>
 
 <!-- PANELS -->
 
-<div class="grid">
+<div class="panelRow">
 
 <div class="panel" title="Insight">
 
@@ -302,7 +411,8 @@ display:none;
 <div class="panel" title="Instruments">
 
 <svg class="icon" viewBox="0 0 24 24">
-<path d="M3 7h18M6 7v10M18 7v10"/>
+<circle cx="12" cy="12" r="9"/>
+<line x1="12" y1="12" x2="18" y2="6"/>
 </svg>
 
 </div>
@@ -310,16 +420,16 @@ display:none;
 <div class="panel" title="Health">
 
 <svg class="icon" viewBox="0 0 24 24">
-<path d="M12 21s-6-4.5-9-8a5 5 0 019-4 5 5 0 019 4c-3 3.5-9 8-9 8z"/>
+<path d="M3 12h4l2-4 4 8 2-4h6"/>
 </svg>
 
 </div>
 
-<div class="panel" title="Pursuits" onclick="togglePursuits()">
+<div class="panel" title="Pursuits">
 
 <svg class="icon" viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="9"/>
-<line x1="12" y1="12" x2="17" y2="7"/>
+<circle cx="12" cy="12" r="2"/>
 </svg>
 
 </div>
@@ -327,8 +437,8 @@ display:none;
 <div class="panel" title="Preferences">
 
 <svg class="icon" viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="3"/>
-<path d="M19 12a7 7 0 00-.1-1l2-1.5-2-3.5-2.3.5a7 7 0 00-1.7-1L14 2h-4l-.9 2.5a7 7 0 00-1.7 1L5 5l-2 3.5 2 1.5a7 7 0 000 2L3 13.5 5 17l2.3-.5a7 7 0 001.7 1L10 22h4l.9-2.5a7 7 0 001.7-1L19 19l2-3.5-2-1.5c.1-.3.1-.7.1-1z"/>
+<line x1="4" y1="6" x2="20" y2="6"/>
+<circle cx="9" cy="6" r="2"/>
 </svg>
 
 </div>
@@ -337,36 +447,7 @@ display:none;
 
 <svg class="icon" viewBox="0 0 24 24">
 <rect x="3" y="4" width="18" height="12"/>
-<line x1="8" y1="20" x2="16" y2="20"/>
 </svg>
-
-</div>
-
-</div>
-
-<!-- PURSUITS MENU -->
-
-<div id="pursuitsMenu" class="hidden">
-
-<h3>Reading Room</h3>
-
-Books<br>
-Reading Lists<br>
-Saved Articles
-
-<h3>Gaming Room</h3>
-
-Chess<br>
-Tic Tac Toe<br>
-Snake<br>
-
-<div onclick="toggleSolitaire()">Solitaire</div>
-
-<div id="solitaireList" class="hidden">
-
-Spider Solitaire<br>
-Solitaire Foundations<br>
-Clock Solitaire
 
 </div>
 
@@ -381,7 +462,6 @@ Clock Solitaire
 function drawClock(){
 
 let canvas=document.getElementById("clock")
-
 let ctx=canvas.getContext("2d")
 
 let r=canvas.height/2
@@ -393,19 +473,15 @@ setInterval(function(){
 ctx.clearRect(-r,-r,canvas.width,canvas.height)
 
 let now=new Date()
-
 let sec=now.getSeconds()
 
 let angle=sec*Math.PI/30
 
 ctx.beginPath()
-
 ctx.moveTo(0,0)
-
 ctx.lineTo(r*Math.sin(angle),-r*Math.cos(angle))
 
 ctx.strokeStyle="white"
-
 ctx.stroke()
 
 },1000)
@@ -416,29 +492,10 @@ drawClock()
 
 /* DATE */
 
-document.getElementById("date").innerText=
+document.getElementById("date").innerText =
 new Date().toDateString()
-
-/* PURSUITS */
-
-function togglePursuits(){
-
-let m=document.getElementById("pursuitsMenu")
-
-m.classList.toggle("hidden")
-
-}
-
-function toggleSolitaire(){
-
-let s=document.getElementById("solitaireList")
-
-s.classList.toggle("hidden")
-
-}
 
 </script>
 
 </body>
-
 </html>
