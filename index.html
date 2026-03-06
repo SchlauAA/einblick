@@ -1,206 +1,127 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-
 <title>Einblick</title>
 
 <style>
 
-/* Dynamic background */
-
 body{
-
-background:linear-gradient(270deg,#0b0f14,#141a24,#0b0f14);
-
+background:linear-gradient(270deg,#0b0f14,#1b2230,#0b0f14);
 background-size:600% 600%;
-
 animation:bgMove 25s ease infinite;
-
 color:white;
-
 font-family:-apple-system,BlinkMacSystemFont,Segoe UI;
-
-text-align:center;
-
 margin:0;
-
 padding:20px;
-
+text-align:center;
 }
 
 @keyframes bgMove{
-
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
-
 }
 
-/* Title */
-
-h1{
-
-letter-spacing:3px;
-
-}
-
-/* Eye */
+h1{letter-spacing:3px;margin-bottom:10px}
 
 .eye{
-
-width:110px;
-height:65px;
-background:#e6e6e6;
-border-radius:50%/60%;
-margin:auto;
-position:relative;
-
+width:110px;height:65px;background:#e6e6e6;
+border-radius:50%/60%;margin:auto;position:relative;
 }
 
 .pupil{
-
-width:28px;
-height:28px;
-background:#111;
-border-radius:50%;
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-
+width:28px;height:28px;background:#111;border-radius:50%;
+position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
 }
 
-.pupil.active{
+.pupil.active{box-shadow:0 0 25px white}
 
-box-shadow:0 0 25px white;
-
-}
-
-/* slogan */
-
-.slogan{
-
-opacity:.7;
-margin-top:10px;
-
-}
-
-/* greeting */
-
-#greeting{
-
-margin-top:6px;
-opacity:.8;
-
-}
-
-/* widgets */
+.slogan{opacity:.7;margin-top:10px}
 
 .dashboard{
-
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+max-width:720px;
+margin:auto;
 }
 
 .widget{
-
-background:#151a21;
-
-padding:18px;
-
-margin:15px;
-
+background:#161d27;
 border-radius:16px;
-
-width:180px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.35);
-
-}
-
-.clock{
-
-font-size:20px;
-
-}
-
-/* search */
-
-input{
-
-width:85%;
-
 padding:14px;
-
-border-radius:12px;
-
-border:none;
-
-background:#1e2530;
-
-color:white;
-
-font-size:16px;
-
+box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
-/* buttons */
+.widget h4{margin-top:0}
+
+.searchPanel{
+max-width:720px;
+margin:20px auto;
+}
+
+.searchPanel input{
+width:100%;
+padding:16px;
+font-size:17px;
+border-radius:16px;
+border:none;
+background:#222b36;
+color:white;
+}
+
+.insightRow{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+max-width:720px;
+margin:auto;
+}
+
+.toolsRow{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+max-width:720px;
+margin:20px auto;
+}
+
+.collapseHeader{
+font-weight:600;
+cursor:pointer;
+padding:10px;
+}
+
+.collapseBody{
+display:none;
+padding-top:10px;
+}
 
 button{
-
-padding:10px 14px;
-
-margin:6px;
-
+padding:8px 10px;
+margin:5px;
 border-radius:10px;
-
 border:none;
-
 background:#d8d8d8;
-
 }
 
-/* breathing */
-
 .breath{
-
-width:80px;
-height:80px;
-border-radius:50%;
-background:#444;
-margin:auto;
+width:70px;height:70px;border-radius:50%;
+background:#444;margin:auto;
 animation:breathe 6s infinite;
-
 }
 
 @keyframes breathe{
-
 0%{transform:scale(1)}
 50%{transform:scale(1.4)}
 100%{transform:scale(1)}
-
 }
 
-/* creator */
-
-.creator{
-
-opacity:.5;
-margin-top:40px;
-font-size:12px;
-
-}
+.creator{opacity:.5;margin-top:40px;font-size:12px}
 
 </style>
-
 </head>
 
 <body>
@@ -208,191 +129,157 @@ font-size:12px;
 <h1>EINBLICK</h1>
 
 <div class="eye">
-
 <div class="pupil" id="pupil"></div>
-
 </div>
 
-<div class="slogan">
-
-Where Knowledge Becomes Insight
-
-</div>
+<div class="slogan">Where Knowledge Becomes Insight</div>
 
 <div id="greeting"></div>
 
-<!-- Observation Panel -->
+<!-- Dashboard -->
 
 <div class="dashboard">
 
 <div class="widget">
-
-<h3>Chronometer</h3>
-
-<canvas id="analogClock" width="140" height="140"></canvas>
-
-<div id="digitalClock" class="clock"></div>
-
+<h4>Chronometer</h4>
+<canvas id="clockCanvas" width="120" height="120"></canvas>
+<div id="digitalClock"></div>
 </div>
 
 <div class="widget">
-
-<h3>Calendar</h3>
-
+<h4>Calendar</h4>
 <div id="calendarDate"></div>
-
 <div id="calendarDay"></div>
+</div>
 
+<div class="widget">
+<h4>News</h4>
+<div id="newsHeadline">Loading…</div>
+</div>
+
+<div class="widget">
+<h4>Weather</h4>
+<div id="weatherInfo">Loading…</div>
 </div>
 
 </div>
 
-<!-- Ask Ein -->
+<!-- Search -->
+
+<div class="searchPanel">
+<input id="query" placeholder="Ask Ein: knowledge, define word, convert units, weather…" onkeydown="if(event.key==='Enter'){handleSearch()}">
+</div>
+
+<!-- Insight row -->
+
+<div class="insightRow">
+
+<div class="widget">
+<h3>Featured Insight</h3>
+<div id="featuredInsight">
+The universe is under no obligation to make sense to you. – Neil deGrasse Tyson
+</div>
+</div>
+
+<div class="widget">
+<h3>Thought of the Day</h3>
+<div id="thoughtOfDay">
+Curiosity is the engine of discovery.
+</div>
+</div>
+
+</div>
+
+<!-- Tools -->
+
+<div class="toolsRow">
+
+<div class="widget">
+<div class="collapseHeader" onclick="togglePanel('instrumentPanel')">
+Instruments
+</div>
+
+<div class="collapseBody" id="instrumentPanel">
+
+<button onclick="openCalc()">🧮 Calculator</button>
+<button onclick="toggleStopwatch()">⏱ Stopwatch</button>
+<button onclick="toggleCountdown()">⏳ Countdown</button>
+<button onclick="toggleConverter()">📏 Unit Converter</button>
+<button onclick="dictionarySearch()">📖 Dictionary</button>
+<button onclick="thesaurusSearch()">📚 Thesaurus</button>
+<button onclick="currencyConvert()">💱 Currency</button>
+
+</div>
+</div>
 
 <div class="widget">
 
-<input id="query" placeholder="Ask Ein..." onkeydown="if(event.key==='Enter'){searchInsight()}">
-
+<div class="collapseHeader" onclick="togglePanel('healthPanel')">
+Health Suite
 </div>
 
-<!-- Insight -->
-
-<div class="widget" id="insightCard" style="display:none">
-
-<h3>Insight</h3>
-
-<p id="insightText"></p>
-
-</div>
-
-<!-- Instruments -->
-
-<div class="widget">
-
-<h3>Instruments</h3>
-
-<button onclick="openCalc()">Calculator</button>
-
-<button onclick="toggleStopwatch()">Stopwatch</button>
-
-</div>
-
-<!-- Calculator -->
-
-<div class="widget" id="calculator" style="display:none">
-
-<input id="calcInput">
-
-<button onclick="calculate()">=</button>
-
-<p id="calcResult"></p>
-
-</div>
-
-<!-- Stopwatch -->
-
-<div class="widget" id="stopwatchWidget" style="display:none">
-
-<div id="stopwatch">00:00</div>
-
-<button onclick="startSW()">Start</button>
-
-<button onclick="stopSW()">Stop</button>
-
-<button onclick="resetSW()">Reset</button>
-
-</div>
-
-<!-- Wellness -->
-
-<div class="widget">
-
-<h3>Wellness</h3>
+<div class="collapseBody" id="healthPanel">
 
 <div class="breath"></div>
-
 <p>Breathing Guide</p>
 
+<button onclick="startMeditation()">Meditation Timer</button>
+
+<button onclick="showVitals()">Vitals Reference</button>
+
+<button onclick="mentalPrompt()">Mental Wellness</button>
+
 </div>
 
-<div class="creator">
-
-Created by Dr. Aishvarya Adhaulia
+</div>
 
 </div>
+
+<div class="creator">Created by Dr. Aishvarya Adhaulia</div>
 
 <script>
 
-/* Greeting */
-
-function greeting(){
+/* greeting */
 
 let hour=new Date().getHours()
+let g="Hello"
+if(hour<12)g="Good Morning"
+else if(hour<18)g="Good Afternoon"
+else g="Good Evening"
+document.getElementById("greeting").innerText=g+", Dr. Aishvarya"
 
-let msg="Hello"
-
-if(hour<12) msg="Good Morning"
-else if(hour<18) msg="Good Afternoon"
-else msg="Good Evening"
-
-document.getElementById("greeting").innerHTML=
-
-msg+", Dr. Aishvarya"
-
-}
-
-greeting()
-
-/* Calendar */
-
-function updateCalendar(){
+/* calendar */
 
 let now=new Date()
+document.getElementById("calendarDate").innerText=now.toLocaleDateString()
+document.getElementById("calendarDay").innerText=now.toLocaleDateString(undefined,{weekday:'long'})
 
-document.getElementById("calendarDate").innerHTML=
-now.toLocaleDateString()
+/* analog clock */
 
-document.getElementById("calendarDay").innerHTML=
-now.toLocaleDateString(undefined,{weekday:'long'})
-
-}
-
-updateCalendar()
-
-/* Analog Clock */
-
-let canvas=document.getElementById("analogClock")
-
+let canvas=document.getElementById("clockCanvas")
 let ctx=canvas.getContext("2d")
-
 let radius=canvas.height/2
-
 ctx.translate(radius,radius)
-
 radius*=0.9
 
 function drawClock(){
-
 drawFace()
 drawTime()
-
 requestAnimationFrame(drawClock)
-
 }
 
 function drawFace(){
-
 ctx.beginPath()
 ctx.arc(0,0,radius,0,2*Math.PI)
-ctx.fillStyle="#111"
+ctx.fillStyle="#0f141c"
 ctx.fill()
-
+ctx.strokeStyle="#aaa"
+ctx.lineWidth=3
+ctx.stroke()
 }
 
 function drawTime(){
-
 let now=new Date()
-
 let hour=now.getHours()%12
 let minute=now.getMinutes()
 let second=now.getSeconds()
@@ -406,125 +293,107 @@ drawHand(minute,radius*0.75,3)
 second=(second*Math.PI/30)
 drawHand(second,radius*0.85,2)
 
-document.getElementById("digitalClock").innerHTML=
-now.toLocaleTimeString()
-
+document.getElementById("digitalClock").innerText=now.toLocaleTimeString()
 }
 
 function drawHand(pos,length,width){
-
 ctx.beginPath()
 ctx.lineWidth=width
 ctx.moveTo(0,0)
 ctx.rotate(pos)
 ctx.lineTo(0,-length)
+ctx.strokeStyle="#fff"
 ctx.stroke()
 ctx.rotate(-pos)
-
 }
 
 drawClock()
 
-/* Insight Engine */
+/* collapsible */
 
-async function searchInsight(){
+function togglePanel(id){
+let p=document.getElementById(id)
+p.style.display=p.style.display==="block"?"none":"block"
+}
 
-let pupil=document.getElementById("pupil")
+/* News */
 
-pupil.classList.add("active")
-
-let query=document.getElementById("query").value
-
+async function loadNews(){
 try{
+let res=await fetch("https://api.allorigins.win/raw?url=https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml")
+let txt=await res.text()
+let xml=new DOMParser().parseFromString(txt,"text/xml")
+document.getElementById("newsHeadline").innerText=xml.querySelector("item title").textContent
+}catch{document.getElementById("newsHeadline").innerText="News unavailable"}
+}
+loadNews()
 
-let r=await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+query)
+/* Weather */
 
-let d=await r.json()
+async function loadWeather(){
+try{
+let res=await fetch("https://wttr.in/?format=3")
+let data=await res.text()
+document.getElementById("weatherInfo").innerText=data
+}catch{document.getElementById("weatherInfo").innerText="Weather unavailable"}
+}
+loadWeather()
 
-document.getElementById("insightText").innerText=d.extract
+/* simple intelligent search */
 
-document.getElementById("insightCard").style.display="block"
+function handleSearch(){
+
+let q=document.getElementById("query").value.toLowerCase()
+
+if(q.startsWith("define")){
+let word=q.replace("define","").trim()
+window.open("https://dictionary.cambridge.org/dictionary/english/"+word)
+return
+}
+
+if(q.includes(" to ")){
+alert("Use Unit Converter in Instruments.")
+return
+}
+
+window.open("https://www.britannica.com/search?query="+q)
 
 }
 
-catch{
+/* instrument tools */
 
-document.getElementById("insightText").innerText="Insight unavailable."
+function openCalc(){alert("Calculator coming soon")}
+function toggleStopwatch(){alert("Stopwatch coming soon")}
+function toggleCountdown(){alert("Countdown coming soon")}
+function toggleConverter(){alert("Unit converter coming soon")}
 
+function dictionarySearch(){
+let w=prompt("Enter word")
+window.open("https://dictionary.cambridge.org/dictionary/english/"+w)
 }
 
-pupil.classList.remove("active")
-
+function thesaurusSearch(){
+let w=prompt("Enter word")
+window.open("https://www.thesaurus.com/browse/"+w)
 }
 
-/* Calculator */
-
-function openCalc(){
-
-let c=document.getElementById("calculator")
-
-c.style.display=(c.style.display=="none")?"block":"none"
-
+function currencyConvert(){
+window.open("https://www.xe.com/currencyconverter/")
 }
 
-function calculate(){
+/* health suite */
 
-let val=document.getElementById("calcInput").value
+function startMeditation(){alert("Meditation timer coming soon")}
 
-document.getElementById("calcResult").innerText=eval(val)
-
+function showVitals(){
+alert("Normal adult vitals: HR 60-100 bpm, BP ~120/80 mmHg, RR 12-20/min, Temp ~37°C")
 }
 
-/* Stopwatch */
-
-let sw=0
-let timer=null
-
-function toggleStopwatch(){
-
-let s=document.getElementById("stopwatchWidget")
-
-s.style.display=(s.style.display=="none")?"block":"none"
-
-}
-
-function startSW(){
-
-if(!timer){
-
-timer=setInterval(function(){
-
-sw++
-
-let m=Math.floor(sw/60)
-let s=sw%60
-
-document.getElementById("stopwatch").innerText=
-
-String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")
-
-},1000)
-
-}
-
-}
-
-function stopSW(){
-
-clearInterval(timer)
-timer=null
-
-}
-
-function resetSW(){
-
-sw=0
-document.getElementById("stopwatch").innerText="00:00"
-
+function mentalPrompt(){
+alert("Reflection: What did you learn today?")
 }
 
 </script>
 
 </body>
-
 </html>
