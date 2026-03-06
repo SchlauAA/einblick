@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Einblick</title>
 
 <style>
@@ -14,7 +15,7 @@ font-family:system-ui,-apple-system,Segoe UI,Roboto;
 }
 
 body{
-background: radial-gradient(circle at top, #0f1d3a 0%, #05070d 60%, #000000 100%);
+background: radial-gradient(circle at top, #0f1d3a 0%, #05070d 60%, #000 100%);
 color:#e8e8e8;
 display:flex;
 justify-content:center;
@@ -27,7 +28,7 @@ padding:40px 0;
 text-align:center;
 }
 
-/* BRAND */
+/* LOGO */
 
 .logo{
 width:80px;
@@ -72,11 +73,62 @@ margin:40px 0;
 background:#14161c;
 border:1px solid #23252d;
 aspect-ratio:1/1;
+border-radius:12px;
 display:flex;
+flex-direction:column;
 align-items:center;
 justify-content:center;
+}
+
+/* CLOCK */
+
+.clock{
+width:70px;
+height:70px;
+border:2px solid #cfd3dc;
+border-radius:50%;
+position:relative;
+margin-bottom:10px;
+}
+
+.hand{
+position:absolute;
+bottom:50%;
+left:50%;
+transform-origin:bottom;
+background:#cfd3dc;
+}
+
+.hour{
+width:3px;
+height:20px;
+}
+
+.minute{
+width:2px;
+height:28px;
+}
+
+.second{
+width:1px;
+height:32px;
+background:#8aa4ff;
+}
+
+.digital{
+font-size:14px;
+}
+
+/* CALENDAR */
+
+.calendar-day{
 font-size:18px;
-border-radius:10px;
+font-weight:500;
+}
+
+.calendar-date{
+font-size:14px;
+color:#9aa0aa;
 }
 
 /* SEARCH */
@@ -96,7 +148,6 @@ display:flex;
 align-items:center;
 justify-content:center;
 border-right:1px solid #23252d;
-cursor:pointer;
 }
 
 .search-input{
@@ -160,8 +211,8 @@ aspect-ratio:1/1;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:26px;
-border-radius:10px;
+font-size:28px;
+border-radius:12px;
 }
 
 /* FOOTER */
@@ -179,8 +230,6 @@ font-size:14px;
 
 <div class="container">
 
-<!-- LOGO -->
-
 <div class="logo"></div>
 
 <div class="brand-name">Einblick</div>
@@ -191,17 +240,36 @@ font-size:14px;
 
 <div class="widget-row">
 
-<div class="widget">
-<div id="clock"></div>
-</div>
+<!-- CHRONOMETER -->
 
 <div class="widget">
-<div id="calendar"></div>
+
+<div class="clock">
+<div class="hand hour" id="hour"></div>
+<div class="hand minute" id="minute"></div>
+<div class="hand second" id="second"></div>
 </div>
+
+<div class="digital" id="digital"></div>
+
+</div>
+
+<!-- CALENDAR -->
+
+<div class="widget">
+
+<div class="calendar-day" id="day"></div>
+<div class="calendar-date" id="date"></div>
+
+</div>
+
+<!-- NEWS -->
 
 <div class="widget">
 Loading news...
 </div>
+
+<!-- WEATHER -->
 
 <div class="widget">
 ☀️ 26°C
@@ -242,16 +310,14 @@ it is stranger than we can imagine.”
 
 <div class="panel">○</div>
 <div class="panel">□</div>
-<div class="panel">\</div>
+<div class="panel">╱</div>
 <div class="panel">△</div>
-<div class="panel">—</div>
-<div class="panel">/</div>
-<div class="panel">•</div>
-<div class="panel">□</div>
+<div class="panel">─</div>
+<div class="panel">╲</div>
+<div class="panel">●</div>
+<div class="panel">▢</div>
 
 </div>
-
-<!-- FOOTER -->
 
 <div class="footer">
 Created by Dr. Aishvarya Adhaulia
@@ -264,9 +330,25 @@ Created by Dr. Aishvarya Adhaulia
 /* CLOCK */
 
 function updateClock(){
-const now=new Date();
-document.getElementById("clock").textContent=
+
+const now = new Date();
+
+const sec = now.getSeconds();
+const min = now.getMinutes();
+const hr = now.getHours();
+
+document.getElementById("second").style.transform =
+`translateX(-50%) rotate(${sec*6}deg)`;
+
+document.getElementById("minute").style.transform =
+`translateX(-50%) rotate(${min*6}deg)`;
+
+document.getElementById("hour").style.transform =
+`translateX(-50%) rotate(${hr*30 + min/2}deg)`;
+
+document.getElementById("digital").textContent =
 now.toLocaleTimeString();
+
 }
 
 setInterval(updateClock,1000);
@@ -274,9 +356,17 @@ updateClock();
 
 /* CALENDAR */
 
-const today=new Date();
-document.getElementById("calendar").textContent=
-today.toDateString();
+const today = new Date();
+
+document.getElementById("day").textContent =
+today.toLocaleDateString(undefined,{weekday:'long'});
+
+document.getElementById("date").textContent =
+today.toLocaleDateString(undefined,{
+day:'numeric',
+month:'short',
+year:'numeric'
+});
 
 </script>
 
