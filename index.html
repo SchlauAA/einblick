@@ -10,79 +10,76 @@
 
 <style>
 
-/* DESIGN VARIABLES */
-
-:root{
---heading:#e8edf3;
---sub:#b8c1cc;
---text:#8f99a6;
-}
-
-/* BODY */
+/* GLOBAL */
 
 body{
 
 font-family:"Neue Einstellung",-apple-system,sans-serif;
-
 margin:0;
-padding:40px;
-
-color:var(--text);
-text-align:center;
-
-background:
-radial-gradient(circle at 50% 20%,rgba(255,255,255,.05),transparent 40%),
-linear-gradient(140deg,#0a0f16,#121a24,#0a0f16);
-
+background:linear-gradient(140deg,#0a0f16,#121a24,#0a0f16);
 background-size:200% 200%;
-animation:bgShift 40s ease infinite;
+animation:bgmove 30s infinite;
+color:white;
 
 }
 
-@keyframes bgShift{
-
+@keyframes bgmove{
 0%{background-position:0% 50%}
 50%{background-position:100% 50%}
 100%{background-position:0% 50%}
+}
+
+/* TOP NAV */
+
+.topbar{
+
+height:60px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-bottom:1px solid #1f2937;
 
 }
 
-h1{color:var(--heading)}
-h4{color:var(--sub)}
+/* SIDEBAR */
 
-/* PANEL SYSTEM */
+.sidebar{
 
-.panel{
-
-width:320px;
-height:198px;
-
-background:rgba(22,29,39,.92);
-
-border-radius:14px;
-
-padding:16px;
-
-box-shadow:0 6px 18px rgba(0,0,0,.45);
+position:fixed;
+top:60px;
+left:0;
+width:70px;
+height:100%;
+background:#0f141c;
 
 display:flex;
 flex-direction:column;
-justify-content:flex-start;
 align-items:center;
-
-overflow:hidden;
+gap:22px;
+padding-top:25px;
 
 }
 
-/* PANEL CONTENT SCROLL */
+/* NAV ICON */
 
-.panelContent{
+.navIcon{
 
-overflow-y:auto;
-font-size:14px;
+font-size:22px;
+opacity:.7;
+cursor:pointer;
 
-width:100%;
-height:140px;
+}
+
+.navIcon:hover{
+opacity:1;
+}
+
+/* MAIN */
+
+.main{
+
+margin-left:70px;
+padding:40px;
 
 }
 
@@ -91,28 +88,145 @@ height:140px;
 .grid{
 
 display:grid;
-
 grid-template-columns:repeat(4,320px);
-
-gap:20px;
-
+gap:22px;
 justify-content:center;
-
-margin-top:30px;
 
 }
 
-/* SEARCH BAR */
+/* PANEL */
 
-.searchBar{
+.panel{
 
-width:1320px;
+width:320px;
+height:198px;
 
-margin:30px auto;
+background:#111827;
+
+border-radius:14px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:36px;
+
+cursor:pointer;
+
+transition:.25s;
+
+position:relative;
+
+}
+
+.panel:hover{
+
+background:#1f2937;
+transform:scale(1.02);
+
+}
+
+/* TOOLTIP */
+
+.panel:hover::after{
+
+content:attr(title);
+
+position:absolute;
+
+bottom:10px;
+
+background:black;
+
+padding:4px 8px;
+
+font-size:12px;
+
+border-radius:4px;
+
+}
+
+/* WIDGETS */
+
+.widget{
+
+width:320px;
+height:198px;
+
+background:#111827;
+
+border-radius:14px;
+
+padding:18px;
+
+position:relative;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+}
+
+.widget:hover::after{
+
+content:attr(title);
+
+position:absolute;
+
+bottom:10px;
+
+background:black;
+
+padding:4px 8px;
+
+font-size:12px;
+
+border-radius:4px;
+
+}
+
+/* CLOCK */
+
+.clock{
+
+width:110px;
+height:110px;
+
+border:4px solid white;
+
+border-radius:50%;
+
+position:relative;
+
+}
+
+.hand{
+
+position:absolute;
+width:2px;
+height:40px;
+
+background:white;
+
+top:15px;
+left:50%;
+
+transform-origin:bottom;
+
+}
+
+/* SEARCH */
+
+.search{
+
+width:900px;
+
+margin:40px auto;
 
 display:flex;
 
-background:#242d3a;
+background:#1f2937;
 
 border-radius:16px;
 
@@ -120,7 +234,7 @@ overflow:hidden;
 
 }
 
-.searchBar input{
+.search input{
 
 flex:1;
 
@@ -132,112 +246,30 @@ background:transparent;
 
 color:white;
 
-font-size:16px;
+font-size:15px;
 
 }
 
-.attachBtn{
+.search button{
 
-background:#1f2937;
 border:none;
-color:white;
+
+background:#374151;
+
 padding:0 20px;
-cursor:pointer;
 
-}
-
-.searchBtn{
-
-background:#3a4a5a;
-border:none;
 color:white;
-padding:0 22px;
+
 cursor:pointer;
 
 }
 
-/* REFLECTION */
+/* GAME MENU */
 
-.reflection{
+.hidden{
 
-width:1320px;
-
-margin:auto;
-
-background:#111827;
-
-padding:16px;
-
-border-radius:10px;
-
-font-style:italic;
-
-color:#e8edf3;
-
-}
-
-/* COLLAPSE */
-
-.collapseHeader{
-cursor:pointer;
-font-weight:600;
-}
-
-.collapseBody{
 display:none;
-margin-top:8px;
-}
 
-/* AI EYE */
-
-.eye{
-
-width:110px;
-height:65px;
-
-background:#e6e6e6;
-
-border-radius:50%/60%;
-
-margin:auto;
-
-position:relative;
-
-animation:blink 7s infinite;
-
-}
-
-.pupil{
-
-width:28px;
-height:28px;
-
-background:#111;
-
-border-radius:50%;
-
-position:absolute;
-
-top:50%;
-left:50%;
-
-transform:translate(-50%,-50%);
-
-}
-
-@keyframes blink{
-
-0%{transform:scaleY(1)}
-96%{transform:scaleY(1)}
-98%{transform:scaleY(.1)}
-100%{transform:scaleY(1)}
-
-}
-
-.creator{
-margin-top:40px;
-opacity:.7;
-font-size:13px;
 }
 
 </style>
@@ -246,56 +278,54 @@ font-size:13px;
 
 <body>
 
-<h1>EINBLICK</h1>
+<div class="topbar">
 
-<div class="eye">
-<div class="pupil"></div>
+Einblick
+
 </div>
 
-<div id="greeting"></div>
+<div class="sidebar">
 
-<!-- OBSERVATION -->
+<div class="navIcon">👁</div>
+<div class="navIcon">🔍</div>
+<div class="navIcon">🔬</div>
+<div class="navIcon">🧰</div>
+<div class="navIcon">📚</div>
+<div class="navIcon">❤️</div>
+<div class="navIcon">🎮</div>
+<div class="navIcon">⚙</div>
+
+</div>
+
+<div class="main">
+
+<!-- OBSERVATION WIDGETS -->
 
 <div class="grid">
 
-<div class="panel">
+<div class="widget" title="Chronometer">
 
-<h4>Chronometer</h4>
-
-<canvas id="clockCanvas" width="120" height="120"></canvas>
-
-</div>
-
-<div class="panel">
-
-<h4>Calendar</h4>
-
-<canvas id="calendarCanvas" width="160" height="120"></canvas>
-
-</div>
-
-<div class="panel">
-
-<h4>News</h4>
-
-<div class="panelContent" id="newsHeadline">
-
-Loading news...
-
+<div class="clock">
+<div class="hand" id="hand"></div>
 </div>
 
 </div>
 
-<div class="panel">
+<div class="widget" title="Calendar">
 
-<h4>Weather</h4>
-
-<div class="panelContent">
-
-<div id="weatherIcon"></div>
-<div id="weatherTemp"></div>
+<div id="date"></div>
 
 </div>
+
+<div class="widget" title="News">
+
+<div id="news">Loading news...</div>
+
+</div>
+
+<div class="widget" title="Weather">
+
+<div id="weather">Loading weather...</div>
 
 </div>
 
@@ -303,402 +333,101 @@ Loading news...
 
 <!-- SEARCH -->
 
-<div class="searchBar">
+<div class="search">
 
-<button class="attachBtn">+</button>
+<button>+</button>
 
-<input id="query"
-placeholder="Ask Ein anything...">
+<input placeholder="Ask Ein anything">
 
-<button class="searchBtn"
-onmousedown="startPress()"
-onmouseup="endPress()"
-onclick="searchInsight()">
-
-Search
-
-</button>
+<button>Search</button>
 
 </div>
 
-<!-- REFLECTION -->
-
-<div class="reflection">
-
-Curiosity is the engine of discovery.
-
-</div>
-
-<!-- MAIN PANELS -->
+<!-- PANELS -->
 
 <div class="grid">
 
-<div class="panel">
+<div class="panel" title="Insight">💡</div>
 
-<h4>Insight</h4>
+<div class="panel" title="Research">🔬</div>
 
-<div class="panelContent">
+<div class="panel" title="Instruments">🧰</div>
 
-<div id="resultText"></div>
+<div class="panel" title="Studies">📚</div>
 
-<b>Recent Advances</b>
-<div id="recentAdvances"></div>
+<div class="panel" title="Health">❤️</div>
 
-<b>Today in History</b>
-<div id="historyToday"></div>
+<div class="panel" title="Pursuits" onclick="togglePursuits()">🎮</div>
 
-<b>Birth Anniversaries</b>
-<div id="birthdaysToday"></div>
+<div class="panel" title="Preferences">⚙</div>
 
-</div>
+<div class="panel" title="System">🖥</div>
 
 </div>
 
-<div class="panel">
+<!-- PURSUITS MENU -->
 
-<h4>Research</h4>
+<div id="pursuitsMenu" class="hidden">
 
-<div class="panelContent">
+<h3>Reading Room</h3>
 
-Deep research tools and extended analysis.
+Books<br>
+Saved Articles<br>
+Reading Lists
 
-</div>
-
-</div>
-
-<div class="panel">
-
-<h4>Instruments</h4>
-
-<div class="panelContent">
-
-Calculator<br>
-Stopwatch<br>
-Countdown Timer<br>
-Unit Converter
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<h4>Studies</h4>
-
-<div class="panelContent">
-
-Courses<br>
-Lectures<br>
-Reading Paths
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<h4>Health</h4>
-
-<div class="panelContent">
-
-Meditation<br>
-Breathing Guide<br>
-Vitals Reference
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<h4>Pursuits</h4>
-
-<div class="panelContent">
+<h3>Gaming Room</h3>
 
 Chess<br>
 Tic Tac Toe<br>
 Spider Solitaire<br>
 Solitaire Foundations<br>
-Clock Solitaire
+Clock Solitaire<br>
+Snake
 
 </div>
-
-</div>
-
-<div class="panel">
-
-<h4>Preferences</h4>
-
-<div class="panelContent">
-
-Appearance<br>
-Privacy<br>
-Notifications
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<h4>System</h4>
-
-<div class="panelContent">
-
-About<br>
-Terms<br>
-Privacy
-
-</div>
-
-</div>
-
-</div>
-
-<div class="creator">
-
-Created by Dr. Aishvarya Adhaulia
 
 </div>
 
 <script>
 
-/* GREETING */
-
-let h=new Date().getHours()
-
-document.getElementById("greeting").innerText =
-h<12?"Good morning, Dr. Aishvarya.":
-h<18?"Good afternoon, Dr. Aishvarya.":
-"Good evening, Dr. Aishvarya."
-
 /* CLOCK */
 
-let canvas=document.getElementById("clockCanvas")
-let ctx=canvas.getContext("2d")
-
-let radius=canvas.height/2
-
-ctx.translate(radius,radius)
-radius*=0.9
-
-function drawClock(){
-
-ctx.beginPath()
-ctx.arc(0,0,radius,0,2*Math.PI)
-ctx.fillStyle="#0f141c"
-ctx.fill()
+function updateClock(){
 
 let now=new Date()
 
-let hour=now.getHours()%12
-let minute=now.getMinutes()
-let second=now.getSeconds()
+let sec=now.getSeconds()
 
-hour=(hour*Math.PI/6)+(minute*Math.PI/(6*60))
-drawHand(hour,radius*.5,4)
+let angle=sec*6
 
-minute=(minute*Math.PI/30)
-drawHand(minute,radius*.75,3)
-
-second=(second*Math.PI/30)
-drawHand(second,radius*.9,2)
-
-requestAnimationFrame(drawClock)
+document.getElementById("hand").style.transform="rotate("+angle+"deg)"
 
 }
 
-function drawHand(pos,length,width){
+setInterval(updateClock,1000)
 
-ctx.beginPath()
-ctx.lineWidth=width
+/* DATE */
 
-ctx.moveTo(0,0)
-ctx.rotate(pos)
-ctx.lineTo(0,-length)
+let d=new Date()
 
-ctx.strokeStyle="#fff"
-ctx.stroke()
+document.getElementById("date").innerText=
+d.toDateString()
 
-ctx.rotate(-pos)
+/* PURSUITS */
 
-}
+function togglePursuits(){
 
-drawClock()
+let m=document.getElementById("pursuitsMenu")
 
-/* CALENDAR */
-
-function drawCalendar(){
-
-let canvas=document.getElementById("calendarCanvas")
-let ctx=canvas.getContext("2d")
-
-let now=new Date()
-
-let day=now.toLocaleDateString(undefined,{weekday:"short"})
-let date=now.getDate()
-
-ctx.fillStyle="#111827"
-ctx.fillRect(0,0,160,120)
-
-ctx.fillStyle="#e8edf3"
-
-ctx.font="22px Neue Einstellung"
-ctx.textAlign="center"
-
-ctx.fillText(day,80,45)
-
-ctx.font="42px Neue Einstellung"
-
-ctx.fillText(date,80,95)
-
-}
-
-drawCalendar()
-
-/* SEARCH */
-
-async function searchInsight(){
-
-let q=document.getElementById("query").value
-
-let r=await fetch(
-"https://en.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(q)
-)
-
-let d=await r.json()
-
-document.getElementById("resultText").innerText=d.extract
-
-loadHistoryToday()
-loadBirthdaysToday()
-
-document.getElementById("recentAdvances").innerText=
-"Latest developments will appear once research feeds are integrated."
-
-}
-
-/* HISTORY */
-
-async function loadHistoryToday(){
-
-try{
-
-let today=new Date()
-
-let url="https://byabbe.se/on-this-day/"+(today.getMonth()+1)+"/"+today.getDate()+"/events.json"
-
-let r=await fetch(url)
-
-let d=await r.json()
-
-let events=d.events.slice(0,2)
-
-let html=""
-
-events.forEach(e=>{
-html+=e.year+" – "+e.description+"<br>"
-})
-
-document.getElementById("historyToday").innerHTML=html
-
-}catch{}
-
-}
-
-/* BIRTHDAYS */
-
-async function loadBirthdaysToday(){
-
-try{
-
-let today=new Date()
-
-let url="https://byabbe.se/on-this-day/"+(today.getMonth()+1)+"/"+today.getDate()+"/births.json"
-
-let r=await fetch(url)
-
-let d=await r.json()
-
-let births=d.births.slice(0,2)
-
-let html=""
-
-births.forEach(b=>{
-html+=b.year+" – "+b.description+"<br>"
-})
-
-document.getElementById("birthdaysToday").innerHTML=html
-
-}catch{}
-
-}
-
-/* NEWS */
-
-async function loadNews(){
-
-try{
-
-let r=await fetch(
-"https://api.allorigins.win/raw?url=https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
-)
-
-let t=await r.text()
-
-let xml=new DOMParser().parseFromString(t,"text/xml")
-
-document.getElementById("newsHeadline").innerText=
-xml.querySelector("item title").textContent
-
-}catch{}
-
-}
-
-loadNews()
-
-/* WEATHER */
-
-async function loadWeather(){
-
-try{
-
-let r=await fetch("https://wttr.in/?format=j1")
-
-let d=await r.json()
-
-document.getElementById("weatherTemp").innerText=
-d.current_condition[0].temp_C+"°C"
-
-document.getElementById("weatherIcon").innerText="☁"
-
-}catch{}
-
-}
-
-loadWeather()
-
-/* LONG PRESS */
-
-let pressTimer
-
-function startPress(){
-
-pressTimer=setTimeout(function(){
-
-alert("Deep Research Mode Activated")
-
-},1200)
-
-}
-
-function endPress(){
-
-clearTimeout(pressTimer)
+if(m.classList.contains("hidden"))
+m.classList.remove("hidden")
+else
+m.classList.add("hidden")
 
 }
 
 </script>
 
 </body>
+
 </html>
