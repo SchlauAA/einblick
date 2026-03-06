@@ -21,28 +21,24 @@ display:flex;
 justify-content:center;
 }
 
-/* MASTER CONTAINER */
-
 .container{
 width:92%;
 max-width:1100px;
 padding:60px 0;
 }
 
-/* EVERY ZONE SAME WIDTH */
+/* ZONES */
 
 .zone{
 width:100%;
 margin-bottom:48px;
 }
 
-/* CENTERED TEXT ZONES */
-
 .center{
 text-align:center;
 }
 
-/* LOGO */
+/* AI EYE */
 
 .logo-eye{
 display:flex;
@@ -59,6 +55,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 position:relative;
+overflow:hidden;
 }
 
 .pupil{
@@ -67,6 +64,28 @@ height:14px;
 background:#cfd3dc;
 border-radius:50%;
 box-shadow:0 0 8px rgba(140,160,255,.6);
+position:absolute;
+transition:transform .15s;
+}
+
+.eyelid{
+position:absolute;
+width:100%;
+height:100%;
+background:#05070d;
+top:-100%;
+}
+
+@keyframes blink{
+0%{top:-100%;}
+45%{top:-100%;}
+50%{top:0;}
+55%{top:-100%;}
+100%{top:-100%;}
+}
+
+.blink{
+animation:blink .5s ease;
 }
 
 /* BRAND */
@@ -75,12 +94,10 @@ box-shadow:0 0 8px rgba(140,160,255,.6);
 font-size:36px;
 font-weight:600;
 margin-bottom:6px;
-text-align:center;
 }
 
 .slogan{
 color:#9aa0aa;
-text-align:center;
 }
 
 /* WIDGET GRID */
@@ -94,7 +111,6 @@ margin-top:48px;
 }
 
 .widget{
-width:100%;
 aspect-ratio:1/1;
 background:#14161c;
 border:1px solid #23252d;
@@ -136,9 +152,7 @@ background:#cfd3dc;
 .minute{width:2px;height:28px;}
 .second{width:1px;height:32px;background:#8aa4ff;}
 
-.digital{
-font-size:14px;
-}
+.digital{font-size:14px}
 
 /* CALENDAR */
 
@@ -152,7 +166,7 @@ font-size:14px;
 color:#9aa0aa;
 }
 
-/* SEARCH PANEL */
+/* SEARCH */
 
 .search-panel{
 width:100%;
@@ -218,17 +232,16 @@ margin-bottom:10px;
 color:#9aa0aa;
 }
 
-/* PANELS GRID */
+/* PANEL GRID */
 
 .panel-row{
 width:100%;
 display:grid;
 grid-template-columns:repeat(8,1fr);
-gap:18px;
+gap:24px;
 }
 
 .panel{
-width:100%;
 aspect-ratio:1/1;
 background:#14161c;
 border:1px solid #23252d;
@@ -274,8 +287,9 @@ margin-top:36px;
 <div class="zone center">
 
 <div class="logo-eye">
-<div class="eye">
-<div class="pupil"></div>
+<div class="eye" id="eye">
+<div class="pupil" id="pupil"></div>
+<div class="eyelid" id="eyelid"></div>
 </div>
 </div>
 
@@ -291,31 +305,22 @@ margin-top:36px;
 <div class="widget-row">
 
 <div class="widget">
-
 <div class="clock">
 <div class="hand hour" id="hour"></div>
 <div class="hand minute" id="minute"></div>
 <div class="hand second" id="second"></div>
 </div>
-
 <div class="digital" id="digital"></div>
-
 </div>
 
 <div class="widget">
-
 <div class="calendar-day" id="day"></div>
 <div class="calendar-date" id="date"></div>
-
 </div>
 
-<div class="widget">
-Loading news...
-</div>
+<div class="widget">Loading news...</div>
 
-<div class="widget">
-☀️ 26°C
-</div>
+<div class="widget">☀️ 26°C</div>
 
 </div>
 
@@ -388,9 +393,7 @@ Created by Dr. Aishvarya Adhaulia
 /* CLOCK */
 
 function updateClock(){
-
 const now=new Date()
-
 const sec=now.getSeconds()
 const min=now.getMinutes()
 const hr=now.getHours()
@@ -400,7 +403,6 @@ document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min
 document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
 
 document.getElementById("digital").textContent=now.toLocaleTimeString()
-
 }
 
 setInterval(updateClock,1000)
@@ -409,9 +411,40 @@ updateClock()
 /* CALENDAR */
 
 const today=new Date()
-
 document.getElementById("day").textContent=today.toLocaleDateString(undefined,{weekday:'long'})
 document.getElementById("date").textContent=today.toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})
+
+/* EYE TRACKING */
+
+const eye=document.getElementById("eye")
+const pupil=document.getElementById("pupil")
+const eyelid=document.getElementById("eyelid")
+
+document.addEventListener("mousemove",e=>{
+
+const rect=eye.getBoundingClientRect()
+
+const x=e.clientX-rect.left
+const y=e.clientY-rect.top
+
+const centerX=rect.width/2
+const centerY=rect.height/2
+
+const moveX=(x-centerX)/10
+const moveY=(y-centerY)/10
+
+pupil.style.transform=`translate(${moveX}px,${moveY}px)`
+
+})
+
+/* BLINK */
+
+setInterval(()=>{
+eyelid.classList.add("blink")
+setTimeout(()=>{
+eyelid.classList.remove("blink")
+},500)
+},4000)
 
 </script>
 
