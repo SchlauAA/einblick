@@ -14,42 +14,111 @@
 body{
 background:#0b0f14;
 color:white;
-font-family:Arial;
+font-family:-apple-system,BlinkMacSystemFont,Segoe UI;
 text-align:center;
 margin:0;
 padding:20px;
 }
 
-.logo{
-font-size:60px;
-margin-top:20px;
+/* Title */
+
+h1{
+letter-spacing:3px;
+font-weight:600;
 }
+
+/* Eye */
+
+.eye-container{
+display:flex;
+justify-content:center;
+margin-top:25px;
+margin-bottom:25px;
+}
+
+.eye{
+width:95px;
+height:55px;
+background:#e6e6e6;
+border-radius:50%/60%;
+position:relative;
+box-shadow:0 0 10px rgba(0,0,0,0.6) inset;
+animation:blink 7s infinite;
+}
+
+.pupil{
+width:24px;
+height:24px;
+background:#1a1a1a;
+border-radius:50%;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+transition:all 0.25s;
+}
+
+@keyframes blink{
+
+0%{transform:scaleY(1)}
+94%{transform:scaleY(1)}
+97%{transform:scaleY(0.05)}
+100%{transform:scaleY(1)}
+
+}
+
+/* Cards */
 
 .card{
 background:#151a21;
-padding:20px;
-margin:20px;
-border-radius:16px;
+padding:22px;
+margin:22px;
+border-radius:18px;
+box-shadow:0 10px 20px rgba(0,0,0,0.35);
 }
 
+/* Chronometer */
+
+.clock{
+font-size:34px;
+margin-top:10px;
+font-weight:500;
+}
+
+/* Search */
+
 input{
-width:80%;
-padding:12px;
+width:85%;
+padding:14px;
 font-size:16px;
-border-radius:10px;
+border-radius:12px;
 border:none;
 background:#1e2530;
 color:white;
+outline:none;
 }
 
+/* Section labels */
+
+.section{
+margin-top:25px;
+opacity:0.7;
+font-size:18px;
+}
+
+/* Buttons */
+
 button{
-padding:14px;
-margin:8px;
+
+padding:14px 18px;
+margin:10px;
 font-size:15px;
-border-radius:12px;
+border-radius:14px;
 border:none;
-background:#00c2ff;
+background:#63b6e6;
 color:black;
+font-weight:500;
+
 }
 
 </style>
@@ -60,19 +129,31 @@ color:black;
 
 <h1>EINBLICK</h1>
 
-<div class="logo">👁</div>
+<div class="eye-container">
 
-<div class="card">
-
-<h2>Chronometer</h2>
-
-<div id="clock" style="font-size:34px"></div>
+<div class="eye">
+<div class="pupil" id="pupil"></div>
+</div>
 
 </div>
 
 <div class="card">
 
-<input placeholder="Ask Ein...">
+<h2>Chronometer</h2>
+
+<div id="clock" class="clock"></div>
+
+</div>
+
+<div class="card">
+
+<input id="query" placeholder="Ask Ein...">
+
+</div>
+
+<div class="section">
+
+Instruments
 
 </div>
 
@@ -84,6 +165,12 @@ color:black;
 
 </div>
 
+<div class="section">
+
+Wellness
+
+</div>
+
 <div class="card">
 
 <button>Breathing</button>
@@ -92,14 +179,37 @@ color:black;
 
 <script>
 
+/* Chronometer */
+
 function updateClock(){
+
 let now=new Date()
-document.getElementById("clock").innerHTML=now.toLocaleTimeString()
+
+document.getElementById("clock").innerHTML=
+now.toLocaleTimeString()
+
 }
 
 setInterval(updateClock,1000)
 
 updateClock()
+
+/* Eye follows typing */
+
+let input=document.getElementById("query")
+let pupil=document.getElementById("pupil")
+
+input.addEventListener("input",function(){
+
+pupil.style.transform="translate(-50%,-50%) translate(6px,0)"
+
+setTimeout(function(){
+
+pupil.style.transform="translate(-50%,-50%)"
+
+},400)
+
+})
 
 </script>
 
