@@ -4,6 +4,7 @@
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
@@ -11,136 +12,192 @@
 
 <style>
 
+/* Dynamic Wallpaper */
+
 body{
-background:#0b0f14;
+
+background:linear-gradient(270deg,#0b0f14,#111826,#0b0f14);
+
+background-size:600% 600%;
+
+animation:bgMove 30s ease infinite;
+
 color:white;
+
 font-family:-apple-system,BlinkMacSystemFont,Segoe UI;
+
 text-align:center;
+
 margin:0;
+
 padding:20px;
+
 }
 
-/* TITLE */
+@keyframes bgMove{
+
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+
+}
+
+/* Title */
 
 h1{
+
 letter-spacing:3px;
-font-weight:600;
+margin-bottom:5px;
+
 }
 
-/* EYE */
+/* Eye */
 
 .eye-container{
+
 display:flex;
 justify-content:center;
-margin-top:25px;
-margin-bottom:25px;
+margin-top:20px;
+
 }
 
 .eye{
-width:100px;
-height:60px;
+
+width:110px;
+height:65px;
 background:#e6e6e6;
 border-radius:50%/60%;
 position:relative;
-box-shadow:0 0 12px rgba(0,0,0,0.6) inset;
-animation:blink 8s infinite;
+box-shadow:0 0 14px rgba(0,0,0,0.7) inset;
+animation:blink 9s infinite;
+
 }
 
 .pupil{
-width:26px;
-height:26px;
-background:#1a1a1a;
+
+width:28px;
+height:28px;
+background:#111;
 border-radius:50%;
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
-transition:all 0.25s;
+transition:all .3s;
+
 }
 
-.eye.thinking{
-box-shadow:0 0 20px rgba(255,255,255,0.6);
+.pupil.active{
+
+box-shadow:0 0 25px white;
+
 }
 
 @keyframes blink{
 
 0%{transform:scaleY(1)}
-95%{transform:scaleY(1)}
-98%{transform:scaleY(0.05)}
+96%{transform:scaleY(1)}
+98%{transform:scaleY(.05)}
 100%{transform:scaleY(1)}
 
 }
 
-/* CARDS */
+/* slogan */
 
-.card{
+.slogan{
+
+opacity:.7;
+font-size:15px;
+margin-top:10px;
+
+}
+
+/* widgets */
+
+.widget{
+
 background:#151a21;
-padding:22px;
-margin:22px;
+
+padding:20px;
+
+margin:20px;
+
 border-radius:18px;
-box-shadow:0 10px 20px rgba(0,0,0,0.35);
-transition:transform 0.2s;
+
+box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+transition:transform .2s;
+
 }
 
-.card:active{
-transform:scale(1.03);
+.widget:hover{
+
+transform:scale(1.04);
+
 }
 
-/* CLOCK */
+/* clock */
 
 .clock{
-font-size:34px;
-margin-top:10px;
-font-weight:500;
+
+font-size:32px;
+
 }
 
-/* SEARCH */
+/* search */
 
 input{
+
 width:85%;
+
 padding:14px;
-font-size:16px;
+
 border-radius:12px;
+
 border:none;
+
 background:#1e2530;
+
 color:white;
-outline:none;
+
+font-size:16px;
+
 }
 
-/* SECTIONS */
-
-.section{
-margin-top:25px;
-opacity:0.7;
-font-size:18px;
-}
-
-/* BUTTONS */
+/* buttons */
 
 button{
 
-padding:14px 18px;
-margin:10px;
-font-size:15px;
-border-radius:14px;
+padding:12px 16px;
+
+margin:8px;
+
+border-radius:12px;
+
 border:none;
+
 background:#d8d8d8;
+
 color:black;
-font-weight:500;
-transition:transform 0.15s;
+
+cursor:pointer;
+
+transition:transform .15s;
 
 }
 
 button:active{
-transform:scale(0.92);
+
+transform:scale(.9);
+
 }
 
-/* BREATHING CIRCLE */
+/* breathing */
 
-.breath-circle{
+.breath{
 
-width:80px;
-height:80px;
+width:90px;
+height:90px;
 border-radius:50%;
 background:#444;
 margin:auto;
@@ -151,19 +208,35 @@ animation:breathe 6s infinite;
 @keyframes breathe{
 
 0%{transform:scale(1)}
-50%{transform:scale(1.4)}
+50%{transform:scale(1.5)}
 100%{transform:scale(1)}
 
 }
 
-/* INSIGHT */
+/* insight */
 
 #insightCard{
+
 display:none;
+
 }
 
-.focus-hidden{
-display:none;
+/* stopwatch */
+
+.stopwatch{
+
+font-size:28px;
+
+}
+
+/* creator */
+
+.creator{
+
+opacity:.5;
+margin-top:40px;
+font-size:12px;
+
 }
 
 </style>
@@ -176,65 +249,103 @@ display:none;
 
 <div class="eye-container">
 
-<div class="eye" id="eye">
+<div class="eye">
+
 <div class="pupil" id="pupil"></div>
-</div>
 
 </div>
 
-<div class="card">
+</div>
 
-<h2>Chronometer</h2>
+<div class="slogan">
+
+Where Knowledge Becomes Insight
+
+</div>
+
+<!-- Chronometer -->
+
+<div class="widget">
+
+<h3>Chronometer</h3>
 
 <div id="clock" class="clock"></div>
 
+<div id="utc"></div>
+
 </div>
 
-<div class="card">
+<!-- Ask Ein -->
+
+<div class="widget">
 
 <input id="query" placeholder="Ask Ein..." onkeydown="if(event.key==='Enter'){searchInsight()}">
 
 </div>
 
-<div class="card" id="insightCard">
+<!-- Insight -->
 
-<h2>Insight</h2>
+<div class="widget" id="insightCard">
+
+<h3>Insight</h3>
 
 <p id="insightText"></p>
 
 </div>
 
-<div class="section" id="instrumentLabel">
+<!-- Instruments -->
 
-Instruments
+<div class="widget">
 
-</div>
+<h3>Instruments</h3>
 
-<div class="card" id="instruments">
+<button onclick="openCalc()">Calculator</button>
 
-<button>Calculator</button>
-<button>Dictionary</button>
-<button>Currency</button>
+<button onclick="toggleStopwatch()">Stopwatch</button>
 
 </div>
 
-<div class="section" id="wellnessLabel">
+<!-- Calculator -->
 
-Wellness
+<div class="widget" id="calculator" style="display:none">
+
+<input id="calcInput">
+
+<button onclick="calculate()">=</button>
+
+<p id="calcResult"></p>
 
 </div>
 
-<div class="card" id="wellness">
+<!-- Stopwatch -->
 
-<div class="breath-circle"></div>
+<div class="widget" id="stopwatchWidget" style="display:none">
+
+<div id="stopwatch" class="stopwatch">00:00</div>
+
+<button onclick="startSW()">Start</button>
+
+<button onclick="stopSW()">Stop</button>
+
+<button onclick="resetSW()">Reset</button>
+
+</div>
+
+<!-- Wellness -->
+
+<div class="widget">
+
+<h3>Wellness</h3>
+
+<div class="breath"></div>
 
 <p>Breathing Guide</p>
 
 </div>
 
-<div class="card">
+<div class="creator">
 
-<button onclick="toggleFocus()">Focus Mode</button>
+Created by Dr. Aishvarya Adhaulia
 
 </div>
 
@@ -247,7 +358,12 @@ function updateClock(){
 let now=new Date()
 
 document.getElementById("clock").innerHTML=
+
 now.toLocaleTimeString()
+
+document.getElementById("utc").innerHTML=
+
+"UTC "+now.toUTCString().slice(17,25)
 
 }
 
@@ -255,69 +371,103 @@ setInterval(updateClock,1000)
 
 updateClock()
 
-/* EYE FOLLOW TOUCH */
-
-let pupil=document.getElementById("pupil")
-
-document.addEventListener("touchstart",function(e){
-
-let x=(e.touches[0].clientX/window.innerWidth-0.5)*20
-let y=(e.touches[0].clientY/window.innerHeight-0.5)*20
-
-pupil.style.transform=
-"translate(-50%,-50%) translate("+x+"px,"+y+"px)"
-
-})
-
-/* SEARCH INSIGHT */
+/* INSIGHT */
 
 async function searchInsight(){
 
+let pupil=document.getElementById("pupil")
+
+pupil.classList.add("active")
+
 let query=document.getElementById("query").value
-
-let eye=document.getElementById("eye")
-
-eye.classList.add("thinking")
 
 try{
 
-let response=await fetch(
-"https://en.wikipedia.org/api/rest_v1/page/summary/"+query
-)
+let r=await fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+query)
 
-let data=await response.json()
+let d=await r.json()
 
-document.getElementById("insightText").innerText=
-data.extract || "No insight found."
-
-document.getElementById("insightCard").style.display="block"
-
-}catch{
-
-document.getElementById("insightText").innerText=
-"Unable to retrieve information."
+document.getElementById("insightText").innerText=d.extract
 
 document.getElementById("insightCard").style.display="block"
 
 }
 
-eye.classList.remove("thinking")
+catch{
+
+document.getElementById("insightText").innerText="Insight unavailable."
 
 }
 
-/* FOCUS MODE */
+pupil.classList.remove("active")
 
-function toggleFocus(){
+}
 
-let instruments=document.getElementById("instruments")
-let wellness=document.getElementById("wellness")
-let instrumentLabel=document.getElementById("instrumentLabel")
-let wellnessLabel=document.getElementById("wellnessLabel")
+/* calculator */
 
-instruments.classList.toggle("focus-hidden")
-wellness.classList.toggle("focus-hidden")
-instrumentLabel.classList.toggle("focus-hidden")
-wellnessLabel.classList.toggle("focus-hidden")
+function openCalc(){
+
+let c=document.getElementById("calculator")
+
+c.style.display=(c.style.display=="none")?"block":"none"
+
+}
+
+function calculate(){
+
+let val=document.getElementById("calcInput").value
+
+document.getElementById("calcResult").innerText=eval(val)
+
+}
+
+/* stopwatch */
+
+let sw=0
+let timer=null
+
+function toggleStopwatch(){
+
+let s=document.getElementById("stopwatchWidget")
+
+s.style.display=(s.style.display=="none")?"block":"none"
+
+}
+
+function startSW(){
+
+if(!timer){
+
+timer=setInterval(function(){
+
+sw++
+
+let m=Math.floor(sw/60)
+let s=sw%60
+
+document.getElementById("stopwatch").innerText=
+
+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")
+
+},1000)
+
+}
+
+}
+
+function stopSW(){
+
+clearInterval(timer)
+
+timer=null
+
+}
+
+function resetSW(){
+
+sw=0
+
+document.getElementById("stopwatch").innerText="00:00"
 
 }
 
