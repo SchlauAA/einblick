@@ -1,198 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>Einblick</title>
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+/* FONT */
+
+@font-face{
+font-family:"Neue Einstellung";
+src:url("fonts/NeueEinstellung-Regular.woff2") format("woff2");
+font-weight:400;
+}
+
+@font-face{
+font-family:"Neue Einstellung";
+src:url("fonts/NeueEinstellung-Medium.woff2") format("woff2");
+font-weight:500;
+}
+
+@font-face{
+font-family:"Neue Einstellung";
+src:url("fonts/NeueEinstellung-SemiBold.woff2") format("woff2");
+font-weight:600;
+}
 
 /* GLOBAL */
 
 body{
+
 margin:0;
-font-family:"Neue Einstellung","Inter",sans-serif;
-background: radial-gradient(circle at top left,#141821,#0f1115);
+font-family:"Neue Einstellung",sans-serif;
 color:#e8eaed;
+
+background:linear-gradient(135deg,#0f1115,#141821,#0f1115);
+background-size:400% 400%;
+animation:nordicBackground 120s ease infinite;
+
 display:flex;
 justify-content:center;
+
+}
+
+@keyframes nordicBackground{
+
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+
 }
 
 .container{
+
 max-width:1100px;
 width:100%;
 text-align:center;
 padding:40px 20px;
+
 }
 
-/* LOGO */
+/* EYE */
 
 .eye{
+
 width:70px;
 height:70px;
-border:2px solid #9aa4b2;
+
 border-radius:50%;
+border:2px solid #9aa4b2;
+
 margin:auto;
+margin-bottom:10px;
+
 display:flex;
 align-items:center;
 justify-content:center;
-margin-bottom:10px;
+
 }
 
 .pupil{
+
 width:16px;
 height:16px;
-background:#e8eaed;
 border-radius:50%;
-transition:all .3s;
+background:#e8eaed;
+
+transition:all .25s;
+
 }
 
 /* BRAND */
 
 .brand{
+
 font-size:28px;
 font-weight:600;
 margin-bottom:6px;
+
 }
 
 .slogan{
+
 font-size:14px;
-opacity:.6;
+opacity:.65;
 margin-bottom:36px;
+
 }
 
 /* WIDGETS */
 
 .widgets{
+
 display:flex;
 justify-content:center;
 gap:24px;
 margin-bottom:32px;
+
 }
 
 .widget{
+
 width:162px;
 height:100px;
+
 background:#171a21;
+
 border-radius:10px;
+
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
+
 cursor:pointer;
+
 }
 
 /* SEARCH */
 
 .searchbar{
+
 display:flex;
 justify-content:center;
 gap:8px;
+
 margin-bottom:30px;
+
 }
 
 .searchbar input{
+
 width:380px;
 height:40px;
+
 background:#171a21;
+
 border:none;
 border-radius:8px;
+
 color:white;
 padding-left:12px;
+
 }
 
 .btn{
+
 height:40px;
 padding:0 16px;
-border:none;
-border-radius:8px;
+
 background:#171a21;
 color:white;
+
+border:none;
+border-radius:8px;
+
 cursor:pointer;
+
+transition:.2s;
+
 }
 
 /* REFLECTION */
 
 .reflection{
+
 background:#171a21;
 border-radius:10px;
+
 padding:16px;
+
 margin-bottom:32px;
+
 }
 
 /* PANELS */
 
 .panels{
+
 display:flex;
 gap:24px;
 overflow-x:auto;
+
 justify-content:center;
+
 margin-bottom:40px;
+
 }
 
 .panel{
+
 width:146px;
 height:90px;
+
 background:#171a21;
+
 border-radius:10px;
+
 display:flex;
 align-items:center;
 justify-content:center;
+
 cursor:pointer;
+
+position:relative;
+
+}
+
+.panelLabel{
+
+opacity:0;
+transition:.15s;
+font-size:13px;
+
+}
+
+.panel:hover .panelLabel{
+
+opacity:1;
+
 }
 
 /* CREATOR */
 
 .creator{
+
 font-size:12px;
 opacity:.6;
-margin-top:10px;
+
 }
 
 /* POPUP */
 
 .popup{
+
 position:fixed;
+
 top:0;
 left:0;
+
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.5);
+
+background:rgba(0,0,0,0.45);
+
 display:none;
+
 align-items:center;
 justify-content:center;
+
 }
 
 .popup-content{
+
 background:#171a21;
+
 width:80%;
 height:70%;
+
 border-radius:12px;
+
 padding:30px;
+
 overflow:auto;
+
 }
 
 .close{
+
 float:right;
 cursor:pointer;
-font-size:18px;
+font-size:20px;
+
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="eye" id="eye">
+<div class="eye">
 <div class="pupil" id="pupil"></div>
 </div>
 
 <div class="brand">Einblick</div>
+
 <div class="slogan">Where Knowledge Becomes Insight</div>
 
 <div class="widgets">
@@ -231,14 +349,14 @@ Today's Reflection
 
 <div class="panels">
 
-<div class="panel">Insight</div>
-<div class="panel">Learning</div>
-<div class="panel">Research</div>
-<div class="panel">Instruments</div>
-<div class="panel">Health</div>
-<div class="panel">Pursuits</div>
-<div class="panel">Preferences</div>
-<div class="panel">System</div>
+<div class="panel"><span class="panelLabel">Insight</span></div>
+<div class="panel"><span class="panelLabel">Learning</span></div>
+<div class="panel"><span class="panelLabel">Research</span></div>
+<div class="panel"><span class="panelLabel">Instruments</span></div>
+<div class="panel"><span class="panelLabel">Health</span></div>
+<div class="panel"><span class="panelLabel">Pursuits</span></div>
+<div class="panel"><span class="panelLabel">Preferences</span></div>
+<div class="panel"><span class="panelLabel">System</span></div>
 
 </div>
 
@@ -268,12 +386,12 @@ Created by Dr. Aishvarya Adhaulia
 
 function updateClock(){
 
-const now = new Date();
+const now=new Date();
 
-document.getElementById("clock").innerText =
+document.getElementById("clock").innerText=
 now.toLocaleTimeString();
 
-document.getElementById("date").innerText =
+document.getElementById("date").innerText=
 now.toDateString();
 
 }
@@ -281,7 +399,7 @@ now.toDateString();
 setInterval(updateClock,1000);
 updateClock();
 
-/* BLINK */
+/* EYE BLINK */
 
 setInterval(()=>{
 
@@ -297,15 +415,35 @@ pupil.style.height="16px";
 
 },5000);
 
-/* SEARCH BUTTON */
+/* EYE MOVEMENT */
 
-let timer;
+document.addEventListener("mousemove",(e)=>{
+
+const pupil=document.getElementById("pupil");
+
+const x=(e.clientX/window.innerWidth-0.5)*8;
+const y=(e.clientY/window.innerHeight-0.5)*6;
+
+pupil.style.transform=`translate(${x}px,${y}px)`;
+
+});
+
+/* SEARCH BUTTON */
 
 const btn=document.getElementById("searchBtn");
 
+let pressTimer;
+let longPress=false;
+
 btn.addEventListener("mousedown",()=>{
 
-timer=setTimeout(()=>{
+longPress=false;
+
+pressTimer=setTimeout(()=>{
+
+longPress=true;
+
+btn.style.boxShadow="0 0 16px #9aa4b2";
 
 deepResearch();
 
@@ -315,11 +453,15 @@ deepResearch();
 
 btn.addEventListener("mouseup",()=>{
 
-clearTimeout(timer);
+clearTimeout(pressTimer);
 
+if(!longPress){
 normalSearch();
+}
 
 });
+
+/* SEARCH MODES */
 
 function normalSearch(){
 
@@ -329,8 +471,6 @@ openPopup("Quick Insight",
 }
 
 function deepResearch(){
-
-btn.style.boxShadow="0 0 16px #9aa4b2";
 
 openPopup("Deep Research",
 "Advanced analysis mode activated.");
@@ -344,7 +484,6 @@ function openPopup(title,text){
 document.getElementById("popup").style.display="flex";
 
 document.getElementById("resultTitle").innerText=title;
-
 document.getElementById("resultText").innerText=text;
 
 }
