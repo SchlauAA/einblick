@@ -3,8 +3,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Einblick</title>
 
 <style>
@@ -17,10 +16,20 @@ font-family:"Neue Einstellung",system-ui,sans-serif;
 color:#e8eaed;
 display:flex;
 justify-content:center;
-
 background:linear-gradient(135deg,#0f1115,#141821,#0f1115);
 background-size:400% 400%;
-animation:bgmove 120s ease infinite;
+animation:bgmove 140s ease infinite;
+}
+
+body::after{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+pointer-events:none;
 }
 
 @keyframes bgmove{
@@ -33,35 +42,35 @@ animation:bgmove 120s ease infinite;
 max-width:1100px;
 width:100%;
 text-align:center;
-padding:40px 20px;
+padding:50px 20px;
 }
 
-/* AI EYE */
+/* EYE */
 
 .eye{
-width:70px;
-height:70px;
+width:72px;
+height:72px;
 border:2px solid #9aa4b2;
 border-radius:50%;
 margin:auto;
-margin-bottom:10px;
+margin-bottom:14px;
 display:flex;
 align-items:center;
 justify-content:center;
 }
 
 .pupil{
-width:16px;
-height:16px;
+width:14px;
+height:14px;
 border-radius:50%;
 background:#e8eaed;
-transition:all .2s ease;
+transition:.2s;
 }
 
 /* BRAND */
 
 .brand{
-font-size:28px;
+font-size:30px;
 font-weight:600;
 margin-bottom:6px;
 }
@@ -69,7 +78,7 @@ margin-bottom:6px;
 .slogan{
 font-size:14px;
 opacity:.65;
-margin-bottom:36px;
+margin-bottom:44px;
 }
 
 /* WIDGETS */
@@ -77,62 +86,57 @@ margin-bottom:36px;
 .widgets{
 display:flex;
 justify-content:center;
-gap:24px;
-margin-bottom:32px;
+gap:28px;
+margin-bottom:38px;
 }
 
 .widget{
-
 width:120px;
 height:120px;
-
 background:#171a21;
-border-radius:10px;
-
+border-radius:14px;
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-
-font-size:13px;
-
 }
 
 /* CLOCK */
 
-.clockdial{
-width:48px;
-height:48px;
+.clock{
+width:54px;
+height:54px;
 border:1px solid #aaa;
 border-radius:50%;
 position:relative;
-margin-bottom:6px;
+margin-bottom:8px;
 }
 
 .hand{
-width:1px;
-height:20px;
-background:white;
 position:absolute;
-top:4px;
+width:1px;
+background:white;
 left:50%;
 transform-origin:bottom;
 }
+
+.hour{height:14px;top:13px;}
+.minute{height:18px;top:9px;}
+.second{height:22px;top:5px;opacity:.6;}
 
 /* SEARCH */
 
 .searchbar{
 display:flex;
 justify-content:center;
-gap:8px;
-margin-bottom:30px;
-position:relative;
+gap:10px;
+margin-bottom:36px;
 }
 
 .searchbar input{
 width:380px;
-height:40px;
-border-radius:8px;
+height:42px;
+border-radius:10px;
 border:none;
 background:#171a21;
 color:white;
@@ -140,89 +144,65 @@ padding-left:12px;
 }
 
 .btn{
-height:40px;
-padding:0 16px;
+height:42px;
+padding:0 18px;
 background:#171a21;
 border:none;
 color:white;
-border-radius:8px;
+border-radius:10px;
 cursor:pointer;
-transition:.2s;
-}
-
-.suggestions{
-position:absolute;
-top:45px;
-width:380px;
-background:#171a21;
-border-radius:8px;
-display:none;
-flex-direction:column;
-}
-
-.suggestions div{
-padding:8px;
-cursor:pointer;
-}
-
-.suggestions div:hover{
-background:#222;
 }
 
 /* REFLECTION */
 
 .reflection{
 background:#171a21;
-padding:16px;
-border-radius:10px;
-margin-bottom:32px;
+padding:18px;
+border-radius:14px;
+margin-bottom:44px;
+font-size:16px;
 }
 
 /* PANELS */
 
 .panels{
 display:flex;
-gap:24px;
-overflow-x:auto;
 justify-content:center;
+gap:24px;
+flex-wrap:wrap;
 margin-bottom:40px;
 }
 
 .panel{
-
 width:90px;
 height:90px;
-
 background:#171a21;
-border-radius:10px;
-
+border-radius:14px;
 display:flex;
 align-items:center;
 justify-content:center;
-
-transition:.15s;
 cursor:pointer;
-
+transition:.2s;
 }
 
 .panel:hover{
-transform:translateY(-2px);
-box-shadow:0 4px 10px rgba(0,0,0,0.4);
+transform:translateY(-3px);
+box-shadow:0 6px 16px rgba(0,0,0,0.5);
 }
 
 .panel svg{
-width:28px;
-height:28px;
+width:26px;
+height:26px;
 stroke:white;
-fill:none;
 stroke-width:1.5;
+fill:none;
 }
 
 /* CREATOR */
 
 .creator{
-font-size:12px;
-opacity:.6;
+font-size:13px;
+opacity:.65;
 }
 
 /* POPUP */
@@ -243,7 +223,7 @@ justify-content:center;
 background:#171a21;
 width:80%;
 height:70%;
-border-radius:12px;
+border-radius:14px;
 padding:30px;
 overflow:auto;
 }
@@ -271,46 +251,34 @@ font-size:18px;
 <div class="widgets">
 
 <div class="widget">
-
-<div class="clockdial">
-<div class="hand" id="clockhand"></div>
+<div class="clock">
+<div class="hand hour" id="hour"></div>
+<div class="hand minute" id="minute"></div>
+<div class="hand second" id="second"></div>
 </div>
-
-<div id="clocktext"></div>
-
-</div>
-
-<div class="widget">
-
-<div id="day"></div>
-<div id="date"></div>
-
+<div id="digital"></div>
 </div>
 
 <div class="widget">
+<div id="calday"></div>
+<div style="font-size:28px;font-weight:600" id="caldate"></div>
+<div id="calmonth"></div>
+</div>
 
+<div class="widget">
 <div id="news">Loading news…</div>
-
 </div>
 
 <div class="widget">
-
-<div id="weather">☀ 26°C</div>
-
+☀ 26°C
 </div>
 
 </div>
 
 <div class="searchbar">
-
 <button class="btn">📎</button>
-
 <input id="searchInput" placeholder="Search">
-
 <button class="btn" id="searchBtn">Search</button>
-
-<div class="suggestions" id="suggestions"></div>
-
 </div>
 
 <div class="reflection">
@@ -319,7 +287,7 @@ Today's Reflection
 
 <div class="panels">
 
-<div class="panel"><svg><circle cx="12" cy="12" r="6"/></svg></div>
+<div class="panel"><svg><circle cx="12" cy="12" r="7"/></svg></div>
 <div class="panel"><svg><rect x="6" y="6" width="12" height="12"/></svg></div>
 <div class="panel"><svg><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
 <div class="panel"><svg><polygon points="12,4 20,20 4,20"/></svg></div>
@@ -337,145 +305,93 @@ Created by Dr. Aishvarya Adhaulia
 </div>
 
 <div class="popup" id="popup">
-
 <div class="popupcontent">
-
 <span class="close" onclick="closePopup()">✕</span>
-
 <h2 id="resultTitle"></h2>
 <p id="resultText"></p>
-
 </div>
-
 </div>
 
 <script>
 
-/* CLOCK */
-
 function updateClock(){
+const now=new Date()
+let sec=now.getSeconds()
+let min=now.getMinutes()
+let hr=now.getHours()
 
-const now=new Date();
+document.getElementById("second").style.transform=`rotate(${sec*6}deg)`
+document.getElementById("minute").style.transform=`rotate(${min*6}deg)`
+document.getElementById("hour").style.transform=`rotate(${hr*30+min/2}deg)`
 
-document.getElementById("clocktext").innerText=
-now.toLocaleTimeString();
-
-document.getElementById("date").innerText=
-now.toDateString();
-
-document.getElementById("day").innerText=
-now.toLocaleDateString(undefined,{weekday:"long"});
-
-const sec=now.getSeconds();
-document.getElementById("clockhand")
-.style.transform=`rotate(${sec*6}deg)`;
-
+document.getElementById("digital").innerText=now.toLocaleTimeString()
 }
 
-setInterval(updateClock,1000);
-updateClock();
+setInterval(updateClock,1000)
+updateClock()
 
-/* NEWS ROTATION */
+const d=new Date()
+
+document.getElementById("calday").innerText=
+d.toLocaleDateString(undefined,{weekday:"short"}).toUpperCase()
+
+document.getElementById("caldate").innerText=d.getDate()
+
+document.getElementById("calmonth").innerText=
+d.toLocaleDateString(undefined,{month:"short"}).toUpperCase()
 
 const headlines=[
 "Global climate summit begins",
 "New AI research breakthrough",
-"Space telescope captures distant galaxy"
-];
+"Space telescope discovers distant galaxy"
+]
 
-let newsIndex=0;
-
-setInterval(()=>{
-newsIndex=(newsIndex+1)%headlines.length;
-document.getElementById("news").innerText=headlines[newsIndex];
-},40000);
-
-/* AI EYE BLINK */
+let i=0
 
 setInterval(()=>{
-const p=document.getElementById("pupil");
-p.style.height="4px";
-setTimeout(()=>p.style.height="16px",150);
-},5000);
+i=(i+1)%headlines.length
+document.getElementById("news").innerText=headlines[i]
+},40000)
 
-/* AI EYE MOVEMENT */
+setInterval(()=>{
+const p=document.getElementById("pupil")
+p.style.height="4px"
+setTimeout(()=>p.style.height="14px",150)
+},5000)
 
 document.addEventListener("mousemove",e=>{
-const p=document.getElementById("pupil");
-const x=(e.clientX/window.innerWidth-.5)*8;
-const y=(e.clientY/window.innerHeight-.5)*6;
-p.style.transform=`translate(${x}px,${y}px)`;
-});
+const p=document.getElementById("pupil")
+const x=(e.clientX/window.innerWidth-.5)*6
+const y=(e.clientY/window.innerHeight-.5)*5
+p.style.transform=`translate(${x}px,${y}px)`
+})
 
-/* SEARCH */
+const btn=document.getElementById("searchBtn")
 
-const btn=document.getElementById("searchBtn");
-
-let timer,longPress=false;
+let timer,long=false
 
 btn.addEventListener("mousedown",()=>{
-longPress=false;
+long=false
 timer=setTimeout(()=>{
-longPress=true;
-deepSearch();
-},800);
-});
+long=true
+openPopup("Deep Research","Advanced research activated")
+},800)
+})
 
 btn.addEventListener("mouseup",()=>{
-clearTimeout(timer);
-if(!longPress) normalSearch();
-});
-
-function normalSearch(){
-openPopup("Quick Insight","Prototype result.");
-}
-
-function deepSearch(){
-btn.style.boxShadow="0 0 16px #9aa4b2";
-openPopup("Deep Research","Advanced analysis activated.");
-}
-
-/* POPUP */
+clearTimeout(timer)
+if(!long) openPopup("Quick Insight","Prototype search result")
+})
 
 function openPopup(t,x){
-document.getElementById("popup").style.display="flex";
-document.getElementById("resultTitle").innerText=t;
-document.getElementById("resultText").innerText=x;
+document.getElementById("popup").style.display="flex"
+document.getElementById("resultTitle").innerText=t
+document.getElementById("resultText").innerText=x
 }
 
 function closePopup(){
-document.getElementById("popup").style.display="none";
+document.getElementById("popup").style.display="none"
 }
-
-/* SEARCH SUGGESTIONS */
-
-const suggestions=["black hole","gravity","dna","evolution"];
-
-const input=document.getElementById("searchInput");
-const sug=document.getElementById("suggestions");
-
-input.addEventListener("input",()=>{
-let v=input.value.toLowerCase();
-sug.innerHTML="";
-if(v===""){sug.style.display="none";return;}
-
-suggestions
-.filter(s=>s.includes(v))
-.forEach(s=>{
-let d=document.createElement("div");
-d.innerText=s;
-d.onclick=()=>{input.value=s;sug.style.display="none";}
-sug.appendChild(d);
-});
-
-sug.style.display="flex";
-});
-
-/* keyboard shortcut */
-
-document.addEventListener("keydown",e=>{
-if(e.key==="Escape") closePopup();
-});
 
 </script>
 
