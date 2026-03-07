@@ -56,7 +56,7 @@ linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
 linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
 background-size:60px 60px;
 z-index:-1;
-transition:transform .2s ease;
+transition:transform .15s ease;
 }
 
 /* container */
@@ -73,7 +73,7 @@ border-radius:18px;
 background:rgba(10,10,10,.9);
 }
 
-/* unified zone width */
+/* zones */
 
 .zone{
 width:100%;
@@ -195,7 +195,7 @@ background:white;
 .minute{width:2px;height:26px}
 .second{width:1px;height:30px}
 
-/* visual calendar */
+/* calendar */
 
 .calendar-widget{
 display:flex;
@@ -261,9 +261,15 @@ background:var(--panel);
 border:1px solid var(--border);
 border-radius:12px;
 padding:28px;
+transition:opacity .35s ease, transform .35s ease;
 }
 
-/* panels — UPDATED */
+.workspace.animate{
+opacity:0;
+transform:translateY(12px);
+}
+
+/* panels */
 
 .panel-grid{
 display:flex;
@@ -298,6 +304,11 @@ height:36px;
 stroke:white;
 stroke-width:1.4;
 fill:none;
+transition:transform .25s ease;
+}
+
+.panel:hover svg{
+transform:scale(1.08);
 }
 
 .panel-title{
@@ -402,7 +413,7 @@ color:#777;
 
 </div>
 
-<div class="zone workspace">
+<div class="zone workspace" id="workspace">
 
 <h2>Workspace</h2>
 <p style="color:var(--muted);margin-top:10px">Ready for research.</p>
@@ -438,9 +449,11 @@ color:#777;
 
 <div class="panel">
 
+<!-- TREE ICON -->
+
 <svg viewBox="0 0 24 24">
-<polyline points="6 15 12 21 18 15"/>
-<line x1="12" y1="3" x2="12" y2="21"/>
+<polygon points="12,3 4,12 8,12 6,16 10,16 8,20 16,20 14,16 18,16 16,12 20,12"/>
+<line x1="12" y1="20" x2="12" y2="23"/>
 </svg>
 
 <div class="panel-title">Life</div>
@@ -450,10 +463,18 @@ color:#777;
 
 <div class="panel">
 
+<!-- PROCESSOR ICON -->
+
 <svg viewBox="0 0 24 24">
-<line x1="4" y1="6" x2="20" y2="6"/>
-<line x1="4" y1="12" x2="20" y2="12"/>
-<line x1="4" y1="18" x2="20" y2="18"/>
+<rect x="7" y="7" width="10" height="10"/>
+<line x1="9" y1="1" x2="9" y2="7"/>
+<line x1="15" y1="1" x2="15" y2="7"/>
+<line x1="9" y1="17" x2="9" y2="23"/>
+<line x1="15" y1="17" x2="15" y2="23"/>
+<line x1="1" y1="9" x2="7" y2="9"/>
+<line x1="1" y1="15" x2="7" y2="15"/>
+<line x1="17" y1="9" x2="23" y2="9"/>
+<line x1="17" y1="15" x2="23" y2="15"/>
 </svg>
 
 <div class="panel-title">Control</div>
@@ -483,6 +504,16 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
+/* wallpaper parallax */
+
+document.addEventListener("mousemove",e=>{
+const x=(e.clientX/window.innerWidth)-0.5
+const y=(e.clientY/window.innerHeight)-0.5
+document.body.style.setProperty("--px",x*10+"px")
+document.body.style.setProperty("--py",y*10+"px")
+document.body.style.transform=`translate(${x*4}px,${y*4}px)`
+})
+
 /* eye tracking */
 
 const pupil=document.getElementById("pupil")
@@ -510,6 +541,18 @@ setInterval(()=>{
 eyelid.classList.add("blink")
 setTimeout(()=>eyelid.classList.remove("blink"),400)
 },4000)
+
+/* workspace animation */
+
+const workspace=document.getElementById("workspace")
+const searchBtn=document.querySelector(".search-btn")
+
+searchBtn.addEventListener("click",()=>{
+workspace.classList.add("animate")
+setTimeout(()=>{
+workspace.classList.remove("animate")
+},350)
+})
 
 /* clock */
 
