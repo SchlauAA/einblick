@@ -263,13 +263,13 @@ border-radius:12px;
 padding:28px;
 }
 
-/* icons */
+/* panels — UPDATED */
 
 .panel-grid{
-display:grid;
-grid-template-columns:repeat(4,var(--icon));
-justify-content:center;
-gap:var(--space-md);
+display:flex;
+justify-content:space-between;
+align-items:center;
+width:100%;
 }
 
 .panel{
@@ -483,12 +483,11 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
-/* eye tracking + dilation */
+/* eye tracking */
 
 const pupil=document.getElementById("pupil")
 const eye=document.getElementById("eye")
 const eyelid=document.getElementById("eyelid")
-const search=document.getElementById("searchInput")
 
 document.addEventListener("mousemove",e=>{
 
@@ -505,14 +504,6 @@ const moveY=(y-centerY)/8
 
 pupil.style.transform=`translate(${moveX}px,${moveY}px)`
 
-})
-
-search.addEventListener("focus",()=>{
-pupil.style.transform+=" scale(1.6)"
-})
-
-search.addEventListener("blur",()=>{
-pupil.style.transform=pupil.style.transform.replace(" scale(1.6)","")
 })
 
 setInterval(()=>{
@@ -558,7 +549,7 @@ document.getElementById("calendar").innerHTML=`
 </div>
 `
 
-/* icon click */
+/* panel click */
 
 document.querySelectorAll(".panel").forEach(panel=>{
 panel.addEventListener("click",()=>{
@@ -569,4 +560,5 @@ panel.classList.toggle("active")
 </script>
 
 </body>
+
 </html>
