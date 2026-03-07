@@ -3,26 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Einblick</title>
+
+<title>EINBLICK</title>
+
+<link href="https://fonts.cdnfonts.com/css/neue-einstellung" rel="stylesheet">
 
 <style>
+
+:root{
+--unit:160px;
+--icon:120px;
+
+--space-xl:80px;
+--space-lg:48px;
+--space-md:24px;
+--space-sm:12px;
+
+--bg-main:#050505;
+--bg-panel:#0b0b0b;
+--border:rgba(255,255,255,0.06);
+--text:#e6e6e6;
+--muted:#8c8c8c;
+}
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:system-ui,-apple-system,Segoe UI,Roboto;
+font-family:"Neue Einstellung",sans-serif;
 }
 
 body{
-background:#000;
-color:#e8e8e8;
+background:var(--bg-main);
+color:var(--text);
 display:flex;
 justify-content:center;
 overflow-x:hidden;
 }
 
-/* animated grid background */
+/* dynamic wallpaper */
 
 body::before{
 content:"";
@@ -31,18 +50,25 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background-image:
-linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-background-size:60px 60px;
-animation:gridMove 60s linear infinite;
+
+background:
+radial-gradient(circle at 30% 30%,rgba(255,255,255,0.04),transparent 60%),
+linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,0.03) 1px, transparent 1px);
+
+background-size:100% 100%,60px 60px,60px 60px;
+
+animation:drift 120s linear infinite;
+
 z-index:-1;
 }
 
-@keyframes gridMove{
+@keyframes drift{
 0%{transform:translate(0,0)}
 100%{transform:translate(60px,60px)}
 }
+
+/* container */
 
 .container{
 width:92%;
@@ -50,14 +76,14 @@ max-width:1100px;
 margin:auto;
 display:flex;
 flex-direction:column;
-gap:70px;
+gap:var(--space-xl);
 padding:80px 40px;
-border:1px solid rgba(255,255,255,0.06);
+border:1px solid var(--border);
 border-radius:18px;
 background:rgba(10,10,10,0.9);
 }
 
-/* brand */
+/* AI eye */
 
 .logo-eye{
 display:flex;
@@ -68,7 +94,7 @@ margin-bottom:12px;
 .eye{
 width:82px;
 height:52px;
-border:2px solid #cfd3dc;
+border:1px solid var(--border);
 border-radius:50px/30px;
 display:flex;
 align-items:center;
@@ -80,7 +106,7 @@ overflow:hidden;
 .pupil{
 width:14px;
 height:14px;
-background:#cfd3dc;
+background:var(--text);
 border-radius:50%;
 position:absolute;
 transition:.2s;
@@ -90,7 +116,7 @@ transition:.2s;
 position:absolute;
 width:100%;
 height:100%;
-background:#000;
+background:var(--bg-main);
 top:-100%;
 }
 
@@ -102,42 +128,48 @@ top:-100%;
 
 .blink{animation:blink .5s ease}
 
+/* brand */
+
 .brand-name{
 font-size:36px;
 font-weight:600;
 text-align:center;
+letter-spacing:2px;
 }
 
 .slogan{
 text-align:center;
 font-size:14px;
-color:#9aa0aa;
+color:var(--muted);
 margin-top:6px;
 }
 
 /* widgets */
 
 .widget-row{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:24px;
+display:flex;
+justify-content:space-between;
+gap:var(--space-md);
 }
 
 .widget{
-aspect-ratio:1/1;
-background:#0d0d0d;
-border:1px solid #242424;
+width:var(--unit);
+height:var(--unit);
+background:var(--bg-panel);
+border:1px solid var(--border);
 border-radius:12px;
+
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
+
 transition:.25s;
 }
 
 .widget:hover{
-transform:scale(1.04);
-border-color:#fff;
+transform:scale(1.03);
+border-color:rgba(255,255,255,0.15);
 }
 
 /* clock */
@@ -145,7 +177,7 @@ border-color:#fff;
 .clock{
 width:70px;
 height:70px;
-border:2px solid #cfd3dc;
+border:1px solid var(--border);
 border-radius:50%;
 position:relative;
 margin-bottom:10px;
@@ -156,19 +188,19 @@ position:absolute;
 bottom:50%;
 left:50%;
 transform-origin:bottom;
-background:#cfd3dc;
+background:var(--text);
 }
 
-.hour{width:3px;height:20px}
-.minute{width:2px;height:28px}
-.second{width:1px;height:32px}
+.hour{width:2px;height:18px}
+.minute{width:2px;height:26px}
+.second{width:1px;height:30px}
 
 /* search */
 
 .search-panel{
 display:flex;
-background:#0d0d0d;
-border:1px solid #242424;
+background:var(--bg-panel);
+border:1px solid var(--border);
 border-radius:12px;
 overflow:hidden;
 }
@@ -184,24 +216,24 @@ justify-content:center;
 flex:1;
 background:transparent;
 border:none;
-color:white;
+color:var(--text);
 padding:16px;
 font-size:16px;
 }
 
 .search-btn{
 width:120px;
-background:#141414;
+background:#111;
 border:none;
-color:white;
+color:var(--text);
 cursor:pointer;
 }
 
 /* workspace */
 
 .workspace{
-background:#0d0d0d;
-border:1px solid #242424;
+background:var(--bg-panel);
+border:1px solid var(--border);
 border-radius:12px;
 padding:28px;
 transition:.4s;
@@ -217,44 +249,47 @@ margin-top:16px;
 
 .section-title{
 font-size:13px;
-color:#9aa0aa;
+color:var(--muted);
 margin-bottom:6px;
 }
 
 /* panels */
 
 .panel-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:24px;
+display:flex;
+justify-content:space-between;
+gap:var(--space-md);
 }
 
 .panel{
-aspect-ratio:1/1;
-background:#0d0d0d;
-border:1px solid #242424;
+width:var(--icon);
+height:var(--icon);
+
+background:var(--bg-panel);
+border:1px solid var(--border);
 border-radius:12px;
+
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
+
 cursor:pointer;
 transition:.25s;
 position:relative;
 }
 
 .panel svg{
-width:40px;
-height:40px;
-stroke:#d2d6e0;
-stroke-width:1.6;
+width:38px;
+height:38px;
+stroke:var(--text);
+stroke-width:1.5;
 fill:none;
 }
 
 .panel:hover{
-transform:translateY(-4px) scale(1.05);
-border-color:#fff;
-box-shadow:0 0 18px rgba(255,255,255,.18);
+transform:translateY(-3px);
+border-color:rgba(255,255,255,0.2);
 }
 
 .panel-title{
@@ -271,7 +306,7 @@ opacity:1;
 
 .panel-sub{
 font-size:12px;
-color:#9aa0aa;
+color:var(--muted);
 opacity:0;
 max-height:0;
 overflow:hidden;
@@ -288,8 +323,8 @@ max-height:40px;
 /* reflection */
 
 .reflection{
-background:#0d0d0d;
-border:1px solid #242424;
+background:var(--bg-panel);
+border:1px solid var(--border);
 border-radius:12px;
 padding:28px;
 text-align:center;
@@ -298,7 +333,7 @@ font-style:italic;
 
 .footer{
 text-align:center;
-color:#888;
+color:#777;
 }
 
 </style>
@@ -315,7 +350,7 @@ color:#888;
 </div>
 </div>
 
-<div class="brand-name">Einblick</div>
+<div class="brand-name">EINBLICK</div>
 <div class="slogan">Where Knowledge Becomes Insight</div>
 
 <div class="widget-row">
@@ -421,121 +456,6 @@ Created by Dr. Aishvarya Adhaulia
 </div>
 
 </div>
-
-<script>
-
-/* panel expand */
-
-document.querySelectorAll(".panel").forEach(panel=>{
-panel.addEventListener("click",()=>{
-panel.classList.toggle("active")
-})
-})
-
-/* research engine */
-
-function runSearch(){
-
-const input=document.getElementById("searchInput").value.trim()
-if(!input)return
-
-const workspace=document.getElementById("workspace")
-
-workspace.classList.add("fade")
-
-setTimeout(()=>{
-
-workspace.innerHTML=`
-
-<h2>Topic: ${input}</h2>
-
-<div class="section">
-<div class="section-title">Insight</div>
-${input} is currently being explored in the Einblick research workspace.
-</div>
-
-<div class="section">
-<div class="section-title">Key Facts</div>
-• foundational concept<br>
-• subject of ongoing research<br>
-• connected knowledge domains
-</div>
-
-<div class="section">
-<div class="section-title">Related Concepts</div>
-Knowledge Graph<br>
-Scientific Models<br>
-Historical Development
-</div>
-
-`
-
-workspace.classList.remove("fade")
-
-},300)
-
-}
-
-/* clock */
-
-function updateClock(){
-
-const now=new Date()
-
-const sec=now.getSeconds()
-const min=now.getMinutes()
-const hr=now.getHours()
-
-document.getElementById("second").style.transform=`translateX(-50%) rotate(${sec*6}deg)`
-document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min*6}deg)`
-document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
-
-document.getElementById("digital").textContent=now.toLocaleTimeString()
-
-}
-
-setInterval(updateClock,1000)
-updateClock()
-
-/* calendar */
-
-const today=new Date()
-
-document.getElementById("calendar").innerHTML=
-today.toLocaleDateString(undefined,{
-weekday:'long',
-day:'numeric',
-month:'short',
-year:'numeric'
-})
-
-/* eye tracking */
-
-const pupil=document.getElementById("pupil")
-const eye=document.getElementById("eye")
-
-document.addEventListener("mousemove",e=>{
-
-const rect=eye.getBoundingClientRect()
-
-const x=e.clientX-rect.left
-const y=e.clientY-rect.top
-
-const centerX=rect.width/2
-const centerY=rect.height/2
-
-pupil.style.transform=`translate(${(x-centerX)/10}px,${(y-centerY)/10}px)`
-
-})
-
-setInterval(()=>{
-document.getElementById("eyelid").classList.add("blink")
-setTimeout(()=>{
-document.getElementById("eyelid").classList.remove("blink")
-},400)
-},4000)
-
-</script>
 
 </body>
 </html>
