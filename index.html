@@ -19,11 +19,10 @@ background:#000;
 color:#e8e8e8;
 display:flex;
 justify-content:center;
-line-height:1.5;
 overflow-x:hidden;
 }
 
-/* animated grid */
+/* animated grid background */
 
 body::before{
 content:"";
@@ -45,27 +44,25 @@ z-index:-1;
 100%{transform:translate(60px,60px)}
 }
 
-/* container */
-
 .container{
 width:92%;
-max-width:1200px;
+max-width:1100px;
 margin:auto;
 display:flex;
 flex-direction:column;
-gap:56px;
-padding:70px 40px;
+gap:70px;
+padding:80px 40px;
 border:1px solid rgba(255,255,255,0.06);
 border-radius:18px;
 background:rgba(10,10,10,0.9);
 }
 
-/* eye */
+/* brand */
 
 .logo-eye{
 display:flex;
 justify-content:center;
-margin-bottom:16px;
+margin-bottom:12px;
 }
 
 .eye{
@@ -104,6 +101,19 @@ top:-100%;
 }
 
 .blink{animation:blink .5s ease}
+
+.brand-name{
+font-size:36px;
+font-weight:600;
+text-align:center;
+}
+
+.slogan{
+text-align:center;
+font-size:14px;
+color:#9aa0aa;
+margin-top:6px;
+}
 
 /* widgets */
 
@@ -193,7 +203,7 @@ cursor:pointer;
 background:#0d0d0d;
 border:1px solid #242424;
 border-radius:12px;
-padding:24px;
+padding:28px;
 transition:.4s;
 }
 
@@ -201,18 +211,14 @@ transition:.4s;
 opacity:0;
 }
 
-.workspace h2{
-margin-bottom:10px;
-}
-
 .section{
-margin-top:18px;
+margin-top:16px;
 }
 
 .section-title{
+font-size:13px;
 color:#9aa0aa;
 margin-bottom:6px;
-font-size:14px;
 }
 
 /* panels */
@@ -234,20 +240,49 @@ align-items:center;
 justify-content:center;
 cursor:pointer;
 transition:.25s;
+position:relative;
 }
 
 .panel svg{
-width:42px;
-height:42px;
+width:40px;
+height:40px;
 stroke:#d2d6e0;
 stroke-width:1.6;
 fill:none;
-margin-bottom:6px;
 }
 
 .panel:hover{
 transform:translateY(-4px) scale(1.05);
 border-color:#fff;
+box-shadow:0 0 18px rgba(255,255,255,.18);
+}
+
+.panel-title{
+position:absolute;
+bottom:10px;
+font-size:13px;
+opacity:0;
+transition:.2s;
+}
+
+.panel:hover .panel-title{
+opacity:1;
+}
+
+.panel-sub{
+font-size:12px;
+color:#9aa0aa;
+opacity:0;
+max-height:0;
+overflow:hidden;
+text-align:center;
+margin-top:8px;
+transition:.25s;
+}
+
+.panel.active .panel-sub{
+opacity:1;
+max-height:40px;
 }
 
 /* reflection */
@@ -264,7 +299,6 @@ font-style:italic;
 .footer{
 text-align:center;
 color:#888;
-margin-top:20px;
 }
 
 </style>
@@ -281,9 +315,8 @@ margin-top:20px;
 </div>
 </div>
 
-<h1 style="text-align:center;">Einblick</h1>
-
-<!-- widgets -->
+<div class="brand-name">Einblick</div>
+<div class="slogan">Where Knowledge Becomes Insight</div>
 
 <div class="widget-row">
 
@@ -297,22 +330,16 @@ margin-top:20px;
 </div>
 
 <div class="widget" id="calendar"></div>
-
 <div class="widget">News</div>
-
 <div class="widget">Weather</div>
 
 </div>
-
-<!-- search -->
 
 <div class="search-panel">
 <div class="attach">📎</div>
 <input id="searchInput" class="search-input" placeholder="Search Einblick">
 <button class="search-btn" onclick="runSearch()">Search</button>
 </div>
-
-<!-- workspace -->
 
 <div class="workspace" id="workspace">
 
@@ -325,14 +352,63 @@ Ready for research.
 
 </div>
 
-<!-- panels -->
-
 <div class="panel-grid">
 
-<div class="panel">Knowledge</div>
-<div class="panel">Discovery</div>
-<div class="panel">Life</div>
-<div class="panel">Control</div>
+<div class="panel">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<circle cx="5" cy="12" r="2"/>
+<circle cx="19" cy="12" r="2"/>
+<line x1="7" y1="12" x2="9" y2="12"/>
+<line x1="15" y1="12" x2="17" y2="12"/>
+</svg>
+
+<div class="panel-title">Knowledge</div>
+<div class="panel-sub">Insight + Learning</div>
+
+</div>
+
+<div class="panel">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<line x1="12" y1="12" x2="18" y2="6"/>
+<circle cx="12" cy="12" r="2"/>
+</svg>
+
+<div class="panel-title">Discovery</div>
+<div class="panel-sub">Research + Instruments</div>
+
+</div>
+
+<div class="panel">
+
+<svg viewBox="0 0 24 24">
+<path d="M12 21c4-2 6-6 6-9-2 1-4 2-6 4-2-2-4-3-6-4 0 3 2 7 6 9z"/>
+<line x1="12" y1="16" x2="12" y2="7"/>
+</svg>
+
+<div class="panel-title">Life</div>
+<div class="panel-sub">Health + Pursuits</div>
+
+</div>
+
+<div class="panel">
+
+<svg viewBox="0 0 24 24">
+<line x1="4" y1="6" x2="20" y2="6"/>
+<circle cx="9" cy="6" r="2"/>
+<line x1="4" y1="12" x2="20" y2="12"/>
+<circle cx="15" cy="12" r="2"/>
+<line x1="4" y1="18" x2="20" y2="18"/>
+<circle cx="11" cy="18" r="2"/>
+</svg>
+
+<div class="panel-title">Control</div>
+<div class="panel-sub">Preferences + System</div>
+
+</div>
 
 </div>
 
@@ -348,12 +424,19 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
+/* panel expand */
+
+document.querySelectorAll(".panel").forEach(panel=>{
+panel.addEventListener("click",()=>{
+panel.classList.toggle("active")
+})
+})
+
 /* research engine */
 
 function runSearch(){
 
 const input=document.getElementById("searchInput").value.trim()
-
 if(!input)return
 
 const workspace=document.getElementById("workspace")
@@ -368,14 +451,14 @@ workspace.innerHTML=`
 
 <div class="section">
 <div class="section-title">Insight</div>
-${input} is a topic currently being explored within the Einblick research workspace. Further analysis and knowledge connections can be generated as the system evolves.
+${input} is currently being explored in the Einblick research workspace.
 </div>
 
 <div class="section">
 <div class="section-title">Key Facts</div>
 • foundational concept<br>
 • subject of ongoing research<br>
-• connected to multiple knowledge domains
+• connected knowledge domains
 </div>
 
 <div class="section">
@@ -383,13 +466,6 @@ ${input} is a topic currently being explored within the Einblick research worksp
 Knowledge Graph<br>
 Scientific Models<br>
 Historical Development
-</div>
-
-<div class="section">
-<div class="section-title">Suggested Instruments</div>
-Research Explorer<br>
-Analytical Calculator<br>
-Knowledge Graph Viewer
 </div>
 
 `
@@ -410,22 +486,15 @@ const sec=now.getSeconds()
 const min=now.getMinutes()
 const hr=now.getHours()
 
-document.getElementById("second").style.transform=
-`translateX(-50%) rotate(${sec*6}deg)`
+document.getElementById("second").style.transform=`translateX(-50%) rotate(${sec*6}deg)`
+document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min*6}deg)`
+document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
 
-document.getElementById("minute").style.transform=
-`translateX(-50%) rotate(${min*6}deg)`
-
-document.getElementById("hour").style.transform=
-`translateX(-50%) rotate(${hr*30+min/2}deg)`
-
-document.getElementById("digital").textContent=
-now.toLocaleTimeString()
+document.getElementById("digital").textContent=now.toLocaleTimeString()
 
 }
 
 setInterval(updateClock,1000)
-
 updateClock()
 
 /* calendar */
@@ -440,7 +509,7 @@ month:'short',
 year:'numeric'
 })
 
-/* eye */
+/* eye tracking */
 
 const pupil=document.getElementById("pupil")
 const eye=document.getElementById("eye")
@@ -455,23 +524,15 @@ const y=e.clientY-rect.top
 const centerX=rect.width/2
 const centerY=rect.height/2
 
-const moveX=(x-centerX)/10
-const moveY=(y-centerY)/10
-
-pupil.style.transform=`translate(${moveX}px,${moveY}px)`
+pupil.style.transform=`translate(${(x-centerX)/10}px,${(y-centerY)/10}px)`
 
 })
 
 setInterval(()=>{
-
 document.getElementById("eyelid").classList.add("blink")
-
 setTimeout(()=>{
-
 document.getElementById("eyelid").classList.remove("blink")
-
 },400)
-
 },4000)
 
 </script>
