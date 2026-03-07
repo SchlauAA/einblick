@@ -2,323 +2,143 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Einblick</title>
-
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:system-ui,-apple-system,Segoe UI,Roboto;
-}
-
 body{
-background:radial-gradient(circle at top,#0f1d3a 0%,#05070d 60%,#000 100%);
-color:#e8e8e8;
+background:#0a0a0a;
+color:#e6e6e6;
+font-family:Helvetica,Arial,sans-serif;
+margin:0;
 display:flex;
 justify-content:center;
-line-height:1.5;
 }
 
 .container{
-width:92%;
-max-width:1100px;
-margin:auto;
+width:1200px;
+padding:40px 0;
+}
+
+h1{
+font-weight:500;
+letter-spacing:4px;
+text-align:center;
+margin-bottom:10px;
+}
+
+.concierge{
 display:flex;
 flex-direction:column;
-gap:56px;
-padding:70px 40px;
-border:1px solid rgba(255,255,255,0.05);
-border-radius:18px;
-background:rgba(10,12,18,0.55);
-backdrop-filter:blur(6px);
-}
-
-.zone{
-width:100%;
-}
-
-.center{
-text-align:center;
-}
-
-/* AI EYE */
-
-.logo-eye{
-display:flex;
-justify-content:center;
-margin-bottom:16px;
+align-items:center;
+margin-bottom:40px;
 }
 
 .eye{
-width:82px;
-height:52px;
-border:2px solid #cfd3dc;
-border-radius:50px/30px;
+width:80px;
+height:80px;
+border:3px solid #e6e6e6;
+border-radius:50%;
 display:flex;
 align-items:center;
 justify-content:center;
+margin-bottom:10px;
 position:relative;
-overflow:hidden;
-transition:box-shadow .3s ease;
 }
 
 .pupil{
-width:14px;
-height:14px;
-background:#cfd3dc;
+width:20px;
+height:20px;
+background:#e6e6e6;
 border-radius:50%;
 position:absolute;
-transition:transform .2s ease;
 }
 
-.eyelid{
-position:absolute;
-width:100%;
-height:100%;
-background:#05070d;
-top:-100%;
-}
-
-@keyframes blink{
-0%{top:-100%}
-45%{top:-100%}
-50%{top:0}
-55%{top:-100%}
-100%{top:-100%}
-}
-
-.blink{
-animation:blink .5s ease;
-}
-
-/* BRAND */
-
-.brand-name{
-font-size:36px;
-font-weight:600;
-margin-bottom:6px;
-}
-
-.slogan{
-color:#9aa0aa;
-}
-
-/* WIDGETS */
-
-.widget-row{
+.widgets{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:24px;
+gap:20px;
+margin-bottom:40px;
 }
 
 .widget{
 aspect-ratio:1/1;
-background:#14161c;
-border:1px solid #23252d;
-border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,.35);
+border:1px solid #333;
+padding:15px;
 display:flex;
 flex-direction:column;
-align-items:center;
 justify-content:center;
-padding:20px;
-transition:.22s;
+align-items:center;
+position:relative;
 }
-
-.widget:hover{
-transform:scale(1.04);
-border-color:#6a82ff;
-box-shadow:0 0 12px rgba(120,140,255,.35);
-}
-
-/* CLOCK */
 
 .clock{
-width:70px;
+font-size:28px;
+margin-top:10px;
+}
+
+canvas{
+width:120px;
+height:120px;
+}
+
+.search{
+border:1px solid #333;
 height:70px;
-border:2px solid #cfd3dc;
-border-radius:50%;
-position:relative;
-margin-bottom:10px;
-}
-
-.hand{
-position:absolute;
-bottom:50%;
-left:50%;
-transform-origin:bottom;
-background:#cfd3dc;
-}
-
-.hour{width:3px;height:20px}
-.minute{width:2px;height:28px}
-.second{width:1px;height:32px;background:#8aa4ff}
-
-.digital{
-font-size:14px;
-}
-
-/* SEARCH */
-
-.search-panel{
-width:100%;
 display:flex;
-background:#14161c;
-border:1px solid #23252d;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,.35);
+align-items:center;
+padding:0 15px;
+margin-bottom:40px;
 }
 
-.search-panel:focus-within{
-border-color:#6a82ff;
-box-shadow:0 0 10px rgba(120,140,255,.35);
+.search input{
+flex:1;
+background:none;
+border:none;
+outline:none;
+color:#e6e6e6;
+font-size:18px;
 }
 
-.attach{
-width:60px;
+.workspace{
+border:1px solid #333;
+height:180px;
 display:flex;
 align-items:center;
 justify-content:center;
-border-right:1px solid #23252d;
+margin-bottom:40px;
 }
 
-.search-input{
-flex:1;
-background:transparent;
-border:none;
-color:white;
-padding:16px;
-font-size:16px;
-}
-
-.search-input:focus{
-outline:none;
-background:#1a1d25;
-}
-
-.search-btn{
-width:120px;
-background:#1c1f28;
-border:none;
-color:white;
-cursor:pointer;
-}
-
-/* WORKSPACE */
-
-.workspace{
-background:#14161c;
-border:1px solid #23252d;
-border-radius:12px;
-padding:20px;
-box-shadow:0 10px 25px rgba(0,0,0,.35);
-text-align:center;
-}
-
-.workspace-title{
-font-size:14px;
-color:#9aa0aa;
-margin-bottom:10px;
-}
-
-/* PANELS */
-
-.panel-grid{
+.panels{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:24px;
+gap:20px;
+margin-bottom:40px;
 }
 
 .panel{
 aspect-ratio:1/1;
-background:#14161c;
-border:1px solid #23252d;
-border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,.35);
+border:1px solid #333;
 display:flex;
 align-items:center;
 justify-content:center;
-cursor:pointer;
-transition:.25s;
-position:relative;
-}
-
-.panel svg{
-width:34px;
-height:34px;
-stroke:#d2d6e0;
-stroke-width:1.6;
-stroke-linecap:round;
-stroke-linejoin:round;
-fill:none;
-transition:all .25s ease;
+transition:all .2s;
 }
 
 .panel:hover{
-transform:translateY(-4px) scale(1.04);
-border-color:#6a82ff;
-box-shadow:0 0 18px rgba(120,140,255,.35),0 8px 28px rgba(0,0,0,.45);
+box-shadow:0 0 10px #888;
 }
-
-.panel:hover svg{
-transform:scale(1.15) rotate(-2deg);
-stroke:#ffffff;
-}
-
-.panel-label{
-position:absolute;
-bottom:10px;
-font-size:12px;
-opacity:0;
-transform:translateY(4px);
-transition:all .22s ease;
-}
-
-.panel:hover .panel-label{
-opacity:1;
-transform:translateY(0);
-}
-
-/* REFLECTION */
 
 .reflection{
-background:#14161c;
-border:1px solid #23252d;
-border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,.35);
-padding:28px;
+border:1px solid #333;
+padding:25px;
 text-align:center;
-font-style:italic;
-font-size:18px;
-line-height:1.6;
+margin-bottom:20px;
 }
 
-.reflection-title{
-color:#9aa0aa;
-margin-bottom:12px;
-}
-
-/* FOOTER */
-
-.footer{
+.credit{
 text-align:center;
-color:#888;
-font-size:14px;
-margin-top:36px;
-}
-
-/* RESPONSIVE */
-
-@media (max-width:900px){
-
-.widget-row{
-grid-template-columns:repeat(2,1fr);
-}
-
+font-size:12px;
+opacity:.6;
 }
 
 </style>
@@ -328,131 +148,63 @@ grid-template-columns:repeat(2,1fr);
 
 <div class="container">
 
-<div class="zone center">
-
-<div class="logo-eye">
-<div class="eye" id="eye">
+<div class="concierge">
+<div class="eye">
 <div class="pupil" id="pupil"></div>
-<div class="eyelid" id="eyelid"></div>
 </div>
-</div>
-
-<div class="brand-name">Einblick</div>
-<div class="slogan">Where Knowledge Becomes Insight</div>
-
+<h1>EINBLICK</h1>
 </div>
 
-<div class="zone">
-
-<div class="widget-row">
+<div class="widgets">
 
 <div class="widget">
-<div class="clock">
-<div class="hand hour" id="hour"></div>
-<div class="hand minute" id="minute"></div>
-<div class="hand second" id="second"></div>
-</div>
-<div class="digital" id="digital"></div>
+<canvas id="analogClock"></canvas>
+<div class="clock" id="digitalClock"></div>
 </div>
 
-<div class="widget" id="calendar"></div>
-
-<div class="widget">News</div>
-
-<div class="widget">Weather</div>
-
+<div class="widget">
+<div id="calendarDay"></div>
+<div id="calendarDate"></div>
 </div>
 
+<div class="widget">
+<div>News</div>
 </div>
 
-<div class="zone">
-
-<div class="search-panel">
-<div class="attach">📎</div>
-<input class="search-input" id="searchInput" placeholder="Search Einblick">
-<button class="search-btn">Search</button>
+<div class="widget">
+<div>Weather</div>
 </div>
 
 </div>
 
-<div class="zone">
+<div class="search">
+<input placeholder="Search Einblick knowledge system">
+</div>
 
 <div class="workspace">
-
-<div class="workspace-title">Workspace</div>
-
-Research → Relativity<br>
-2 Tabs Open
-
+Workspace
 </div>
 
-</div>
+<div class="panels">
 
-<div class="zone">
+<div class="panel">Instruments</div>
+<div class="panel">Atlas</div>
+<div class="panel">Courses</div>
+<div class="panel">Research</div>
 
-<div class="panel-grid">
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M8 14a6 6 0 1112 0c0 2-2 3-2 4H10c0-1-2-2-2-4"/></svg>
-<div class="panel-label">Insight</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><path d="M3 6h8a3 3 0 013 3v9H6a3 3 0 00-3 3V6z"/><path d="M21 6h-8a3 3 0 00-3 3v9h8a3 3 0 013 3V6z"/></svg>
-<div class="panel-label">Learning</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
-<div class="panel-label">Research</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 12l5-5"/><circle cx="12" cy="12" r="2"/></svg>
-<div class="panel-label">Instruments</div>
-</div>
+<div class="panel">Library</div>
+<div class="panel">Translator</div>
+<div class="panel">Data</div>
+<div class="panel">Settings</div>
 
 </div>
-
-<div class="panel-grid">
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><path d="M12 21s-6-4.35-9-8a5 5 0 019-4 5 5 0 019 4c-3 3.65-9 8-9 8z"/></svg>
-<div class="panel-label">Health</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><path d="M12 21c4-2 6-6 6-9-2 1-4 2-6 4-2-2-4-3-6-4 0 3 2 7 6 9z"/><path d="M12 16V7"/></svg>
-<div class="panel-label">Pursuits</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="11" cy="18" r="2"/></svg>
-<div class="panel-label">Preferences</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10"/><path d="M3 9h4M3 15h4M17 3v4M17 17v4M9 3v4M9 17v4M21 9h-4M21 15h-4"/></svg>
-<div class="panel-label">System</div>
-</div>
-
-</div>
-
-</div>
-
-<div class="zone">
 
 <div class="reflection">
-
-<div class="reflection-title">Today's Reflection</div>
-
-"If space-time bends under gravity, what might a universe without mass look like?"
-
+“The important thing is not to stop questioning.”  
+<br>Albert Einstein
 </div>
 
-</div>
-
-<div class="footer">
+<div class="credit">
 Created by Dr. Aishvarya Adhaulia
 </div>
 
@@ -460,60 +212,84 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
-const pupil=document.getElementById("pupil")
-const eye=document.getElementById("eye")
-const eyelid=document.getElementById("eyelid")
-
 function updateClock(){
-
 const now=new Date()
+document.getElementById("digitalClock").innerText=
+now.toLocaleTimeString()
+}
 
+setInterval(updateClock,1000)
+
+function updateCalendar(){
+const now=new Date()
+document.getElementById("calendarDay").innerText=
+now.toLocaleDateString(undefined,{weekday:"long"})
+document.getElementById("calendarDate").innerText=
+now.toLocaleDateString()
+}
+
+updateCalendar()
+
+const canvas=document.getElementById("analogClock")
+const ctx=canvas.getContext("2d")
+canvas.width=200
+canvas.height=200
+
+function drawClock(){
+const now=new Date()
 const sec=now.getSeconds()
 const min=now.getMinutes()
 const hr=now.getHours()
 
-document.getElementById("second").style.transform=`translateX(-50%) rotate(${sec*6}deg)`
-document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min*6}deg)`
-document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
+ctx.clearRect(0,0,200,200)
 
-document.getElementById("digital").textContent=now.toLocaleTimeString()
+ctx.beginPath()
+ctx.arc(100,100,90,0,Math.PI*2)
+ctx.strokeStyle="#e6e6e6"
+ctx.stroke()
+
+ctx.beginPath()
+ctx.moveTo(100,100)
+ctx.lineTo(
+100+50*Math.cos((hr%12+min/60)*Math.PI/6-Math.PI/2),
+100+50*Math.sin((hr%12+min/60)*Math.PI/6-Math.PI/2)
+)
+ctx.stroke()
+
+ctx.beginPath()
+ctx.moveTo(100,100)
+ctx.lineTo(
+100+70*Math.cos(min*Math.PI/30-Math.PI/2),
+100+70*Math.sin(min*Math.PI/30-Math.PI/2)
+)
+ctx.stroke()
+
+ctx.beginPath()
+ctx.moveTo(100,100)
+ctx.lineTo(
+100+80*Math.cos(sec*Math.PI/30-Math.PI/2),
+100+80*Math.sin(sec*Math.PI/30-Math.PI/2)
+)
+ctx.stroke()
 
 }
 
-setInterval(updateClock,1000)
-updateClock()
+setInterval(drawClock,1000)
 
-const today=new Date()
-
-document.getElementById("calendar").innerHTML=
-today.toLocaleDateString(undefined,{
-weekday:'long',
-day:'numeric',
-month:'short',
-year:'numeric'
+document.addEventListener("mousemove",function(e){
+const pupil=document.getElementById("pupil")
+const x=(e.clientX/window.innerWidth-0.5)*20
+const y=(e.clientY/window.innerHeight-0.5)*20
+pupil.style.transform=`translate(${x}px,${y}px)`
 })
 
-document.addEventListener("mousemove",e=>{
+function blink(){
+const eye=document.querySelector(".eye")
+eye.style.height="10px"
+setTimeout(()=>eye.style.height="80px",200)
+}
 
-const rect=eye.getBoundingClientRect()
-
-const x=e.clientX-rect.left
-const y=e.clientY-rect.top
-
-const centerX=rect.width/2
-const centerY=rect.height/2
-
-const moveX=(x-centerX)/10
-const moveY=(y-centerY)/10
-
-pupil.style.transform=`translate(${moveX}px,${moveY}px)`
-
-})
-
-setInterval(()=>{
-eyelid.classList.add("blink")
-setTimeout(()=>{eyelid.classList.remove("blink")},500)
-},4000)
+setInterval(blink,5000)
 
 </script>
 
