@@ -23,7 +23,7 @@ line-height:1.5;
 overflow-x:hidden;
 }
 
-/* KNOWLEDGE GRID BACKGROUND */
+/* KNOWLEDGE GRID */
 
 body::before{
 content:"";
@@ -57,7 +57,7 @@ gap:56px;
 padding:70px 40px;
 border:1px solid rgba(255,255,255,0.06);
 border-radius:18px;
-background:rgba(10,10,10,0.88);
+background:rgba(10,10,10,0.9);
 backdrop-filter:blur(6px);
 }
 
@@ -121,7 +121,7 @@ margin-bottom:6px;
 
 .slogan{color:#9aa0aa}
 
-/* WIDGET GRID */
+/* WIDGETS */
 
 .widget-row{
 display:grid;
@@ -134,7 +134,6 @@ aspect-ratio:1/1;
 background:#0d0d0d;
 border:1px solid #242424;
 border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,.6);
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -182,6 +181,11 @@ background:#0d0d0d;
 border:1px solid #242424;
 border-radius:12px;
 overflow:hidden;
+}
+
+.search-panel:focus-within{
+border-color:#fff;
+box-shadow:0 0 12px rgba(255,255,255,.18);
 }
 
 .attach{
@@ -243,6 +247,24 @@ align-items:center;
 justify-content:center;
 cursor:pointer;
 transition:.25s;
+position:relative;
+overflow:hidden;
+}
+
+/* radial hover glow */
+
+.panel::before{
+content:"";
+position:absolute;
+width:140%;
+height:140%;
+background:radial-gradient(circle,rgba(255,255,255,0.12),transparent 70%);
+opacity:0;
+transition:.3s;
+}
+
+.panel:hover::before{
+opacity:1;
 }
 
 .panel svg{
@@ -251,14 +273,14 @@ height:42px;
 stroke:#d2d6e0;
 stroke-width:1.6;
 fill:none;
-margin-bottom:10px;
+margin-bottom:6px;
 transition:.25s;
 }
 
 .panel:hover{
-transform:scale(1.05);
-border-color:#ffffff;
-box-shadow:0 0 16px rgba(255,255,255,.18);
+transform:translateY(-4px) scale(1.05);
+border-color:#fff;
+box-shadow:0 0 18px rgba(255,255,255,.2);
 }
 
 .panel:hover svg{
@@ -267,13 +289,30 @@ stroke:#ffffff;
 }
 
 .panel-title{
-font-size:15px;
-font-weight:500;
+font-size:14px;
+opacity:0;
+transform:translateY(6px);
+transition:.2s;
+}
+
+.panel:hover .panel-title{
+opacity:1;
+transform:translateY(0);
 }
 
 .panel-sub{
 font-size:12px;
 color:#9aa0aa;
+opacity:0;
+max-height:0;
+overflow:hidden;
+transition:.25s;
+}
+
+.panel.active .panel-sub{
+opacity:1;
+max-height:40px;
+margin-top:4px;
 }
 
 /* REFLECTION */
@@ -347,7 +386,7 @@ margin-top:36px;
 
 <div class="search-panel">
 <div class="attach">📎</div>
-<input class="search-input" placeholder="Search Einblick">
+<input class="search-input" id="searchInput" placeholder="Search Einblick">
 <button class="search-btn">Search</button>
 </div>
 
@@ -430,9 +469,49 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
+/* panel expand */
+
+document.querySelectorAll(".panel").forEach(panel=>{
+panel.addEventListener("click",()=>{
+panel.classList.toggle("active")
+})
+})
+
+/* eye tracking */
+
 const pupil=document.getElementById("pupil")
 const eye=document.getElementById("eye")
 const eyelid=document.getElementById("eyelid")
+const search=document.getElementById("searchInput")
+
+document.addEventListener("mousemove",e=>{
+
+if(document.activeElement===search) return
+
+const rect=eye.getBoundingClientRect()
+
+const x=e.clientX-rect.left
+const y=e.clientY-rect.top
+
+const centerX=rect.width/2
+const centerY=rect.height/2
+
+const moveX=(x-centerX)/10
+const moveY=(y-centerY)/10
+
+pupil.style.transform=`translate(${moveX}px,${moveY}px)`
+
+})
+
+search.addEventListener("focus",()=>{
+pupil.style.transform="translate(0,6px)"
+})
+
+search.addEventListener("blur",()=>{
+pupil.style.transform="translate(0,0)"
+})
+
+/* clock */
 
 function updateClock(){
 
@@ -453,6 +532,8 @@ document.getElementById("digital").textContent=now.toLocaleTimeString()
 setInterval(updateClock,1000)
 updateClock()
 
+/* calendar */
+
 const today=new Date()
 
 document.getElementById("calendar").innerHTML=
@@ -463,22 +544,7 @@ month:'short',
 year:'numeric'
 })
 
-document.addEventListener("mousemove",e=>{
-
-const rect=eye.getBoundingClientRect()
-
-const x=e.clientX-rect.left
-const y=e.clientY-rect.top
-
-const centerX=rect.width/2
-const centerY=rect.height/2
-
-const moveX=(x-centerX)/10
-const moveY=(y-centerY)/10
-
-pupil.style.transform=`translate(${moveX}px,${moveY}px)`
-
-})
+/* blinking */
 
 setInterval(()=>{
 eyelid.classList.add("blink")
