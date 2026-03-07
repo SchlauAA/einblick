@@ -20,7 +20,32 @@ color:#e8e8e8;
 display:flex;
 justify-content:center;
 line-height:1.5;
+overflow-x:hidden;
 }
+
+/* KNOWLEDGE GRID BACKGROUND */
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background-image:
+linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+background-size:60px 60px;
+animation:gridMove 60s linear infinite;
+z-index:-1;
+}
+
+@keyframes gridMove{
+0%{transform:translate(0,0)}
+100%{transform:translate(60px,60px)}
+}
+
+/* CONTAINER */
 
 .container{
 width:92%;
@@ -32,17 +57,12 @@ gap:56px;
 padding:70px 40px;
 border:1px solid rgba(255,255,255,0.06);
 border-radius:18px;
-background:rgba(10,10,10,0.85);
+background:rgba(10,10,10,0.88);
 backdrop-filter:blur(6px);
 }
 
-.zone{
-width:100%;
-}
-
-.center{
-text-align:center;
-}
+.zone{width:100%}
+.center{text-align:center}
 
 /* AI EYE */
 
@@ -55,7 +75,7 @@ margin-bottom:16px;
 .eye{
 width:82px;
 height:52px;
-border:2.5px solid #cfd3dc;
+border:2px solid #cfd3dc;
 border-radius:50px/30px;
 display:flex;
 align-items:center;
@@ -89,9 +109,7 @@ top:-100%;
 100%{top:-100%}
 }
 
-.blink{
-animation:blink .5s ease;
-}
+.blink{animation:blink .5s ease}
 
 /* BRAND */
 
@@ -101,11 +119,9 @@ font-weight:600;
 margin-bottom:6px;
 }
 
-.slogan{
-color:#9aa0aa;
-}
+.slogan{color:#9aa0aa}
 
-/* GRID */
+/* WIDGET GRID */
 
 .widget-row{
 display:grid;
@@ -113,21 +129,12 @@ grid-template-columns:repeat(4,1fr);
 gap:24px;
 }
 
-.panel-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:24px;
-}
-
-/* MODULES */
-
-.widget,
-.panel{
+.widget{
 aspect-ratio:1/1;
 background:#0d0d0d;
 border:1px solid #242424;
 border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,.55);
+box-shadow:0 10px 25px rgba(0,0,0,.6);
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -136,11 +143,10 @@ padding:20px;
 transition:.25s;
 }
 
-.widget:hover,
-.panel:hover{
+.widget:hover{
 transform:scale(1.04);
-border-color:#ffffff;
-box-shadow:0 0 12px rgba(255,255,255,0.18);
+border-color:#fff;
+box-shadow:0 0 12px rgba(255,255,255,.18);
 }
 
 /* CLOCK */
@@ -166,9 +172,7 @@ background:#cfd3dc;
 .minute{width:2px;height:28px}
 .second{width:1px;height:32px}
 
-.digital{
-font-size:14px;
-}
+.digital{font-size:14px}
 
 /* SEARCH */
 
@@ -222,10 +226,49 @@ text-align:center;
 
 /* PANELS */
 
+.panel-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:24px;
+}
+
+.panel{
+aspect-ratio:1/1;
+background:#0d0d0d;
+border:1px solid #242424;
+border-radius:12px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+transition:.25s;
+}
+
+.panel svg{
+width:42px;
+height:42px;
+stroke:#d2d6e0;
+stroke-width:1.6;
+fill:none;
+margin-bottom:10px;
+transition:.25s;
+}
+
+.panel:hover{
+transform:scale(1.05);
+border-color:#ffffff;
+box-shadow:0 0 16px rgba(255,255,255,.18);
+}
+
+.panel:hover svg{
+transform:scale(1.15);
+stroke:#ffffff;
+}
+
 .panel-title{
-font-size:16px;
+font-size:15px;
 font-weight:500;
-margin-bottom:4px;
 }
 
 .panel-sub{
@@ -294,7 +337,6 @@ margin-top:36px;
 <div class="widget" id="calendar"></div>
 
 <div class="widget">News</div>
-
 <div class="widget">Weather</div>
 
 </div>
@@ -305,7 +347,7 @@ margin-top:36px;
 
 <div class="search-panel">
 <div class="attach">📎</div>
-<input class="search-input" id="searchInput" placeholder="Search Einblick">
+<input class="search-input" placeholder="Search Einblick">
 <button class="search-btn">Search</button>
 </div>
 
@@ -324,21 +366,45 @@ Workspace
 <div class="panel-grid">
 
 <div class="panel">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<circle cx="5" cy="12" r="2"/>
+<circle cx="19" cy="12" r="2"/>
+<line x1="7" y1="12" x2="9" y2="12"/>
+<line x1="15" y1="12" x2="17" y2="12"/>
+</svg>
 <div class="panel-title">Knowledge</div>
 <div class="panel-sub">Insight + Learning</div>
 </div>
 
 <div class="panel">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<line x1="12" y1="12" x2="18" y2="6"/>
+<circle cx="12" cy="12" r="2"/>
+</svg>
 <div class="panel-title">Discovery</div>
 <div class="panel-sub">Research + Instruments</div>
 </div>
 
 <div class="panel">
+<svg viewBox="0 0 24 24">
+<path d="M12 21c4-2 6-6 6-9-2 1-4 2-6 4-2-2-4-3-6-4 0 3 2 7 6 9z"/>
+<line x1="12" y1="16" x2="12" y2="7"/>
+</svg>
 <div class="panel-title">Life</div>
 <div class="panel-sub">Health + Pursuits</div>
 </div>
 
 <div class="panel">
+<svg viewBox="0 0 24 24">
+<line x1="4" y1="6" x2="20" y2="6"/>
+<circle cx="9" cy="6" r="2"/>
+<line x1="4" y1="12" x2="20" y2="12"/>
+<circle cx="15" cy="12" r="2"/>
+<line x1="4" y1="18" x2="20" y2="18"/>
+<circle cx="11" cy="18" r="2"/>
+</svg>
 <div class="panel-title">Control</div>
 <div class="panel-sub">Preferences + System</div>
 </div>
@@ -350,11 +416,8 @@ Workspace
 <div class="zone">
 
 <div class="reflection">
-
 <div class="reflection-title">Today's Reflection</div>
-
 "If space-time bends under gravity, what might a universe without mass look like?"
-
 </div>
 
 </div>
