@@ -32,9 +32,11 @@ width:100%;
 margin-bottom:48px;
 }
 
-.center{text-align:center}
+.center{
+text-align:center;
+}
 
-/* EYE */
+/* AI EYE */
 
 .logo-eye{
 display:flex;
@@ -80,7 +82,9 @@ top:-100%;
 100%{top:-100%}
 }
 
-.blink{animation:blink .5s}
+.blink{
+animation:blink .5s ease;
+}
 
 /* BRAND */
 
@@ -90,7 +94,9 @@ font-weight:600;
 margin-bottom:6px;
 }
 
-.slogan{color:#9aa0aa}
+.slogan{
+color:#9aa0aa;
+}
 
 /* WIDGET GRID */
 
@@ -201,14 +207,17 @@ font-size:18px;
 margin-bottom:10px;
 }
 
-.author{color:#9aa0aa}
+.author{
+color:#9aa0aa;
+}
 
 /* PANELS */
 
-.panel-row{
+.panel-grid{
 display:grid;
-grid-template-columns:repeat(8,1fr);
+grid-template-columns:repeat(4,1fr);
 gap:24px;
+margin-bottom:24px;
 }
 
 .panel{
@@ -221,11 +230,7 @@ align-items:center;
 justify-content:center;
 cursor:pointer;
 transition:.22s;
-}
-
-.panel:hover{
-transform:scale(1.04);
-border-color:#5b7cff;
+position:relative;
 }
 
 .panel svg{
@@ -236,40 +241,46 @@ stroke-width:1.8;
 fill:none;
 }
 
-/* MODULE SCREEN */
-
-.module-screen{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#05070d;
-display:none;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-z-index:10;
+.panel:hover{
+transform:scale(1.05);
+border-color:#5b7cff;
+box-shadow:0 0 10px rgba(120,140,255,.35);
 }
 
-.module-title{
-font-size:32px;
-margin-bottom:20px;
+.panel-label{
+position:absolute;
+bottom:10px;
+font-size:12px;
+opacity:0;
+transition:.2s;
 }
 
-.back-btn{
-padding:12px 24px;
-border:none;
-background:#1c1f28;
-color:white;
-cursor:pointer;
-border-radius:6px;
+.panel:hover .panel-label{
+opacity:1;
 }
+
+/* WORKSPACE */
+
+.workspace{
+background:#14161c;
+border:1px solid #23252d;
+border-radius:12px;
+padding:20px;
+text-align:center;
+}
+
+.workspace-title{
+color:#9aa0aa;
+margin-bottom:10px;
+}
+
+/* FOOTER */
 
 .footer{
 text-align:center;
 color:#888;
 font-size:14px;
+margin-top:36px;
 }
 
 </style>
@@ -277,7 +288,9 @@ font-size:14px;
 
 <body>
 
-<div class="container" id="home">
+<div class="container">
+
+<!-- ZONE 1 -->
 
 <div class="zone center">
 
@@ -292,6 +305,8 @@ font-size:14px;
 <div class="slogan">Where Knowledge Becomes Insight</div>
 
 </div>
+
+<!-- ZONE 2 -->
 
 <div class="zone">
 
@@ -308,71 +323,123 @@ font-size:14px;
 
 <div class="widget" id="calendar"></div>
 
-<div class="widget">Loading news...</div>
+<div class="widget">News</div>
 
-<div class="widget">☀️ 26°C</div>
+<div class="widget">Weather</div>
+
+</div>
 
 </div>
 
-</div>
+<!-- ZONE 3 -->
 
 <div class="zone">
 
 <div class="search-panel">
+
 <div class="attach">📎</div>
+
 <input class="search-input" placeholder="Search Einblick">
+
 <button class="search-btn">Search</button>
+
 </div>
 
 </div>
+
+<!-- ZONE 4 -->
 
 <div class="zone">
 
 <div class="reflection">
+
 <div class="reflection-title">Today's Reflection</div>
+
 <div class="quote">
-“The universe is not only stranger than we imagine, it is stranger than we can imagine.”
+"If space-time bends under gravity, what might a universe without mass look like?"
 </div>
-<div class="author">— J. B. S. Haldane</div>
+
+<div class="author">AI Reflection</div>
+
 </div>
 
 </div>
+
+<!-- ZONE 5 -->
 
 <div class="zone">
 
-<div class="panel-row">
+<div class="panel-grid">
 
-<div class="panel" onclick="openModule('Insight')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg></div>
+<div class="panel">
+<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>
+<div class="panel-label">Insight</div>
+</div>
 
-<div class="panel" onclick="openModule('Learning')"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg></div>
+<div class="panel">
+<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16"/></svg>
+<div class="panel-label">Learning</div>
+</div>
 
-<div class="panel" onclick="openModule('Research')"><svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4"/></svg></div>
+<div class="panel">
+<svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4"/></svg>
+<div class="panel-label">Research</div>
+</div>
 
-<div class="panel" onclick="openModule('Instruments')"><svg viewBox="0 0 24 24"><polygon points="12,4 20,20 4,20"/></svg></div>
+<div class="panel">
+<svg viewBox="0 0 24 24"><polygon points="12,4 20,20 4,20"/></svg>
+<div class="panel-label">Instruments</div>
+</div>
 
-<div class="panel" onclick="openModule('Health')"><svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/></svg></div>
+</div>
 
-<div class="panel" onclick="openModule('Pursuits')"><svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/></svg></div>
+<div class="panel-grid">
 
-<div class="panel" onclick="openModule('Preferences')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg></div>
+<div class="panel">
+<svg viewBox="0 0 24 24"><line x1="4" y1="12" x2="20" y2="12"/></svg>
+<div class="panel-label">Health</div>
+</div>
 
-<div class="panel" onclick="openModule('System')"><svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10"/></svg></div>
+<div class="panel">
+<svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"/></svg>
+<div class="panel-label">Pursuits</div>
+</div>
+
+<div class="panel">
+<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/></svg>
+<div class="panel-label">Preferences</div>
+</div>
+
+<div class="panel">
+<svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10"/></svg>
+<div class="panel-label">System</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- ZONE 6 -->
+
+<div class="zone">
+
+<div class="workspace">
+
+<div class="workspace-title">Workspace</div>
+
+Active Workspace  
+Research → Relativity  
+2 Tabs Open
 
 </div>
 
 </div>
+
+<!-- ZONE 7 -->
 
 <div class="footer">
 Created by Dr. Aishvarya Adhaulia
 </div>
-
-</div>
-
-<div class="module-screen" id="moduleScreen">
-
-<div class="module-title" id="moduleTitle"></div>
-
-<button class="back-btn" onclick="closeModule()">Back</button>
 
 </div>
 
@@ -438,26 +505,6 @@ setInterval(()=>{
 eyelid.classList.add("blink")
 setTimeout(()=>{eyelid.classList.remove("blink")},500)
 },4000)
-
-/* MODULE SYSTEM */
-
-function openModule(name){
-
-document.getElementById("home").style.display="none"
-
-document.getElementById("moduleScreen").style.display="flex"
-
-document.getElementById("moduleTitle").textContent=name
-
-}
-
-function closeModule(){
-
-document.getElementById("moduleScreen").style.display="none"
-
-document.getElementById("home").style.display="block"
-
-}
 
 </script>
 
