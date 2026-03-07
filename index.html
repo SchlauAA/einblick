@@ -98,7 +98,7 @@ margin-bottom:6px;
 color:#9aa0aa;
 }
 
-/* WIDGET GRID */
+/* WIDGETS */
 
 .widget-row{
 display:grid;
@@ -187,28 +187,14 @@ color:white;
 cursor:pointer;
 }
 
-/* REFLECTION */
+/* WORKSPACE */
 
-.reflection{
+.workspace{
 background:#14161c;
 border:1px solid #23252d;
 border-radius:12px;
-padding:28px;
+padding:20px;
 text-align:center;
-}
-
-.reflection-title{
-color:#9aa0aa;
-margin-bottom:12px;
-}
-
-.quote{
-font-size:18px;
-margin-bottom:10px;
-}
-
-.author{
-color:#9aa0aa;
 }
 
 /* PANELS */
@@ -259,19 +245,19 @@ transition:.2s;
 opacity:1;
 }
 
-/* WORKSPACE */
+/* REFLECTION */
 
-.workspace{
+.reflection{
 background:#14161c;
 border:1px solid #23252d;
 border-radius:12px;
-padding:20px;
+padding:28px;
 text-align:center;
 }
 
-.workspace-title{
+.reflection-title{
 color:#9aa0aa;
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
 /* FOOTER */
@@ -331,41 +317,31 @@ margin-top:36px;
 
 </div>
 
-<!-- ZONE 3 -->
+<!-- ZONE 3 SEARCH -->
 
 <div class="zone">
 
 <div class="search-panel">
-
 <div class="attach">📎</div>
-
 <input class="search-input" placeholder="Search Einblick">
-
 <button class="search-btn">Search</button>
-
 </div>
 
 </div>
 
-<!-- ZONE 4 -->
+<!-- ZONE 4 WORKSPACE -->
 
 <div class="zone">
 
-<div class="reflection">
-
-<div class="reflection-title">Today's Reflection</div>
-
-<div class="quote">
-"If space-time bends under gravity, what might a universe without mass look like?"
-</div>
-
-<div class="author">AI Reflection</div>
-
+<div class="workspace">
+Active Workspace<br>
+Research → Relativity<br>
+2 Tabs Open
 </div>
 
 </div>
 
-<!-- ZONE 5 -->
+<!-- ZONE 5 PANELS -->
 
 <div class="zone">
 
@@ -419,23 +395,21 @@ margin-top:36px;
 
 </div>
 
-<!-- ZONE 6 -->
+<!-- ZONE 6 REFLECTION -->
 
 <div class="zone">
 
-<div class="workspace">
+<div class="reflection">
 
-<div class="workspace-title">Workspace</div>
+<div class="reflection-title">Today's Reflection</div>
 
-Active Workspace  
-Research → Relativity  
-2 Tabs Open
+"If space-time bends under gravity, what might a universe without mass look like?"
 
 </div>
 
 </div>
 
-<!-- ZONE 7 -->
+<!-- ZONE 7 CREDITS -->
 
 <div class="footer">
 Created by Dr. Aishvarya Adhaulia
@@ -448,7 +422,6 @@ Created by Dr. Aishvarya Adhaulia
 /* CLOCK */
 
 function updateClock(){
-
 const now=new Date()
 
 const sec=now.getSeconds()
@@ -460,7 +433,6 @@ document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min
 document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
 
 document.getElementById("digital").textContent=now.toLocaleTimeString()
-
 }
 
 setInterval(updateClock,1000)
@@ -485,7 +457,6 @@ const pupil=document.getElementById("pupil")
 const eyelid=document.getElementById("eyelid")
 
 document.addEventListener("mousemove",e=>{
-
 const rect=eye.getBoundingClientRect()
 
 const x=e.clientX-rect.left
@@ -498,7 +469,6 @@ const moveX=(x-centerX)/10
 const moveY=(y-centerY)/10
 
 pupil.style.transform=`translate(${moveX}px,${moveY}px)`
-
 })
 
 setInterval(()=>{
