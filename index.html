@@ -23,7 +23,7 @@ line-height:1.5;
 overflow-x:hidden;
 }
 
-/* KNOWLEDGE GRID */
+/* animated grid */
 
 body::before{
 content:"";
@@ -45,7 +45,7 @@ z-index:-1;
 100%{transform:translate(60px,60px)}
 }
 
-/* CONTAINER */
+/* container */
 
 .container{
 width:92%;
@@ -58,13 +58,9 @@ padding:70px 40px;
 border:1px solid rgba(255,255,255,0.06);
 border-radius:18px;
 background:rgba(10,10,10,0.9);
-backdrop-filter:blur(6px);
 }
 
-.zone{width:100%}
-.center{text-align:center}
-
-/* AI EYE */
+/* eye */
 
 .logo-eye{
 display:flex;
@@ -90,7 +86,7 @@ height:14px;
 background:#cfd3dc;
 border-radius:50%;
 position:absolute;
-transition:transform .2s ease;
+transition:.2s;
 }
 
 .eyelid{
@@ -103,25 +99,13 @@ top:-100%;
 
 @keyframes blink{
 0%{top:-100%}
-45%{top:-100%}
 50%{top:0}
-55%{top:-100%}
 100%{top:-100%}
 }
 
 .blink{animation:blink .5s ease}
 
-/* BRAND */
-
-.brand-name{
-font-size:36px;
-font-weight:600;
-margin-bottom:6px;
-}
-
-.slogan{color:#9aa0aa}
-
-/* WIDGETS */
+/* widgets */
 
 .widget-row{
 display:grid;
@@ -138,17 +122,15 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-padding:20px;
 transition:.25s;
 }
 
 .widget:hover{
 transform:scale(1.04);
 border-color:#fff;
-box-shadow:0 0 12px rgba(255,255,255,.18);
 }
 
-/* CLOCK */
+/* clock */
 
 .clock{
 width:70px;
@@ -171,9 +153,7 @@ background:#cfd3dc;
 .minute{width:2px;height:28px}
 .second{width:1px;height:32px}
 
-.digital{font-size:14px}
-
-/* SEARCH */
+/* search */
 
 .search-panel{
 display:flex;
@@ -183,17 +163,11 @@ border-radius:12px;
 overflow:hidden;
 }
 
-.search-panel:focus-within{
-border-color:#fff;
-box-shadow:0 0 12px rgba(255,255,255,.18);
-}
-
 .attach{
 width:60px;
 display:flex;
 align-items:center;
 justify-content:center;
-border-right:1px solid #242424;
 }
 
 .search-input{
@@ -205,11 +179,6 @@ padding:16px;
 font-size:16px;
 }
 
-.search-input:focus{
-outline:none;
-background:#141414;
-}
-
 .search-btn{
 width:120px;
 background:#141414;
@@ -218,17 +187,35 @@ color:white;
 cursor:pointer;
 }
 
-/* WORKSPACE */
+/* workspace */
 
 .workspace{
 background:#0d0d0d;
 border:1px solid #242424;
 border-radius:12px;
-padding:20px;
-text-align:center;
+padding:24px;
+transition:.4s;
 }
 
-/* PANELS */
+.workspace.fade{
+opacity:0;
+}
+
+.workspace h2{
+margin-bottom:10px;
+}
+
+.section{
+margin-top:18px;
+}
+
+.section-title{
+color:#9aa0aa;
+margin-bottom:6px;
+font-size:14px;
+}
+
+/* panels */
 
 .panel-grid{
 display:grid;
@@ -247,24 +234,6 @@ align-items:center;
 justify-content:center;
 cursor:pointer;
 transition:.25s;
-position:relative;
-overflow:hidden;
-}
-
-/* radial hover glow */
-
-.panel::before{
-content:"";
-position:absolute;
-width:140%;
-height:140%;
-background:radial-gradient(circle,rgba(255,255,255,0.12),transparent 70%);
-opacity:0;
-transition:.3s;
-}
-
-.panel:hover::before{
-opacity:1;
 }
 
 .panel svg{
@@ -274,48 +243,14 @@ stroke:#d2d6e0;
 stroke-width:1.6;
 fill:none;
 margin-bottom:6px;
-transition:.25s;
 }
 
 .panel:hover{
 transform:translateY(-4px) scale(1.05);
 border-color:#fff;
-box-shadow:0 0 18px rgba(255,255,255,.2);
 }
 
-.panel:hover svg{
-transform:scale(1.15);
-stroke:#ffffff;
-}
-
-.panel-title{
-font-size:14px;
-opacity:0;
-transform:translateY(6px);
-transition:.2s;
-}
-
-.panel:hover .panel-title{
-opacity:1;
-transform:translateY(0);
-}
-
-.panel-sub{
-font-size:12px;
-color:#9aa0aa;
-opacity:0;
-max-height:0;
-overflow:hidden;
-transition:.25s;
-}
-
-.panel.active .panel-sub{
-opacity:1;
-max-height:40px;
-margin-top:4px;
-}
-
-/* REFLECTION */
+/* reflection */
 
 .reflection{
 background:#0d0d0d;
@@ -324,19 +259,12 @@ border-radius:12px;
 padding:28px;
 text-align:center;
 font-style:italic;
-font-size:18px;
-}
-
-.reflection-title{
-color:#9aa0aa;
-margin-bottom:12px;
 }
 
 .footer{
 text-align:center;
 color:#888;
-font-size:14px;
-margin-top:36px;
+margin-top:20px;
 }
 
 </style>
@@ -346,8 +274,6 @@ margin-top:36px;
 
 <div class="container">
 
-<div class="zone center">
-
 <div class="logo-eye">
 <div class="eye" id="eye">
 <div class="pupil" id="pupil"></div>
@@ -355,12 +281,9 @@ margin-top:36px;
 </div>
 </div>
 
-<div class="brand-name">Einblick</div>
-<div class="slogan">Where Knowledge Becomes Insight</div>
+<h1 style="text-align:center;">Einblick</h1>
 
-</div>
-
-<div class="zone">
+<!-- widgets -->
 
 <div class="widget-row">
 
@@ -370,95 +293,51 @@ margin-top:36px;
 <div class="hand minute" id="minute"></div>
 <div class="hand second" id="second"></div>
 </div>
-<div class="digital" id="digital"></div>
+<div id="digital"></div>
 </div>
 
 <div class="widget" id="calendar"></div>
 
 <div class="widget">News</div>
+
 <div class="widget">Weather</div>
 
 </div>
 
-</div>
-
-<div class="zone">
+<!-- search -->
 
 <div class="search-panel">
 <div class="attach">📎</div>
-<input class="search-input" id="searchInput" placeholder="Search Einblick">
-<button class="search-btn">Search</button>
+<input id="searchInput" class="search-input" placeholder="Search Einblick">
+<button class="search-btn" onclick="runSearch()">Search</button>
+</div>
+
+<!-- workspace -->
+
+<div class="workspace" id="workspace">
+
+<h2>Workspace</h2>
+
+<div class="section">
+<div class="section-title">Status</div>
+Ready for research.
 </div>
 
 </div>
 
-<div class="zone">
-
-<div class="workspace">
-Workspace
-</div>
-
-</div>
-
-<div class="zone">
+<!-- panels -->
 
 <div class="panel-grid">
 
-<div class="panel">
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="3"/>
-<circle cx="5" cy="12" r="2"/>
-<circle cx="19" cy="12" r="2"/>
-<line x1="7" y1="12" x2="9" y2="12"/>
-<line x1="15" y1="12" x2="17" y2="12"/>
-</svg>
-<div class="panel-title">Knowledge</div>
-<div class="panel-sub">Insight + Learning</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="9"/>
-<line x1="12" y1="12" x2="18" y2="6"/>
-<circle cx="12" cy="12" r="2"/>
-</svg>
-<div class="panel-title">Discovery</div>
-<div class="panel-sub">Research + Instruments</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24">
-<path d="M12 21c4-2 6-6 6-9-2 1-4 2-6 4-2-2-4-3-6-4 0 3 2 7 6 9z"/>
-<line x1="12" y1="16" x2="12" y2="7"/>
-</svg>
-<div class="panel-title">Life</div>
-<div class="panel-sub">Health + Pursuits</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24">
-<line x1="4" y1="6" x2="20" y2="6"/>
-<circle cx="9" cy="6" r="2"/>
-<line x1="4" y1="12" x2="20" y2="12"/>
-<circle cx="15" cy="12" r="2"/>
-<line x1="4" y1="18" x2="20" y2="18"/>
-<circle cx="11" cy="18" r="2"/>
-</svg>
-<div class="panel-title">Control</div>
-<div class="panel-sub">Preferences + System</div>
-</div>
+<div class="panel">Knowledge</div>
+<div class="panel">Discovery</div>
+<div class="panel">Life</div>
+<div class="panel">Control</div>
 
 </div>
-
-</div>
-
-<div class="zone">
 
 <div class="reflection">
-<div class="reflection-title">Today's Reflection</div>
 "If space-time bends under gravity, what might a universe without mass look like?"
-</div>
-
 </div>
 
 <div class="footer">
@@ -469,24 +348,104 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
-/* panel expand */
+/* research engine */
 
-document.querySelectorAll(".panel").forEach(panel=>{
-panel.addEventListener("click",()=>{
-panel.classList.toggle("active")
-})
+function runSearch(){
+
+const input=document.getElementById("searchInput").value.trim()
+
+if(!input)return
+
+const workspace=document.getElementById("workspace")
+
+workspace.classList.add("fade")
+
+setTimeout(()=>{
+
+workspace.innerHTML=`
+
+<h2>Topic: ${input}</h2>
+
+<div class="section">
+<div class="section-title">Insight</div>
+${input} is a topic currently being explored within the Einblick research workspace. Further analysis and knowledge connections can be generated as the system evolves.
+</div>
+
+<div class="section">
+<div class="section-title">Key Facts</div>
+• foundational concept<br>
+• subject of ongoing research<br>
+• connected to multiple knowledge domains
+</div>
+
+<div class="section">
+<div class="section-title">Related Concepts</div>
+Knowledge Graph<br>
+Scientific Models<br>
+Historical Development
+</div>
+
+<div class="section">
+<div class="section-title">Suggested Instruments</div>
+Research Explorer<br>
+Analytical Calculator<br>
+Knowledge Graph Viewer
+</div>
+
+`
+
+workspace.classList.remove("fade")
+
+},300)
+
+}
+
+/* clock */
+
+function updateClock(){
+
+const now=new Date()
+
+const sec=now.getSeconds()
+const min=now.getMinutes()
+const hr=now.getHours()
+
+document.getElementById("second").style.transform=
+`translateX(-50%) rotate(${sec*6}deg)`
+
+document.getElementById("minute").style.transform=
+`translateX(-50%) rotate(${min*6}deg)`
+
+document.getElementById("hour").style.transform=
+`translateX(-50%) rotate(${hr*30+min/2}deg)`
+
+document.getElementById("digital").textContent=
+now.toLocaleTimeString()
+
+}
+
+setInterval(updateClock,1000)
+
+updateClock()
+
+/* calendar */
+
+const today=new Date()
+
+document.getElementById("calendar").innerHTML=
+today.toLocaleDateString(undefined,{
+weekday:'long',
+day:'numeric',
+month:'short',
+year:'numeric'
 })
 
-/* eye tracking */
+/* eye */
 
 const pupil=document.getElementById("pupil")
 const eye=document.getElementById("eye")
-const eyelid=document.getElementById("eyelid")
-const search=document.getElementById("searchInput")
 
 document.addEventListener("mousemove",e=>{
-
-if(document.activeElement===search) return
 
 const rect=eye.getBoundingClientRect()
 
@@ -503,52 +462,16 @@ pupil.style.transform=`translate(${moveX}px,${moveY}px)`
 
 })
 
-search.addEventListener("focus",()=>{
-pupil.style.transform="translate(0,6px)"
-})
-
-search.addEventListener("blur",()=>{
-pupil.style.transform="translate(0,0)"
-})
-
-/* clock */
-
-function updateClock(){
-
-const now=new Date()
-
-const sec=now.getSeconds()
-const min=now.getMinutes()
-const hr=now.getHours()
-
-document.getElementById("second").style.transform=`translateX(-50%) rotate(${sec*6}deg)`
-document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min*6}deg)`
-document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
-
-document.getElementById("digital").textContent=now.toLocaleTimeString()
-
-}
-
-setInterval(updateClock,1000)
-updateClock()
-
-/* calendar */
-
-const today=new Date()
-
-document.getElementById("calendar").innerHTML=
-today.toLocaleDateString(undefined,{
-weekday:'long',
-day:'numeric',
-month:'short',
-year:'numeric'
-})
-
-/* blinking */
-
 setInterval(()=>{
-eyelid.classList.add("blink")
-setTimeout(()=>{eyelid.classList.remove("blink")},500)
+
+document.getElementById("eyelid").classList.add("blink")
+
+setTimeout(()=>{
+
+document.getElementById("eyelid").classList.remove("blink")
+
+},400)
+
 },4000)
 
 </script>
