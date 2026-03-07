@@ -25,11 +25,13 @@ justify-content:center;
 width:92%;
 max-width:1100px;
 padding:60px 0;
+display:flex;
+flex-direction:column;
+gap:48px;
 }
 
 .zone{
 width:100%;
-margin-bottom:48px;
 }
 
 .center{
@@ -112,6 +114,7 @@ aspect-ratio:1/1;
 background:#14161c;
 border:1px solid #23252d;
 border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,.35);
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -123,7 +126,7 @@ transition:.22s;
 .widget:hover{
 transform:scale(1.04);
 border-color:#5b7cff;
-box-shadow:0 0 8px rgba(120,140,255,.25);
+box-shadow:0 0 12px rgba(120,140,255,.35);
 }
 
 /* CLOCK */
@@ -149,7 +152,9 @@ background:#cfd3dc;
 .minute{width:2px;height:28px}
 .second{width:1px;height:32px;background:#8aa4ff}
 
-.digital{font-size:14px}
+.digital{
+font-size:14px;
+}
 
 /* SEARCH */
 
@@ -160,6 +165,12 @@ background:#14161c;
 border:1px solid #23252d;
 border-radius:12px;
 overflow:hidden;
+box-shadow:0 10px 25px rgba(0,0,0,.35);
+}
+
+.search-panel:focus-within{
+border-color:#5b7cff;
+box-shadow:0 0 10px rgba(120,140,255,.35);
 }
 
 .attach{
@@ -179,6 +190,11 @@ padding:16px;
 font-size:16px;
 }
 
+.search-input:focus{
+outline:none;
+background:#1a1d25;
+}
+
 .search-btn{
 width:120px;
 background:#1c1f28;
@@ -194,7 +210,14 @@ background:#14161c;
 border:1px solid #23252d;
 border-radius:12px;
 padding:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.35);
 text-align:center;
+}
+
+.workspace-title{
+font-size:14px;
+color:#9aa0aa;
+margin-bottom:10px;
 }
 
 /* PANELS */
@@ -203,7 +226,6 @@ text-align:center;
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:24px;
-margin-bottom:24px;
 }
 
 .panel{
@@ -211,6 +233,7 @@ aspect-ratio:1/1;
 background:#14161c;
 border:1px solid #23252d;
 border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,.35);
 display:flex;
 align-items:center;
 justify-content:center;
@@ -220,15 +243,15 @@ position:relative;
 }
 
 .panel svg{
-width:32px;
-height:32px;
+width:38px;
+height:38px;
 stroke:#cfd3dc;
 stroke-width:1.8;
 fill:none;
 }
 
 .panel:hover{
-transform:scale(1.05);
+transform:translateY(-4px) scale(1.05);
 border-color:#5b7cff;
 box-shadow:0 0 10px rgba(120,140,255,.35);
 }
@@ -251,8 +274,12 @@ opacity:1;
 background:#14161c;
 border:1px solid #23252d;
 border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,.35);
 padding:28px;
 text-align:center;
+font-style:italic;
+font-size:18px;
+line-height:1.6;
 }
 
 .reflection-title{
@@ -269,14 +296,26 @@ font-size:14px;
 margin-top:36px;
 }
 
+/* RESPONSIVE */
+
+@media (max-width:900px){
+
+.widget-row{
+grid-template-columns:repeat(2,1fr);
+}
+
+.panel-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="container">
-
-<!-- ZONE 1 -->
 
 <div class="zone center">
 
@@ -291,8 +330,6 @@ margin-top:36px;
 <div class="slogan">Where Knowledge Becomes Insight</div>
 
 </div>
-
-<!-- ZONE 2 -->
 
 <div class="zone">
 
@@ -317,31 +354,29 @@ margin-top:36px;
 
 </div>
 
-<!-- ZONE 3 SEARCH -->
-
 <div class="zone">
 
 <div class="search-panel">
 <div class="attach">📎</div>
-<input class="search-input" placeholder="Search Einblick">
+<input class="search-input" id="searchInput" placeholder="Search Einblick">
 <button class="search-btn">Search</button>
 </div>
 
 </div>
 
-<!-- ZONE 4 WORKSPACE -->
-
 <div class="zone">
 
 <div class="workspace">
-Active Workspace<br>
-Research → Relativity<br>
+
+<div class="workspace-title">Workspace</div>
+
+Research → Relativity  
+<br>
 2 Tabs Open
-</div>
 
 </div>
 
-<!-- ZONE 5 PANELS -->
+</div>
 
 <div class="zone">
 
@@ -395,8 +430,6 @@ Research → Relativity<br>
 
 </div>
 
-<!-- ZONE 6 REFLECTION -->
-
 <div class="zone">
 
 <div class="reflection">
@@ -409,8 +442,6 @@ Research → Relativity<br>
 
 </div>
 
-<!-- ZONE 7 CREDITS -->
-
 <div class="footer">
 Created by Dr. Aishvarya Adhaulia
 </div>
@@ -419,9 +450,8 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
-/* CLOCK */
-
 function updateClock(){
+
 const now=new Date()
 
 const sec=now.getSeconds()
@@ -433,12 +463,11 @@ document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min
 document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
 
 document.getElementById("digital").textContent=now.toLocaleTimeString()
+
 }
 
 setInterval(updateClock,1000)
 updateClock()
-
-/* CALENDAR */
 
 const today=new Date()
 
@@ -450,13 +479,12 @@ month:'short',
 year:'numeric'
 })
 
-/* EYE TRACKING */
-
 const eye=document.getElementById("eye")
 const pupil=document.getElementById("pupil")
 const eyelid=document.getElementById("eyelid")
 
 document.addEventListener("mousemove",e=>{
+
 const rect=eye.getBoundingClientRect()
 
 const x=e.clientX-rect.left
@@ -469,6 +497,11 @@ const moveX=(x-centerX)/10
 const moveY=(y-centerY)/10
 
 pupil.style.transform=`translate(${moveX}px,${moveY}px)`
+
+})
+
+document.getElementById("searchInput").addEventListener("focus",()=>{
+pupil.style.transform="scale(1.2)"
 })
 
 setInterval(()=>{
