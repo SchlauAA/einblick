@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>EINBLICK</title>
 
 <link href="https://fonts.cdnfonts.com/css/neue-einstellung" rel="stylesheet">
@@ -39,7 +42,7 @@ justify-content:center;
 overflow-x:hidden;
 }
 
-/* interactive wallpaper */
+/* dynamic wallpaper */
 
 body::before{
 content:"";
@@ -70,23 +73,33 @@ border-radius:18px;
 background:rgba(10,10,10,.9);
 }
 
-/* eye */
+/* unified zone width */
+
+.zone{
+width:100%;
+max-width:900px;
+margin:auto;
+}
+
+/* eye logo */
 
 .logo-eye{
 display:flex;
 justify-content:center;
+margin-bottom:12px;
 }
 
 .eye{
 width:80px;
 height:50px;
-border:1px solid var(--border);
+border:1.5px solid rgba(255,255,255,0.35);
 border-radius:50px/30px;
 display:flex;
 align-items:center;
 justify-content:center;
 position:relative;
 overflow:hidden;
+background:rgba(255,255,255,0.02);
 }
 
 .pupil{
@@ -95,7 +108,11 @@ height:14px;
 background:white;
 border-radius:50%;
 position:absolute;
-transition:transform .1s linear;
+transition:transform .15s ease;
+
+box-shadow:
+0 0 6px rgba(255,255,255,0.8),
+0 0 12px rgba(255,255,255,0.4);
 }
 
 .eyelid{
@@ -177,6 +194,32 @@ background:white;
 .hour{width:2px;height:18px}
 .minute{width:2px;height:26px}
 .second{width:1px;height:30px}
+
+/* visual calendar */
+
+.calendar-widget{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:6px;
+}
+
+.calendar-day{
+font-size:11px;
+letter-spacing:1px;
+color:var(--muted);
+}
+
+.calendar-date{
+font-size:42px;
+font-weight:600;
+}
+
+.calendar-month{
+font-size:12px;
+color:var(--muted);
+}
 
 /* search */
 
@@ -306,11 +349,14 @@ color:#777;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
+
+<div class="zone">
 
 <div class="logo-eye">
 <div class="eye" id="eye">
@@ -322,84 +368,114 @@ color:#777;
 <div class="brand-name">EINBLICK</div>
 <div class="slogan">Where Knowledge Becomes Insight</div>
 
-<div class="widget-row">
+</div>
+
+<div class="zone widget-row">
 
 <div class="widget">
+
 <div class="clock">
 <div class="hand hour" id="hour"></div>
 <div class="hand minute" id="minute"></div>
 <div class="hand second" id="second"></div>
 </div>
+
 <div id="digital"></div>
+
 </div>
 
 <div class="widget" id="calendar"></div>
+
 <div class="widget">News</div>
+
 <div class="widget">Weather</div>
 
 </div>
 
+<div class="zone">
+
 <div class="search-panel">
 <div class="attach">📎</div>
-<input class="search-input" placeholder="Search Einblick">
+<input id="searchInput" class="search-input" placeholder="Search Einblick">
 <button class="search-btn">Search</button>
 </div>
 
-<div class="workspace">
-<h2>Workspace</h2>
-<p style="color:var(--muted);margin-top:10px">Ready for research.</p>
 </div>
 
-<div class="panel-grid">
+<div class="zone workspace">
+
+<h2>Workspace</h2>
+<p style="color:var(--muted);margin-top:10px">Ready for research.</p>
+
+</div>
+
+<div class="zone panel-grid">
 
 <div class="panel">
+
 <svg viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="3"/>
 <circle cx="5" cy="12" r="2"/>
 <circle cx="19" cy="12" r="2"/>
 </svg>
+
 <div class="panel-title">Knowledge</div>
 <div class="panel-sub">Insight + Learning</div>
+
 </div>
 
 <div class="panel">
+
 <svg viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="9"/>
 <line x1="12" y1="12" x2="18" y2="6"/>
 </svg>
+
 <div class="panel-title">Discovery</div>
 <div class="panel-sub">Research + Instruments</div>
+
 </div>
 
 <div class="panel">
+
 <svg viewBox="0 0 24 24">
 <polyline points="6 15 12 21 18 15"/>
 <line x1="12" y1="3" x2="12" y2="21"/>
 </svg>
+
 <div class="panel-title">Life</div>
 <div class="panel-sub">Health + Pursuits</div>
+
 </div>
 
 <div class="panel">
+
 <svg viewBox="0 0 24 24">
 <line x1="4" y1="6" x2="20" y2="6"/>
 <line x1="4" y1="12" x2="20" y2="12"/>
 <line x1="4" y1="18" x2="20" y2="18"/>
 </svg>
+
 <div class="panel-title">Control</div>
 <div class="panel-sub">Preferences + System</div>
-</div>
 
 </div>
 
-<div class="reflection">
+</div>
+
+<div class="zone reflection">
+
 <div class="reflection-title">Today's Reflection</div>
+
 "If space-time bends under gravity, what might a universe without mass look like?"
+
 <br><br>
+
 — Albert Einstein
+
 </div>
 
-<div class="footer">
+<div class="zone footer">
 Created by Dr. Aishvarya Adhaulia
 </div>
 
@@ -407,11 +483,12 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
-/* eye tracking */
+/* eye tracking + dilation */
 
 const pupil=document.getElementById("pupil")
 const eye=document.getElementById("eye")
 const eyelid=document.getElementById("eyelid")
+const search=document.getElementById("searchInput")
 
 document.addEventListener("mousemove",e=>{
 
@@ -428,7 +505,14 @@ const moveY=(y-centerY)/8
 
 pupil.style.transform=`translate(${moveX}px,${moveY}px)`
 
-document.body.style.setProperty("--x",x)
+})
+
+search.addEventListener("focus",()=>{
+pupil.style.transform+=" scale(1.6)"
+})
+
+search.addEventListener("blur",()=>{
+pupil.style.transform=pupil.style.transform.replace(" scale(1.6)","")
 })
 
 setInterval(()=>{
@@ -459,15 +543,20 @@ updateClock()
 
 /* calendar */
 
-const today=new Date()
+const now=new Date()
 
-document.getElementById("calendar").innerHTML=
-today.toLocaleDateString(undefined,{
-weekday:'long',
-day:'numeric',
-month:'short',
-year:'numeric'
-})
+const day=now.toLocaleDateString(undefined,{weekday:'long'})
+const date=now.getDate()
+const month=now.toLocaleDateString(undefined,{month:'short'})
+const year=now.getFullYear()
+
+document.getElementById("calendar").innerHTML=`
+<div class="calendar-widget">
+<div class="calendar-day">${day}</div>
+<div class="calendar-date">${date}</div>
+<div class="calendar-month">${month} ${year}</div>
+</div>
+`
 
 /* icon click */
 
