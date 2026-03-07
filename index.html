@@ -13,14 +13,11 @@
 :root{
 --widget:150px;
 --icon:120px;
-
 --space-xl:80px;
 --space-md:24px;
-
 --bg:#050505;
 --panel:#0b0b0b;
 --border:rgba(255,255,255,0.06);
-
 --text:#e6e6e6;
 --muted:#8c8c8c;
 }
@@ -94,11 +91,11 @@ align-items:center;
 justify-content:center;
 position:relative;
 background:rgba(255,255,255,0.02);
-
 box-shadow:
 0 0 18px rgba(255,255,255,0.08),
 inset 0 0 12px rgba(255,255,255,0.08),
 inset 0 0 30px rgba(0,0,0,0.6);
+overflow:hidden;
 }
 
 .pupil{
@@ -107,11 +104,9 @@ height:14px;
 background:white;
 border-radius:50%;
 position:absolute;
-
 box-shadow:
 0 0 10px rgba(255,255,255,0.9),
 0 0 20px rgba(255,255,255,0.6);
-
 animation:pupilGlow 4s ease-in-out infinite;
 }
 
@@ -124,6 +119,20 @@ border-radius:50%;
 top:3px;
 left:3px;
 opacity:.85;
+}
+
+.eyelid{
+position:absolute;
+width:100%;
+height:100%;
+background:var(--bg);
+top:-100%;
+}
+
+@keyframes blink{
+0%{top:-100%}
+50%{top:0}
+100%{top:-100%}
 }
 
 @keyframes pupilGlow{
@@ -195,74 +204,6 @@ background:white;
 .minute{width:2px;height:26px}
 .second{width:1px;height:30px}
 
-/* calendar */
-
-.calendar-widget{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:6px;
-}
-
-.calendar-day{
-font-size:11px;
-letter-spacing:1px;
-color:var(--muted);
-}
-
-.calendar-date{
-font-size:42px;
-font-weight:600;
-}
-
-.calendar-month{
-font-size:12px;
-color:var(--muted);
-}
-
-/* search */
-
-.search-panel{
-display:flex;
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:12px;
-overflow:hidden;
-}
-
-.attach{
-width:60px;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.search-input{
-flex:1;
-background:transparent;
-border:none;
-color:white;
-padding:16px;
-}
-
-.search-btn{
-width:120px;
-background:#111;
-border:none;
-color:white;
-cursor:pointer;
-}
-
-/* workspace */
-
-.workspace{
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:12px;
-padding:28px;
-}
-
 /* panels */
 
 .panel-grid{
@@ -278,14 +219,12 @@ height:var(--icon);
 background:var(--panel);
 border:1px solid var(--border);
 border-radius:12px;
-
 display:flex;
-flex-direction:column;
 align-items:center;
 justify-content:center;
-
 cursor:pointer;
 position:relative;
+transition:.2s;
 }
 
 .panel svg{
@@ -294,17 +233,13 @@ height:36px;
 stroke:white;
 stroke-width:1.4;
 fill:none;
+transition:transform .3s ease;
 }
 
-.panel-title{
-position:absolute;
-bottom:10px;
-font-size:12px;
-opacity:0;
-}
+/* dynamic hover icons */
 
-.panel:hover .panel-title{
-opacity:1;
+.panel:hover svg{
+transform:scale(1.15);
 }
 
 /* reflection */
@@ -315,11 +250,6 @@ border:1px solid var(--border);
 border-radius:12px;
 padding:28px;
 text-align:center;
-}
-
-.reflection-title{
-color:var(--muted);
-margin-bottom:12px;
 }
 
 .footer{
@@ -338,9 +268,13 @@ color:#777;
 
 <div class="logo-eye">
 <div class="eye" id="eye">
+
 <div class="pupil" id="pupil">
 <div class="glint"></div>
 </div>
+
+<div class="eyelid" id="eyelid"></div>
+
 </div>
 </div>
 
@@ -366,36 +300,8 @@ color:#777;
 </div>
 
 <div class="widget" id="calendar"></div>
-
 <div class="widget">News</div>
-
 <div class="widget">Weather</div>
-
-</div>
-
-<!-- search -->
-
-<div class="zone">
-
-<div class="search-panel">
-<div class="attach">📎</div>
-<input id="searchInput" class="search-input" placeholder="Search Einblick">
-<button class="search-btn">Search</button>
-</div>
-
-</div>
-
-<!-- workspace -->
-
-<div class="zone workspace">
-
-<h2>Workspace</h2>
-
-<p style="color:var(--muted);margin-top:10px">
-Ready for research.
-</p>
-
-<div style="margin-top:16px;font-size:22px">● ● ●</div>
 
 </div>
 
@@ -404,34 +310,51 @@ Ready for research.
 <div class="zone panel-grid">
 
 <div class="panel">
+
+<!-- knowledge -->
+
 <svg viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="3"/>
 <circle cx="5" cy="12" r="2"/>
 <circle cx="19" cy="12" r="2"/>
 </svg>
-<div class="panel-title">Knowledge</div>
+
 </div>
 
 <div class="panel">
+
+<!-- discovery -->
+
 <svg viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="9"/>
 <line x1="12" y1="12" x2="18" y2="6"/>
 </svg>
-<div class="panel-title">Discovery</div>
+
 </div>
 
 <div class="panel">
+
+<!-- life tree -->
+
 <svg viewBox="0 0 24 24">
-<polygon points="12,3 4,12 8,12 6,16 10,16 8,20 16,20 14,16 18,16 16,12 20,12"/>
+<polygon points="12,3 4,12 20,12"/>
+<line x1="12" y1="12" x2="12" y2="20"/>
 </svg>
-<div class="panel-title">Life</div>
+
 </div>
 
 <div class="panel">
+
+<!-- processor -->
+
 <svg viewBox="0 0 24 24">
 <rect x="7" y="7" width="10" height="10"/>
+<line x1="9" y1="1" x2="9" y2="7"/>
+<line x1="15" y1="1" x2="15" y2="7"/>
+<line x1="9" y1="17" x2="9" y2="23"/>
+<line x1="15" y1="17" x2="15" y2="23"/>
 </svg>
-<div class="panel-title">Control</div>
+
 </div>
 
 </div>
@@ -442,11 +365,11 @@ Ready for research.
 
 <div class="reflection-title">Today's Reflection</div>
 
-<div id="quote">
-The important thing is not to stop questioning.
+<div>
+"The important thing is not to stop questioning."
 </div>
 
-<div id="author" style="margin-top:12px;color:var(--muted)">
+<div style="margin-top:12px;color:var(--muted)">
 — Albert Einstein
 </div>
 
@@ -464,6 +387,7 @@ Created by Dr. Aishvarya Adhaulia
 
 const pupil=document.getElementById("pupil")
 const eye=document.getElementById("eye")
+const eyelid=document.getElementById("eyelid")
 
 document.addEventListener("mousemove",e=>{
 
@@ -481,6 +405,13 @@ const moveY=(y-centerY)/14
 pupil.style.transform=`translate(${moveX}px,${moveY}px)`
 
 })
+
+/* blinking */
+
+setInterval(()=>{
+eyelid.style.animation="blink .4s ease"
+setTimeout(()=>{eyelid.style.animation=""},400)
+},5000)
 
 /* clock */
 
