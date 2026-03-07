@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +12,14 @@
 :root{
 --widget:150px;
 --icon:120px;
---space-xl:80px;
---space-md:24px;
+
+--space-xl:70px;
+--space-md:22px;
+
 --bg:#050505;
 --panel:#0b0b0b;
 --border:rgba(255,255,255,0.06);
+
 --text:#e6e6e6;
 --muted:#8c8c8c;
 }
@@ -34,7 +36,6 @@ background:var(--bg);
 color:var(--text);
 display:flex;
 justify-content:center;
-overflow-x:hidden;
 }
 
 /* wallpaper */
@@ -44,8 +45,8 @@ content:"";
 position:fixed;
 top:0;
 left:0;
-width:120%;
-height:120%;
+width:100%;
+height:100%;
 background:
 linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
 linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
@@ -56,21 +57,25 @@ z-index:-1;
 /* container */
 
 .container{
-width:92%;
-max-width:900px;
+width:100%;
+max-width:1000px;
+margin:auto;
+
 display:flex;
 flex-direction:column;
+
 gap:var(--space-xl);
-padding:90px 40px;
+
+padding:90px 24px;
+
 border:1px solid var(--border);
 border-radius:18px;
+
 background:rgba(10,10,10,.9);
 }
 
 .zone{
 width:100%;
-max-width:900px;
-margin:auto;
 }
 
 /* eye */
@@ -78,7 +83,7 @@ margin:auto;
 .logo-eye{
 display:flex;
 justify-content:center;
-margin-bottom:12px;
+margin-bottom:10px;
 }
 
 .eye{
@@ -90,12 +95,14 @@ display:flex;
 align-items:center;
 justify-content:center;
 position:relative;
+overflow:hidden;
+
 background:rgba(255,255,255,0.02);
+
 box-shadow:
 0 0 18px rgba(255,255,255,0.08),
 inset 0 0 12px rgba(255,255,255,0.08),
 inset 0 0 30px rgba(0,0,0,0.6);
-overflow:hidden;
 }
 
 .pupil{
@@ -104,10 +111,10 @@ height:14px;
 background:white;
 border-radius:50%;
 position:absolute;
+
 box-shadow:
 0 0 10px rgba(255,255,255,0.9),
 0 0 20px rgba(255,255,255,0.6);
-animation:pupilGlow 4s ease-in-out infinite;
 }
 
 .glint{
@@ -118,7 +125,6 @@ background:white;
 border-radius:50%;
 top:3px;
 left:3px;
-opacity:.85;
 }
 
 .eyelid{
@@ -129,16 +135,12 @@ background:var(--bg);
 top:-100%;
 }
 
+/* blink */
+
 @keyframes blink{
 0%{top:-100%}
 50%{top:0}
 100%{top:-100%}
-}
-
-@keyframes pupilGlow{
-0%{box-shadow:0 0 10px rgba(255,255,255,0.6)}
-50%{box-shadow:0 0 20px rgba(255,255,255,0.9)}
-100%{box-shadow:0 0 10px rgba(255,255,255,0.6)}
 }
 
 /* brand */
@@ -160,21 +162,23 @@ margin-top:6px;
 .widget-row{
 display:grid;
 grid-template-columns:repeat(4,var(--widget));
-justify-content:center;
-gap:var(--space-md);
+justify-content:space-between;
 }
 
 .widget{
 width:var(--widget);
 height:var(--widget);
+
 background:var(--panel);
 border:1px solid var(--border);
 border-radius:12px;
+
 display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-transition:.2s;
+
+transition:.25s;
 }
 
 .widget:hover{
@@ -204,39 +208,91 @@ background:white;
 .minute{width:2px;height:26px}
 .second{width:1px;height:30px}
 
+/* calendar */
+
+.calendar-widget{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+}
+
+.calendar-date{
+font-size:42px;
+font-weight:600;
+}
+
+/* search */
+
+.search-panel{
+display:flex;
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:12px;
+overflow:hidden;
+}
+
+.attach{
+width:60px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.search-input{
+flex:1;
+background:transparent;
+border:none;
+color:white;
+padding:16px;
+}
+
+.search-btn{
+width:120px;
+background:#111;
+border:none;
+color:white;
+cursor:pointer;
+}
+
+/* workspace */
+
+.workspace{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:12px;
+padding:28px;
+}
+
 /* panels */
 
 .panel-grid{
-display:flex;
-justify-content:space-between;
-align-items:center;
-width:100%;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:var(--space-md);
 }
 
 .panel{
-width:var(--icon);
 height:var(--icon);
 background:var(--panel);
 border:1px solid var(--border);
 border-radius:12px;
+
 display:flex;
 align-items:center;
 justify-content:center;
-cursor:pointer;
-position:relative;
-transition:.2s;
+
+transition:.25s;
 }
 
 .panel svg{
-width:36px;
-height:36px;
+width:40px;
+height:40px;
 stroke:white;
-stroke-width:1.4;
+stroke-width:1.6;
 fill:none;
-transition:transform .3s ease;
+transition:.25s;
 }
-
-/* dynamic hover icons */
 
 .panel:hover svg{
 transform:scale(1.15);
@@ -264,6 +320,8 @@ color:#777;
 
 <div class="container">
 
+<!-- ZONE 1 -->
+
 <div class="zone">
 
 <div class="logo-eye">
@@ -283,7 +341,7 @@ color:#777;
 
 </div>
 
-<!-- widgets -->
+<!-- ZONE 2 WIDGETS -->
 
 <div class="zone widget-row">
 
@@ -300,18 +358,50 @@ color:#777;
 </div>
 
 <div class="widget" id="calendar"></div>
+
 <div class="widget">News</div>
+
 <div class="widget">Weather</div>
 
 </div>
 
-<!-- panels -->
+<!-- ZONE 3 SEARCH -->
+
+<div class="zone">
+
+<div class="search-panel">
+
+<div class="attach">📎</div>
+
+<input id="searchInput" class="search-input" placeholder="Search Einblick">
+
+<button class="search-btn">Search</button>
+
+</div>
+
+</div>
+
+<!-- ZONE 4 WORKSPACE -->
+
+<div class="zone workspace">
+
+<h2>Workspace</h2>
+
+<p style="color:var(--muted);margin-top:10px">
+Ready for research.
+</p>
+
+<div style="margin-top:16px;font-size:22px">
+● ● ●
+</div>
+
+</div>
+
+<!-- ZONE 5 PANELS -->
 
 <div class="zone panel-grid">
 
 <div class="panel">
-
-<!-- knowledge -->
 
 <svg viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="3"/>
@@ -323,8 +413,6 @@ color:#777;
 
 <div class="panel">
 
-<!-- discovery -->
-
 <svg viewBox="0 0 24 24">
 <circle cx="12" cy="12" r="9"/>
 <line x1="12" y1="12" x2="18" y2="6"/>
@@ -333,8 +421,6 @@ color:#777;
 </div>
 
 <div class="panel">
-
-<!-- life tree -->
 
 <svg viewBox="0 0 24 24">
 <polygon points="12,3 4,12 20,12"/>
@@ -359,21 +445,23 @@ color:#777;
 
 </div>
 
-<!-- reflection -->
+<!-- ZONE 6 REFLECTION -->
 
 <div class="zone reflection">
 
-<div class="reflection-title">Today's Reflection</div>
+<div>Today's Reflection</div>
 
-<div>
+<div style="margin-top:10px">
 "The important thing is not to stop questioning."
 </div>
 
-<div style="margin-top:12px;color:var(--muted)">
+<div style="margin-top:10px;color:var(--muted)">
 — Albert Einstein
 </div>
 
 </div>
+
+<!-- ZONE 7 FOOTER -->
 
 <div class="zone footer">
 Created by Dr. Aishvarya Adhaulia
@@ -383,7 +471,7 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
-/* smooth pupil tracking */
+/* pupil tracking */
 
 const pupil=document.getElementById("pupil")
 const eye=document.getElementById("eye")
@@ -406,7 +494,7 @@ pupil.style.transform=`translate(${moveX}px,${moveY}px)`
 
 })
 
-/* blinking */
+/* blink */
 
 setInterval(()=>{
 eyelid.style.animation="blink .4s ease"
@@ -428,7 +516,7 @@ document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min
 document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
 
 document.getElementById("digital").textContent=
-now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'})
+now.toLocaleTimeString()
 
 }
 
@@ -439,16 +527,11 @@ updateClock()
 
 const now=new Date()
 
-const day=now.toLocaleDateString(undefined,{weekday:'long'})
-const date=now.getDate()
-const month=now.toLocaleDateString(undefined,{month:'short'})
-const year=now.getFullYear()
-
 document.getElementById("calendar").innerHTML=`
 <div class="calendar-widget">
-<div class="calendar-day">${day}</div>
-<div class="calendar-date">${date}</div>
-<div class="calendar-month">${month} ${year}</div>
+<div>${now.toLocaleDateString(undefined,{weekday:'long'})}</div>
+<div class="calendar-date">${now.getDate()}</div>
+<div>${now.toLocaleDateString(undefined,{month:'short'})} ${now.getFullYear()}</div>
 </div>
 `
 
