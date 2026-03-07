@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,6 +15,7 @@
 :root{
 --widget:150px;
 --icon:120px;
+
 --space-xl:80px;
 --space-md:24px;
 
@@ -88,16 +90,31 @@ margin-bottom:12px;
 }
 
 .eye{
-width:80px;
-height:50px;
-border:1.5px solid rgba(255,255,255,0.35);
-border-radius:50px/30px;
+width:90px;
+height:56px;
+border:2px solid rgba(255,255,255,0.55);
+border-radius:60px/36px;
 display:flex;
 align-items:center;
 justify-content:center;
 position:relative;
-overflow:hidden;
 background:rgba(255,255,255,0.02);
+box-shadow:
+0 0 18px rgba(255,255,255,0.08),
+0 0 40px rgba(255,255,255,0.03),
+inset 0 0 10px rgba(255,255,255,0.05);
+}
+
+.eye::after{
+content:"";
+position:absolute;
+width:8px;
+height:8px;
+background:rgba(255,255,255,0.9);
+border-radius:50%;
+top:16px;
+left:32px;
+opacity:.7;
 }
 
 .pupil{
@@ -106,8 +123,29 @@ height:14px;
 background:white;
 border-radius:50%;
 position:absolute;
-transition:transform .15s ease;
-box-shadow:0 0 8px rgba(255,255,255,.7);
+transition:transform .15s ease, box-shadow .3s ease;
+box-shadow:
+0 0 10px rgba(255,255,255,0.9),
+0 0 20px rgba(255,255,255,0.6);
+animation:pupilGlow 4s ease-in-out infinite;
+}
+
+@keyframes pupilGlow{
+0%{box-shadow:0 0 10px rgba(255,255,255,0.6)}
+50%{box-shadow:0 0 20px rgba(255,255,255,0.9)}
+100%{box-shadow:0 0 10px rgba(255,255,255,0.6)}
+}
+
+@keyframes eyeScan{
+0%{transform:translateX(0)}
+25%{transform:translateX(-6px)}
+50%{transform:translateX(6px)}
+75%{transform:translateX(-4px)}
+100%{transform:translateX(0)}
+}
+
+.eye.thinking .pupil{
+animation:eyeScan .6s ease;
 }
 
 /* brand */
@@ -143,11 +181,19 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
+
+box-shadow:
+0 6px 14px rgba(0,0,0,0.4),
+0 0 8px rgba(255,255,255,0.02);
+
 transition:.2s;
 }
 
 .widget:hover{
-transform:translateY(-3px);
+transform:translateY(-4px);
+box-shadow:
+0 10px 24px rgba(0,0,0,0.55),
+0 0 12px rgba(255,255,255,0.05);
 }
 
 /* clock */
@@ -267,12 +313,20 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 cursor:pointer;
-transition:.2s;
 position:relative;
+
+box-shadow:
+0 6px 14px rgba(0,0,0,0.4),
+0 0 8px rgba(255,255,255,0.02);
+
+transition:.2s;
 }
 
 .panel:hover{
-transform:translateY(-3px);
+transform:translateY(-4px);
+box-shadow:
+0 10px 24px rgba(0,0,0,0.55),
+0 0 12px rgba(255,255,255,0.05);
 }
 
 .panel svg{
@@ -346,7 +400,7 @@ color:#777;
 <div class="zone">
 
 <div class="logo-eye">
-<div class="eye">
+<div class="eye" id="eye">
 <div class="pupil" id="pupil"></div>
 </div>
 </div>
@@ -356,41 +410,57 @@ color:#777;
 
 </div>
 
+<!-- widgets -->
+
 <div class="zone widget-row">
 
 <div class="widget">
+
 <div class="clock">
 <div class="hand hour" id="hour"></div>
 <div class="hand minute" id="minute"></div>
 <div class="hand second" id="second"></div>
 </div>
+
 <div id="digital"></div>
+
 </div>
 
 <div class="widget" id="calendar"></div>
+
 <div class="widget">News</div>
+
 <div class="widget">Weather</div>
 
 </div>
+
+<!-- search -->
 
 <div class="zone">
 
 <div class="search-panel">
 <div class="attach">📎</div>
 <input id="searchInput" class="search-input" placeholder="Search Einblick">
-<button class="search-btn">Search</button>
+<button class="search-btn" id="searchBtn">Search</button>
 </div>
 
 </div>
+
+<!-- workspace -->
 
 <div class="zone workspace" id="workspace">
 
 <h2>Workspace</h2>
-<p style="color:var(--muted);margin-top:10px">Ready for research.</p>
+
+<p style="color:var(--muted);margin-top:10px">
+Ready for research.
+</p>
 
 <div style="margin-top:16px;font-size:22px">● ● ●</div>
 
 </div>
+
+<!-- panels -->
 
 <div class="zone panel-grid">
 
@@ -448,6 +518,8 @@ color:#777;
 
 </div>
 
+<!-- reflection -->
+
 <div class="zone reflection">
 
 <div class="reflection-title">Today's Reflection</div>
@@ -478,24 +550,60 @@ const y=(e.clientY/window.innerHeight)-0.5
 document.body.style.transform=`translate(${x*4}px,${y*4}px)`
 })
 
-/* eye interaction */
+/* eye intelligence */
 
 const pupil=document.getElementById("pupil")
+const eye=document.getElementById("eye")
 const search=document.getElementById("searchInput")
+const searchBtn=document.getElementById("searchBtn")
+
+document.addEventListener("mousemove",e=>{
+
+const rect=eye.getBoundingClientRect()
+
+const x=e.clientX-rect.left
+const y=e.clientY-rect.top
+
+const centerX=rect.width/2
+const centerY=rect.height/2
+
+const moveX=(x-centerX)/10
+const moveY=(y-centerY)/10
+
+pupil.style.transform=`translate(${moveX}px,${moveY}px)`
+
+})
 
 search.addEventListener("focus",()=>{
-pupil.style.transform="scale(1.5)"
+pupil.style.transform+=" scale(1.6)"
 })
 
 search.addEventListener("blur",()=>{
 pupil.style.transform="scale(1)"
 })
 
+searchBtn.addEventListener("click",()=>{
+
+eye.classList.add("thinking")
+
+setTimeout(()=>{
+eye.classList.remove("thinking")
+
+pupil.style.transform="scale(0.9)"
+
+setTimeout(()=>{
+pupil.style.transform="scale(1)"
+},200)
+
+},600)
+
+})
+
 /* workspace animation */
 
 const workspace=document.getElementById("workspace")
 
-document.querySelector(".search-btn").onclick=()=>{
+searchBtn.onclick=()=>{
 workspace.classList.add("animate")
 setTimeout(()=>workspace.classList.remove("animate"),350)
 }
@@ -508,13 +616,14 @@ const now=new Date()
 
 const sec=now.getSeconds()
 const min=now.getMinutes()
-const hr=now.getHours()
+const hr=now.getHours()%12
 
 document.getElementById("second").style.transform=`translateX(-50%) rotate(${sec*6}deg)`
 document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min*6}deg)`
 document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
 
-document.getElementById("digital").textContent=now.toLocaleTimeString()
+document.getElementById("digital").textContent=
+now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'})
 
 }
 
@@ -537,28 +646,6 @@ document.getElementById("calendar").innerHTML=`
 <div class="calendar-month">${month} ${year}</div>
 </div>
 `
-
-/* quote rotation */
-
-const quotes=[
-{q:"The important thing is not to stop questioning.",a:"Albert Einstein"},
-{q:"Somewhere, something incredible is waiting to be known.",a:"Carl Sagan"},
-{q:"Equipped with his five senses, man explores the universe around him.",a:"Edwin Hubble"}
-]
-
-setInterval(()=>{
-const r=quotes[Math.floor(Math.random()*quotes.length)]
-document.getElementById("quote").innerText=r.q
-document.getElementById("author").innerText="— "+r.a
-},15000)
-
-/* panel click */
-
-document.querySelectorAll(".panel").forEach(panel=>{
-panel.addEventListener("click",()=>{
-panel.classList.toggle("active")
-})
-})
 
 </script>
 
