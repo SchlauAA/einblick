@@ -105,20 +105,24 @@ margin-bottom:6px;
 color:#9aa0aa;
 }
 
-/* GRID SYSTEM */
+/* GRID */
 
-.widget-row,
+.widget-row{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:24px;
+}
+
 .panel-grid{
 display:grid;
 grid-template-columns:repeat(4,1fr);
 gap:24px;
 }
 
-/* SQUARE MODULE */
+/* MODULES */
 
 .widget,
 .panel{
-width:100%;
 aspect-ratio:1/1;
 background:#0d0d0d;
 border:1px solid #242424;
@@ -131,8 +135,6 @@ justify-content:center;
 padding:20px;
 transition:.25s;
 }
-
-/* HOVER */
 
 .widget:hover,
 .panel:hover{
@@ -162,7 +164,7 @@ background:#cfd3dc;
 
 .hour{width:3px;height:20px}
 .minute{width:2px;height:28px}
-.second{width:1px;height:32px;background:#cfd3dc}
+.second{width:1px;height:32px}
 
 .digital{
 font-size:14px;
@@ -171,18 +173,11 @@ font-size:14px;
 /* SEARCH */
 
 .search-panel{
-width:100%;
 display:flex;
 background:#0d0d0d;
 border:1px solid #242424;
 border-radius:12px;
 overflow:hidden;
-box-shadow:0 10px 25px rgba(0,0,0,.55);
-}
-
-.search-panel:focus-within{
-border-color:#fff;
-box-shadow:0 0 10px rgba(255,255,255,.15);
 }
 
 .attach{
@@ -222,51 +217,20 @@ background:#0d0d0d;
 border:1px solid #242424;
 border-radius:12px;
 padding:20px;
-box-shadow:0 10px 25px rgba(0,0,0,.55);
 text-align:center;
-}
-
-.workspace-title{
-font-size:14px;
-color:#9aa0aa;
-margin-bottom:10px;
 }
 
 /* PANELS */
 
-.panel{
-cursor:pointer;
-position:relative;
+.panel-title{
+font-size:16px;
+font-weight:500;
+margin-bottom:4px;
 }
 
-.panel svg{
-width:34px;
-height:34px;
-stroke:#d2d6e0;
-stroke-width:1.6;
-stroke-linecap:round;
-stroke-linejoin:round;
-fill:none;
-transition:all .25s ease;
-}
-
-.panel:hover svg{
-transform:scale(1.15);
-stroke:#ffffff;
-}
-
-.panel-label{
-position:absolute;
-bottom:10px;
+.panel-sub{
 font-size:12px;
-opacity:0;
-transform:translateY(4px);
-transition:all .22s ease;
-}
-
-.panel:hover .panel-label{
-opacity:1;
-transform:translateY(0);
+color:#9aa0aa;
 }
 
 /* REFLECTION */
@@ -275,12 +239,10 @@ transform:translateY(0);
 background:#0d0d0d;
 border:1px solid #242424;
 border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,.55);
 padding:28px;
 text-align:center;
 font-style:italic;
 font-size:18px;
-line-height:1.6;
 }
 
 .reflection-title{
@@ -288,24 +250,11 @@ color:#9aa0aa;
 margin-bottom:12px;
 }
 
-/* FOOTER */
-
 .footer{
 text-align:center;
 color:#888;
 font-size:14px;
 margin-top:36px;
-}
-
-/* RESPONSIVE */
-
-@media (max-width:900px){
-
-.widget-row,
-.panel-grid{
-grid-template-columns:repeat(2,1fr);
-}
-
 }
 
 </style>
@@ -365,12 +314,7 @@ grid-template-columns:repeat(2,1fr);
 <div class="zone">
 
 <div class="workspace">
-
-<div class="workspace-title">Workspace</div>
-
-Research → Relativity<br>
-2 Tabs Open
-
+Workspace
 </div>
 
 </div>
@@ -380,47 +324,23 @@ Research → Relativity<br>
 <div class="panel-grid">
 
 <div class="panel">
-<svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M8 14a6 6 0 1112 0c0 2-2 3-2 4H10c0-1-2-2-2-4"/></svg>
-<div class="panel-label">Insight</div>
+<div class="panel-title">Knowledge</div>
+<div class="panel-sub">Insight + Learning</div>
 </div>
 
 <div class="panel">
-<svg viewBox="0 0 24 24"><path d="M3 6h8a3 3 0 013 3v9H6a3 3 0 00-3 3V6z"/><path d="M21 6h-8a3 3 0 00-3 3v9h8a3 3 0 013 3V6z"/></svg>
-<div class="panel-label">Learning</div>
+<div class="panel-title">Discovery</div>
+<div class="panel-sub">Research + Instruments</div>
 </div>
 
 <div class="panel">
-<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
-<div class="panel-label">Research</div>
+<div class="panel-title">Life</div>
+<div class="panel-sub">Health + Pursuits</div>
 </div>
 
 <div class="panel">
-<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 12l5-5"/><circle cx="12" cy="12" r="2"/></svg>
-<div class="panel-label">Instruments</div>
-</div>
-
-</div>
-
-<div class="panel-grid">
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><path d="M12 21s-6-4.35-9-8a5 5 0 019-4 5 5 0 019 4c-3 3.65-9 8-9 8z"/></svg>
-<div class="panel-label">Health</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><path d="M12 21c4-2 6-6 6-9-2 1-4 2-6 4-2-2-4-3-6-4 0 3 2 7 6 9z"/><path d="M12 16V7"/></svg>
-<div class="panel-label">Pursuits</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><circle cx="9" cy="6" r="2"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="11" cy="18" r="2"/></svg>
-<div class="panel-label">Preferences</div>
-</div>
-
-<div class="panel">
-<svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10"/><path d="M3 9h4M3 15h4M17 3v4M17 17v4M9 3v4M9 17v4M21 9h-4M21 15h-4"/></svg>
-<div class="panel-label">System</div>
+<div class="panel-title">Control</div>
+<div class="panel-sub">Preferences + System</div>
 </div>
 
 </div>
