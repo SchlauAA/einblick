@@ -15,7 +15,6 @@
 :root{
 --widget:150px;
 --icon:120px;
-
 --space-xl:80px;
 --space-md:24px;
 
@@ -42,7 +41,7 @@ justify-content:center;
 overflow-x:hidden;
 }
 
-/* dynamic wallpaper */
+/* wallpaper */
 
 body::before{
 content:"";
@@ -59,8 +58,6 @@ z-index:-1;
 transition:transform .15s ease;
 }
 
-/* container */
-
 .container{
 width:92%;
 max-width:900px;
@@ -73,15 +70,13 @@ border-radius:18px;
 background:rgba(10,10,10,.9);
 }
 
-/* zones */
-
 .zone{
 width:100%;
 max-width:900px;
 margin:auto;
 }
 
-/* eye logo */
+/* eye */
 
 .logo-eye{
 display:flex;
@@ -108,41 +103,21 @@ height:14px;
 background:white;
 border-radius:50%;
 position:absolute;
-transition:transform .15s ease;
+transition:transform .15s ease, box-shadow .3s ease;
 
 box-shadow:
 0 0 6px rgba(255,255,255,0.8),
 0 0 12px rgba(255,255,255,0.4);
 }
 
-.eyelid{
-position:absolute;
-width:100%;
-height:100%;
-background:var(--bg);
-top:-100%;
+.eye.idle .pupil{
+animation:breathing 4s infinite;
 }
 
-@keyframes blink{
-0%{top:-100%}
-50%{top:0}
-100%{top:-100%}
-}
-
-.blink{animation:blink .4s ease}
-
-/* brand */
-
-.brand-name{
-text-align:center;
-font-size:36px;
-letter-spacing:3px;
-}
-
-.slogan{
-text-align:center;
-color:var(--muted);
-margin-top:6px;
+@keyframes breathing{
+0%{box-shadow:0 0 6px rgba(255,255,255,0.4)}
+50%{box-shadow:0 0 14px rgba(255,255,255,0.9)}
+100%{box-shadow:0 0 6px rgba(255,255,255,0.4)}
 }
 
 /* widgets */
@@ -164,109 +139,24 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-transition:.2s;
+transition:.2s transform ease;
 }
 
 .widget:hover{
-transform:translateY(-3px);
-border-color:rgba(255,255,255,0.2);
+transform:translateY(-4px);
 }
 
-/* clock */
+/* weather */
 
-.clock{
-width:70px;
-height:70px;
-border:1px solid var(--border);
-border-radius:50%;
-position:relative;
-margin-bottom:10px;
-}
-
-.hand{
-position:absolute;
-bottom:50%;
-left:50%;
-transform-origin:center bottom;
-background:white;
-}
-
-.hour{width:2px;height:18px}
-.minute{width:2px;height:26px}
-.second{width:1px;height:30px}
-
-/* calendar */
-
-.calendar-widget{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:6px;
-}
-
-.calendar-day{
-font-size:11px;
-letter-spacing:1px;
-color:var(--muted);
-}
-
-.calendar-date{
+.weather-icon{
 font-size:42px;
-font-weight:600;
+animation:weatherMove 6s infinite ease-in-out;
 }
 
-.calendar-month{
-font-size:12px;
-color:var(--muted);
-}
-
-/* search */
-
-.search-panel{
-display:flex;
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:12px;
-overflow:hidden;
-}
-
-.attach{
-width:60px;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.search-input{
-flex:1;
-background:transparent;
-border:none;
-color:white;
-padding:16px;
-}
-
-.search-btn{
-width:120px;
-background:#111;
-border:none;
-color:white;
-cursor:pointer;
-}
-
-/* workspace */
-
-.workspace{
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:12px;
-padding:28px;
-transition:opacity .35s ease, transform .35s ease;
-}
-
-.workspace.animate{
-opacity:0;
-transform:translateY(12px);
+@keyframes weatherMove{
+0%{transform:translateY(0)}
+50%{transform:translateY(-6px)}
+100%{transform:translateY(0)}
 }
 
 /* panels */
@@ -289,54 +179,63 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 cursor:pointer;
-transition:.2s;
+transition:.25s;
 position:relative;
 }
 
 .panel:hover{
-transform:translateY(-3px);
+transform:translateY(-4px);
 border-color:rgba(255,255,255,.2);
 }
 
-.panel svg{
-width:36px;
-height:36px;
-stroke:white;
-stroke-width:1.4;
-fill:none;
-transition:transform .25s ease;
-}
+/* icon animations */
 
 .panel:hover svg{
-transform:scale(1.08);
+animation:iconPulse .6s ease;
 }
 
-.panel-title{
-position:absolute;
-bottom:10px;
-font-size:12px;
+@keyframes iconPulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.12)}
+100%{transform:scale(1)}
+}
+
+/* workspace */
+
+.workspace{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:12px;
+padding:28px;
+transition:opacity .35s ease, transform .35s ease;
+}
+
+.workspace.fade{
 opacity:0;
-transition:.2s;
+transform:translateY(20px);
 }
 
-.panel:hover .panel-title{
-opacity:1;
+/* knowledge graph */
+
+.graph{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:20px;
 }
 
-.panel-sub{
-font-size:11px;
-color:var(--muted);
-opacity:0;
-max-height:0;
-overflow:hidden;
-margin-top:6px;
-text-align:center;
-transition:.25s;
+.node{
+width:12px;
+height:12px;
+border-radius:50%;
+background:white;
+animation:pulse 3s infinite;
 }
 
-.panel.active .panel-sub{
-opacity:1;
-max-height:40px;
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.6)}
+100%{transform:scale(1)}
 }
 
 /* reflection */
@@ -370,9 +269,8 @@ color:#777;
 <div class="zone">
 
 <div class="logo-eye">
-<div class="eye" id="eye">
+<div class="eye idle" id="eye">
 <div class="pupil" id="pupil"></div>
-<div class="eyelid" id="eyelid"></div>
 </div>
 </div>
 
@@ -384,22 +282,16 @@ color:#777;
 <div class="zone widget-row">
 
 <div class="widget">
-
-<div class="clock">
-<div class="hand hour" id="hour"></div>
-<div class="hand minute" id="minute"></div>
-<div class="hand second" id="second"></div>
-</div>
-
 <div id="digital"></div>
-
 </div>
 
 <div class="widget" id="calendar"></div>
 
 <div class="widget">News</div>
 
-<div class="widget">Weather</div>
+<div class="widget">
+<div class="weather-icon">☀</div>
+</div>
 
 </div>
 
@@ -416,70 +308,35 @@ color:#777;
 <div class="zone workspace" id="workspace">
 
 <h2>Workspace</h2>
-<p style="color:var(--muted);margin-top:10px">Ready for research.</p>
+
+<p style="color:var(--muted);margin-top:10px">
+Ready for research.
+</p>
+
+<div class="graph">
+<div class="node"></div>
+<div class="node"></div>
+<div class="node"></div>
+</div>
 
 </div>
 
 <div class="zone panel-grid">
 
 <div class="panel">
-
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="3"/>
-<circle cx="5" cy="12" r="2"/>
-<circle cx="19" cy="12" r="2"/>
-</svg>
-
 <div class="panel-title">Knowledge</div>
-<div class="panel-sub">Insight + Learning</div>
-
 </div>
 
 <div class="panel">
-
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="9"/>
-<line x1="12" y1="12" x2="18" y2="6"/>
-</svg>
-
 <div class="panel-title">Discovery</div>
-<div class="panel-sub">Research + Instruments</div>
-
 </div>
 
 <div class="panel">
-
-<!-- TREE ICON -->
-
-<svg viewBox="0 0 24 24">
-<polygon points="12,3 4,12 8,12 6,16 10,16 8,20 16,20 14,16 18,16 16,12 20,12"/>
-<line x1="12" y1="20" x2="12" y2="23"/>
-</svg>
-
 <div class="panel-title">Life</div>
-<div class="panel-sub">Health + Pursuits</div>
-
 </div>
 
 <div class="panel">
-
-<!-- PROCESSOR ICON -->
-
-<svg viewBox="0 0 24 24">
-<rect x="7" y="7" width="10" height="10"/>
-<line x1="9" y1="1" x2="9" y2="7"/>
-<line x1="15" y1="1" x2="15" y2="7"/>
-<line x1="9" y1="17" x2="9" y2="23"/>
-<line x1="15" y1="17" x2="15" y2="23"/>
-<line x1="1" y1="9" x2="7" y2="9"/>
-<line x1="1" y1="15" x2="7" y2="15"/>
-<line x1="17" y1="9" x2="23" y2="9"/>
-<line x1="17" y1="15" x2="23" y2="15"/>
-</svg>
-
 <div class="panel-title">Control</div>
-<div class="panel-sub">Preferences + System</div>
-
 </div>
 
 </div>
@@ -488,11 +345,13 @@ color:#777;
 
 <div class="reflection-title">Today's Reflection</div>
 
-"If space-time bends under gravity, what might a universe without mass look like?"
+<div id="quote">
+"Equipped with his five senses, man explores the universe around him."
+</div>
 
-<br><br>
-
-— Albert Einstein
+<div style="margin-top:12px;color:var(--muted)">
+— Edwin Hubble
+</div>
 
 </div>
 
@@ -504,104 +363,70 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
-/* wallpaper parallax */
+/* parallax */
 
 document.addEventListener("mousemove",e=>{
 const x=(e.clientX/window.innerWidth)-0.5
 const y=(e.clientY/window.innerHeight)-0.5
-document.body.style.setProperty("--px",x*10+"px")
-document.body.style.setProperty("--py",y*10+"px")
 document.body.style.transform=`translate(${x*4}px,${y*4}px)`
 })
 
-/* eye tracking */
+/* eye states */
 
 const pupil=document.getElementById("pupil")
 const eye=document.getElementById("eye")
-const eyelid=document.getElementById("eyelid")
+const search=document.getElementById("searchInput")
 
-document.addEventListener("mousemove",e=>{
-
-const rect=eye.getBoundingClientRect()
-
-const x=e.clientX-rect.left
-const y=e.clientY-rect.top
-
-const centerX=rect.width/2
-const centerY=rect.height/2
-
-const moveX=(x-centerX)/8
-const moveY=(y-centerY)/8
-
-pupil.style.transform=`translate(${moveX}px,${moveY}px)`
-
+search.addEventListener("focus",()=>{
+pupil.style.transform="scale(1.5)"
 })
 
-setInterval(()=>{
-eyelid.classList.add("blink")
-setTimeout(()=>eyelid.classList.remove("blink"),400)
-},4000)
-
-/* workspace animation */
-
-const workspace=document.getElementById("workspace")
-const searchBtn=document.querySelector(".search-btn")
-
-searchBtn.addEventListener("click",()=>{
-workspace.classList.add("animate")
-setTimeout(()=>{
-workspace.classList.remove("animate")
-},350)
+search.addEventListener("blur",()=>{
+pupil.style.transform="scale(1)"
 })
 
 /* clock */
 
 function updateClock(){
-
 const now=new Date()
-
-const sec=now.getSeconds()
-const min=now.getMinutes()
-const hr=now.getHours()
-
-document.getElementById("second").style.transform=`translateX(-50%) rotate(${sec*6}deg)`
-document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min*6}deg)`
-document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
-
 document.getElementById("digital").textContent=now.toLocaleTimeString()
-
 }
-
 setInterval(updateClock,1000)
 updateClock()
 
 /* calendar */
 
 const now=new Date()
-
-const day=now.toLocaleDateString(undefined,{weekday:'long'})
-const date=now.getDate()
-const month=now.toLocaleDateString(undefined,{month:'short'})
-const year=now.getFullYear()
-
 document.getElementById("calendar").innerHTML=`
-<div class="calendar-widget">
-<div class="calendar-day">${day}</div>
-<div class="calendar-date">${date}</div>
-<div class="calendar-month">${month} ${year}</div>
+<div style="text-align:center">
+<div style="font-size:11px;color:#aaa">${now.toLocaleDateString(undefined,{weekday:'long'})}</div>
+<div style="font-size:40px">${now.getDate()}</div>
+<div style="font-size:12px;color:#aaa">${now.toLocaleDateString(undefined,{month:'short'})} ${now.getFullYear()}</div>
 </div>
 `
 
-/* panel click */
+/* search animation */
 
-document.querySelectorAll(".panel").forEach(panel=>{
-panel.addEventListener("click",()=>{
-panel.classList.toggle("active")
-})
-})
+const workspace=document.getElementById("workspace")
+document.querySelector(".search-btn").onclick=()=>{
+workspace.classList.add("fade")
+setTimeout(()=>workspace.classList.remove("fade"),400)
+}
+
+/* reflection rotation */
+
+const quotes=[
+["The important thing is not to stop questioning.","Albert Einstein"],
+["Equipped with his five senses, man explores the universe.","Edwin Hubble"],
+["Somewhere, something incredible is waiting to be known.","Carl Sagan"]
+]
+
+setInterval(()=>{
+const q=quotes[Math.floor(Math.random()*quotes.length)]
+document.getElementById("quote").innerText=`"${q[0]}" — ${q[1]}`
+},15000)
 
 </script>
 
 </body>
-
 </html>
