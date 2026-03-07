@@ -2,10 +2,8 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>EINBLICK</title>
 
 <link href="https://fonts.cdnfonts.com/css/neue-einstellung" rel="stylesheet">
@@ -56,7 +54,6 @@ linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
 linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
 background-size:60px 60px;
 z-index:-1;
-transition:transform .2s ease;
 }
 
 /* container */
@@ -73,15 +70,13 @@ border-radius:18px;
 background:rgba(10,10,10,.9);
 }
 
-/* zones */
-
 .zone{
 width:100%;
 max-width:900px;
 margin:auto;
 }
 
-/* EYE */
+/* eye */
 
 .logo-eye{
 display:flex;
@@ -94,19 +89,14 @@ width:90px;
 height:56px;
 border:2px solid rgba(255,255,255,0.55);
 border-radius:60px/36px;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 position:relative;
 background:rgba(255,255,255,0.02);
 
-/* optical lens depth */
-
 box-shadow:
 0 0 18px rgba(255,255,255,0.08),
-0 0 40px rgba(255,255,255,0.03),
 inset 0 0 12px rgba(255,255,255,0.08),
 inset 0 0 30px rgba(0,0,0,0.6);
 }
@@ -118,16 +108,12 @@ background:white;
 border-radius:50%;
 position:absolute;
 
-transition:transform .15s ease;
-
 box-shadow:
 0 0 10px rgba(255,255,255,0.9),
 0 0 20px rgba(255,255,255,0.6);
 
 animation:pupilGlow 4s ease-in-out infinite;
 }
-
-/* moving highlight */
 
 .glint{
 position:absolute;
@@ -140,16 +126,10 @@ left:3px;
 opacity:.85;
 }
 
-/* breathing glow */
-
 @keyframes pupilGlow{
-
 0%{box-shadow:0 0 10px rgba(255,255,255,0.6)}
-
 50%{box-shadow:0 0 20px rgba(255,255,255,0.9)}
-
 100%{box-shadow:0 0 10px rgba(255,255,255,0.6)}
-
 }
 
 /* brand */
@@ -185,11 +165,6 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-
-box-shadow:
-0 6px 14px rgba(0,0,0,0.4),
-0 0 8px rgba(255,255,255,0.02);
-
 transition:.2s;
 }
 
@@ -286,12 +261,6 @@ background:var(--panel);
 border:1px solid var(--border);
 border-radius:12px;
 padding:28px;
-transition:opacity .35s ease, transform .35s ease;
-}
-
-.workspace.animate{
-opacity:0;
-transform:translateY(10px);
 }
 
 /* panels */
@@ -317,11 +286,6 @@ justify-content:center;
 
 cursor:pointer;
 position:relative;
-transition:.2s;
-}
-
-.panel:hover{
-transform:translateY(-4px);
 }
 
 .panel svg{
@@ -337,27 +301,10 @@ position:absolute;
 bottom:10px;
 font-size:12px;
 opacity:0;
-transition:.2s;
 }
 
 .panel:hover .panel-title{
 opacity:1;
-}
-
-.panel-sub{
-font-size:11px;
-color:var(--muted);
-opacity:0;
-max-height:0;
-overflow:hidden;
-margin-top:6px;
-text-align:center;
-transition:.25s;
-}
-
-.panel.active .panel-sub{
-opacity:1;
-max-height:40px;
 }
 
 /* reflection */
@@ -391,11 +338,9 @@ color:#777;
 
 <div class="logo-eye">
 <div class="eye" id="eye">
-
 <div class="pupil" id="pupil">
 <div class="glint"></div>
 </div>
-
 </div>
 </div>
 
@@ -435,14 +380,14 @@ color:#777;
 <div class="search-panel">
 <div class="attach">📎</div>
 <input id="searchInput" class="search-input" placeholder="Search Einblick">
-<button class="search-btn" id="searchBtn">Search</button>
+<button class="search-btn">Search</button>
 </div>
 
 </div>
 
 <!-- workspace -->
 
-<div class="zone workspace" id="workspace">
+<div class="zone workspace">
 
 <h2>Workspace</h2>
 
@@ -451,6 +396,59 @@ Ready for research.
 </p>
 
 <div style="margin-top:16px;font-size:22px">● ● ●</div>
+
+</div>
+
+<!-- panels -->
+
+<div class="zone panel-grid">
+
+<div class="panel">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"/>
+<circle cx="5" cy="12" r="2"/>
+<circle cx="19" cy="12" r="2"/>
+</svg>
+<div class="panel-title">Knowledge</div>
+</div>
+
+<div class="panel">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="9"/>
+<line x1="12" y1="12" x2="18" y2="6"/>
+</svg>
+<div class="panel-title">Discovery</div>
+</div>
+
+<div class="panel">
+<svg viewBox="0 0 24 24">
+<polygon points="12,3 4,12 8,12 6,16 10,16 8,20 16,20 14,16 18,16 16,12 20,12"/>
+</svg>
+<div class="panel-title">Life</div>
+</div>
+
+<div class="panel">
+<svg viewBox="0 0 24 24">
+<rect x="7" y="7" width="10" height="10"/>
+</svg>
+<div class="panel-title">Control</div>
+</div>
+
+</div>
+
+<!-- reflection -->
+
+<div class="zone reflection">
+
+<div class="reflection-title">Today's Reflection</div>
+
+<div id="quote">
+The important thing is not to stop questioning.
+</div>
+
+<div id="author" style="margin-top:12px;color:var(--muted)">
+— Albert Einstein
+</div>
 
 </div>
 
