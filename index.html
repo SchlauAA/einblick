@@ -110,8 +110,6 @@ outline:none;
 border-bottom:1.5px solid white;
 }
 
-/* button */
-
 button{
 width:100%;
 padding:13px;
@@ -125,41 +123,6 @@ rgba(255,255,255,.06)
 color:#EAEAEA;
 font-weight:600;
 letter-spacing:.06em;
-cursor:pointer;
-transition:.18s ease;
-}
-
-button:hover{
-background:rgba(255,255,255,.18);
-}
-
-/* modal */
-
-.modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.7);
-backdrop-filter:blur(6px);
-z-index:10;
-}
-
-.modal-content{
-background:#111;
-margin:12% auto;
-padding:40px;
-border-radius:10px;
-width:90%;
-max-width:600px;
-color:white;
-}
-
-.close{
-float:right;
-font-size:22px;
 cursor:pointer;
 }
 
@@ -176,6 +139,117 @@ display:flex;
 justify-content:center;
 font-size:14px;
 opacity:.6;
+}
+
+/* Insight Card */
+
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+backdrop-filter:blur(6px);
+z-index:10;
+}
+
+.insight-card{
+
+background:#F4F1E8;
+color:#111;
+
+margin:8% auto;
+
+padding:40px;
+
+width:90%;
+max-width:520px;
+
+border:1px solid #222;
+
+box-shadow:
+0 0 30px rgba(0,0,0,.6);
+
+animation:cardReveal .5s ease;
+
+font-family:Georgia,serif;
+
+}
+
+@keyframes cardReveal{
+
+0%{
+opacity:0;
+transform:translateY(30px) scale(.95);
+}
+
+100%{
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+}
+
+.card-title{
+
+text-align:center;
+font-size:28px;
+letter-spacing:.08em;
+margin-bottom:30px;
+
+}
+
+.card-illustration{
+
+height:120px;
+border:1px solid #222;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+margin-bottom:25px;
+
+font-size:14px;
+
+}
+
+.card-section{
+margin-bottom:14px;
+}
+
+.card-section strong{
+display:block;
+}
+
+.card-button{
+margin-top:24px;
+}
+
+.card-button button{
+background:#111;
+color:#F4F1E8;
+border:none;
+}
+
+.close{
+float:right;
+font-size:22px;
+cursor:pointer;
+}
+
+/* Creator modal */
+
+.modal-content{
+background:#111;
+margin:12% auto;
+padding:40px;
+border-radius:10px;
+width:90%;
+max-width:600px;
+color:white;
 }
 
 </style>
@@ -220,21 +294,29 @@ fill="white" id="pupil"/>
 <!-- Insight Card -->
 
 <div id="resultModal" class="modal">
-<div class="modal-content">
+
+<div class="insight-card">
 
 <span class="close" onclick="closeResult()">×</span>
 
-<h2 id="cardTitle"></h2>
+<div class="card-title" id="cardTitle"></div>
 
-<p id="definition"></p>
-<p id="principle"></p>
-<p id="history"></p>
-<p id="application"></p>
-<p id="fact"></p>
+<div class="card-illustration">
+Illustration Placeholder
+</div>
 
+<div class="card-section"><strong>Definition</strong><span id="definition"></span></div>
+<div class="card-section"><strong>Principle</strong><span id="principle"></span></div>
+<div class="card-section"><strong>History</strong><span id="history"></span></div>
+<div class="card-section"><strong>Application</strong><span id="application"></span></div>
+<div class="card-section"><strong>Interesting Fact</strong><span id="fact"></span></div>
+
+<div class="card-button">
 <button onclick="openBooklet()">Open Booklet</button>
+</div>
 
 </div>
+
 </div>
 
 <!-- Creator -->
@@ -245,7 +327,6 @@ fill="white" id="pupil"/>
 <span class="close" onclick="closeCreator()">×</span>
 
 <h2>Creator</h2>
-
 <p>Dr. Aishvarya Adhaulia</p>
 
 </div>
@@ -253,9 +334,7 @@ fill="white" id="pupil"/>
 
 <script>
 
-/* -------------------------------
-   EINBLICK EYE SYSTEM
---------------------------------*/
+/* Eye system */
 
 const pupil=document.getElementById("pupil")
 const eye=document.querySelector(".eye")
@@ -264,18 +343,12 @@ let eyeCenterX
 let eyeCenterY
 
 function updateEyeCenter(){
-
 const rect=eye.getBoundingClientRect()
-
 eyeCenterX=rect.left+rect.width/2
 eyeCenterY=rect.top+rect.height/2
-
 }
 
 updateEyeCenter()
-window.addEventListener("resize",updateEyeCenter)
-
-/* CURSOR TRACKING */
 
 document.addEventListener("mousemove",e=>{
 
@@ -295,8 +368,6 @@ pupil.setAttribute("cx",70+dx)
 pupil.setAttribute("cy",45+dy)
 
 })
-
-/* TOUCH TRACKING */
 
 document.addEventListener("touchmove",e=>{
 
@@ -319,97 +390,16 @@ pupil.setAttribute("cy",45+dy)
 
 })
 
-/* BREATHING */
+/* breathing */
 
 setInterval(()=>{
-
 pupil.setAttribute("r",9)
-
 setTimeout(()=>{
-
 pupil.setAttribute("r",7)
-
 },600)
-
 },4000)
 
-/* RESEARCH PULSE */
-
-function activateEye(){
-
-pupil.style.filter="drop-shadow(0 0 10px white)"
-pupil.setAttribute("r",14)
-
-setTimeout(()=>{
-
-pupil.style.filter="none"
-pupil.setAttribute("r",8)
-
-},700)
-
-}
-
-/* -------------------------------
-   TOPIC INTELLIGENCE
---------------------------------*/
-
-function detectTopicType(topic){
-
-topic=topic.toLowerCase()
-
-if(topic.includes("quantum")||topic.includes("physics")) return "science"
-
-if(topic.includes("black hole")||topic.includes("galaxy")) return "astronomy"
-
-if(topic.includes("android")||topic.includes("ai")) return "technology"
-
-if(topic.includes("ferrari")||topic.includes("porsche")||topic.includes("car")) return "automotive"
-
-if(topic.includes("philosophy")||topic.includes("stoicism")) return "philosophy"
-
-return "default"
-
-}
-
-function eyeReaction(type){
-
-switch(type){
-
-case "science":
-pupil.style.filter="drop-shadow(0 0 14px cyan)"
-break
-
-case "astronomy":
-pupil.style.fill="#888"
-break
-
-case "technology":
-pupil.style.filter="drop-shadow(0 0 14px #4da6ff)"
-break
-
-case "automotive":
-pupil.style.filter="drop-shadow(0 0 14px red)"
-break
-
-case "philosophy":
-pupil.style.filter="drop-shadow(0 0 14px white)"
-break
-
-default:
-pupil.style.filter="drop-shadow(0 0 10px white)"
-
-}
-
-setTimeout(()=>{
-pupil.style.filter="none"
-pupil.style.fill="white"
-},800)
-
-}
-
-/* -------------------------------
-   KNOWLEDGE GENERATOR
---------------------------------*/
+/* knowledge generator */
 
 function generateKnowledge(topic){
 
@@ -436,23 +426,15 @@ fact:
 
 }
 
-/* -------------------------------
-   RESEARCH ENGINE
---------------------------------*/
+/* research engine */
 
 let currentBooklet=""
 
 function startResearch(){
 
-activateEye()
-
 let topic=document.getElementById("topic").value
 
 if(topic==="") topic="Subject"
-
-let type=detectTopicType(topic)
-
-eyeReaction(type)
 
 let data=generateKnowledge(topic)
 
@@ -469,7 +451,7 @@ document.getElementById("resultModal").style.display="block"
 
 }
 
-/* BOOKLET */
+/* booklet */
 
 function generateBooklet(data){
 
@@ -484,16 +466,14 @@ let pages=[
 ["Applications",data.application],
 ["Modern Research","Scientists continue exploring "+data.title],
 ["Interesting Facts",data.fact],
-["Summary",data.title+" remains a fascinating topic of knowledge"]
+["Summary",data.title+" remains a fascinating topic"]
 
 ]
 
-let html="<html><head><title>"+data.title+"</title></head><body style='font-family:Neue Einstellung;background:#111;color:white;padding:40px'>"
+let html="<html><body style='font-family:Georgia;background:#111;color:white;padding:40px'>"
 
 pages.forEach(p=>{
-
 html+="<h1>"+p[0]+"</h1><p>"+p[1]+"</p><hr>"
-
 })
 
 html+="</body></html>"
@@ -513,21 +493,15 @@ win.document.write(currentBooklet)
 /* modals */
 
 function closeResult(){
-
 document.getElementById("resultModal").style.display="none"
-
 }
 
 function openCreator(){
-
 document.getElementById("creatorModal").style.display="block"
-
 }
 
 function closeCreator(){
-
 document.getElementById("creatorModal").style.display="none"
-
 }
 
 </script>
