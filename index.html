@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>EINBLICK</title>
 
@@ -26,34 +26,47 @@ margin-top:80px;
 display:flex;
 flex-direction:column;
 align-items:center;
-gap:26px;
+gap:24px;
 }
 
+/* EYE */
+
 .eye{
-width:80px;
-height:80px;
+width:140px;
+height:90px;
 display:flex;
 align-items:center;
 justify-content:center;
 }
 
-@keyframes blink{
-0%,95%,100%{transform:scaleY(1);}
-97%{transform:scaleY(.1);}
-}
-
 .eye svg{
-animation:blink 8s infinite;
+overflow:visible;
 }
 
-.pupil{
-transition:all .3s ease;
+/* blink */
+
+@keyframes blink{
+0%,92%,100%{transform:scaleY(1)}
+95%{transform:scaleY(.08)}
 }
 
-.pupil.active{
-transform:scale(1.6);
-filter:drop-shadow(0 0 10px white);
+.eye{
+animation:blink 7s infinite;
 }
+
+/* pupil */
+
+#pupil{
+transition:all .25s ease;
+filter:drop-shadow(0 0 4px rgba(255,255,255,.25));
+}
+
+#pupil.active{
+transform:scale(1.5);
+filter:drop-shadow(0 0 12px white);
+}
+
+/* TITLE */
 
 h1{
 letter-spacing:8px;
@@ -61,12 +74,14 @@ margin:0;
 font-weight:600;
 }
 
+/* INPUT */
+
 .generator{
 margin-top:60px;
 display:flex;
 flex-direction:column;
 align-items:center;
-gap:26px;
+gap:24px;
 width:100%;
 max-width:520px;
 }
@@ -74,7 +89,7 @@ max-width:520px;
 input{
 width:100%;
 padding:16px;
-border-radius:8px;
+border-radius:10px;
 border:1px solid #333;
 background:#111;
 color:#EAEAEA;
@@ -94,6 +109,8 @@ cursor:pointer;
 button:hover{
 opacity:.85;
 }
+
+/* POSTER */
 
 .poster-stage{
 margin-top:80px;
@@ -129,16 +146,14 @@ justify-content:center;
 font-size:12px;
 }
 
-.facts{
-font-size:14px;
-}
-
 .metadata{
 position:absolute;
 bottom:20px;
 right:20px;
 font-size:12px;
 }
+
+/* BOOKLET */
 
 .booklet{
 position:fixed;
@@ -182,11 +197,25 @@ opacity:.7;
 
 <div class="eye">
 
-<svg width="70" height="70" viewBox="0 0 100 100" fill="none">
+<svg width="140" height="90" viewBox="0 0 140 90">
 
-<circle cx="50" cy="50" r="40" stroke="white" stroke-width="3"/>
+<ellipse
+cx="70"
+cy="45"
+rx="55"
+ry="25"
+stroke="white"
+stroke-width="2"
+fill="none"
+/>
 
-<circle cx="50" cy="50" r="10" fill="white" class="pupil" id="pupil"/>
+<circle
+cx="70"
+cy="45"
+r="8"
+fill="white"
+id="pupil"
+/>
 
 </svg>
 
@@ -214,13 +243,6 @@ onmouseup="cancelPress()">
 
 <div class="illustration">
 Scientific Diagram
-</div>
-
-<div class="facts">
-• Key fact one<br>
-• Key fact two<br>
-• Key fact three<br>
-• Key fact four
 </div>
 
 <div class="metadata">
@@ -266,7 +288,26 @@ Created by Dr. Aishvarya Adhaulia
 
 <script>
 
-let pressTimer
+/* pupil tracking */
+
+const pupil=document.getElementById("pupil")
+
+document.addEventListener("mousemove",e=>{
+
+const rect=pupil.ownerSVGElement.getBoundingClientRect()
+
+const centerX=rect.left+rect.width/2
+const centerY=rect.top+rect.height/2
+
+const dx=(e.clientX-centerX)/25
+const dy=(e.clientY-centerY)/25
+
+pupil.setAttribute("cx",70+dx)
+pupil.setAttribute("cy",45+dy)
+
+})
+
+/* generation */
 
 function generatePoster(){
 
@@ -278,17 +319,19 @@ document.getElementById("posterTitle").innerText=topic.toUpperCase()
 
 document.getElementById("poster").style.display="block"
 
-let pupil=document.getElementById("pupil")
+/* eye focus */
 
 pupil.classList.add("active")
 
 setTimeout(()=>{
-
 pupil.classList.remove("active")
-
-},1000)
+},900)
 
 }
+
+/* booklet */
+
+let pressTimer
 
 function startPress(){
 
