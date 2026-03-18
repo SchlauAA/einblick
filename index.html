@@ -12,12 +12,10 @@ margin:0;
 font-family:"Neue Einstellung",sans-serif;
 color:#EAEAEA;
 background:#0B0B0C;
-
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-
 min-height:100vh;
 overflow:hidden;
 }
@@ -31,15 +29,11 @@ left:0;
 width:100%;
 height:100%;
 pointer-events:none;
-
 background-image:
 radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
 radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
-
 background-size:80px 80px,140px 140px;
-
 animation:spaceDrift 60s linear infinite;
-
 opacity:.25;
 }
 
@@ -55,7 +49,6 @@ display:flex;
 flex-direction:column;
 align-items:center;
 gap:48px;
-
 width:100%;
 max-width:480px;
 }
@@ -72,41 +65,13 @@ animation:blink 7s infinite;
 margin-bottom:-10px;
 }
 
-.eye svg{
-shape-rendering:geometricPrecision;
-filter:drop-shadow(0 0 3px rgba(255,255,255,.25));
-}
-
 @keyframes blink{
 0%,92%,100%{transform:scaleY(1)}
 95%{transform:scaleY(.08)}
 }
 
-@keyframes breathe{
-0%{filter:drop-shadow(0 0 3px rgba(255,255,255,.25))}
-50%{filter:drop-shadow(0 0 10px rgba(255,255,255,.6))}
-100%{filter:drop-shadow(0 0 3px rgba(255,255,255,.25))}
-}
-
 #pupil{
-animation:breathe 4.5s ease-in-out infinite;
 transition:.35s ease;
-}
-
-#pupil.active{
-transform:scale(1.6);
-filter:drop-shadow(0 0 14px white);
-}
-
-/* halo */
-
-#halo{
-transition:.4s ease;
-}
-
-#halo.active{
-opacity:.35;
-transform:scale(1.05);
 }
 
 /* title */
@@ -115,8 +80,6 @@ h1{
 margin:0;
 letter-spacing:.18em;
 font-weight:500;
-text-shadow:0 0 8px rgba(255,255,255,.08);
-
 position:relative;
 left:2px;
 }
@@ -145,50 +108,29 @@ text-align:center;
 input:focus{
 outline:none;
 border-bottom:1.5px solid white;
-box-shadow:0 2px 6px rgba(255,255,255,.2);
 }
 
-/* research button */
+/* button */
 
 button{
 width:100%;
 padding:13px;
-
 border-radius:2px;
-
 border:1px solid rgba(255,255,255,.25);
-
 background:linear-gradient(
 to bottom,
 rgba(255,255,255,.12),
 rgba(255,255,255,.06)
 );
-
 color:#EAEAEA;
-
 font-weight:600;
-
 letter-spacing:.06em;
-
 cursor:pointer;
-
 transition:.18s ease;
 }
 
 button:hover{
 background:rgba(255,255,255,.18);
-border-color:rgba(255,255,255,.45);
-}
-
-@keyframes activate{
-0%{box-shadow:0 0 0 rgba(255,255,255,0)}
-50%{box-shadow:0 0 12px rgba(255,255,255,.35)}
-100%{box-shadow:0 0 0 rgba(255,255,255,0)}
-}
-
-button:active{
-animation:activate .35s ease;
-transform:scale(.97);
 }
 
 /* modal */
@@ -213,75 +155,27 @@ border-radius:10px;
 width:90%;
 max-width:600px;
 color:white;
-position:relative;
-opacity:0;
-transform:translateY(20px);
-transition:.35s ease;
-}
-
-.modal-content.active{
-opacity:1;
-transform:translateY(0);
 }
 
 .close{
-position:absolute;
-top:18px;
-right:24px;
+float:right;
 font-size:22px;
 cursor:pointer;
 }
 
-.poster-preview{
-margin:30px 0;
-height:220px;
-border:1px solid #333;
-display:flex;
-align-items:center;
-justify-content:center;
-background:#F4F1E8;
-color:black;
-}
-
-/* creator alignment */
+/* creator */
 
 footer{
-
 position:fixed;
 bottom:60px;
-
 left:50%;
 transform:translateX(-50%);
-
 width:480px;
 max-width:90vw;
-
 display:flex;
 justify-content:center;
-align-items:center;
-
 font-size:14px;
 opacity:.6;
-
-}
-
-.creator{
-cursor:pointer;
-transition:.25s ease;
-}
-
-.creator-name{
-opacity:0;
-margin-left:6px;
-transition:.25s ease;
-}
-
-.creator:hover .creator-name{
-opacity:1;
-}
-
-.creator:hover{
-opacity:1;
 }
 
 </style>
@@ -299,10 +193,6 @@ opacity:1;
 
 <ellipse cx="70" cy="45" rx="55" ry="25"
 stroke="white" stroke-width="2.6" fill="none"/>
-
-<ellipse cx="70" cy="45" rx="60" ry="30"
-stroke="white" stroke-width="1.2" fill="none"
-id="halo" opacity="0"/>
 
 <circle cx="70" cy="45" r="8"
 fill="white" id="pupil"/>
@@ -324,32 +214,37 @@ fill="white" id="pupil"/>
 </div>
 
 <footer>
-
-<span class="creator" onclick="openCreator()">
-<span>Creator</span>
-<span class="creator-name">Dr. Aishvarya Adhaulia</span>
-</span>
-
+<span onclick="openCreator()">Creator</span>
 </footer>
 
+<!-- Insight Card -->
+
 <div id="resultModal" class="modal">
-<div class="modal-content" id="resultContent">
+<div class="modal-content">
 
 <span class="close" onclick="closeResult()">×</span>
 
-<h2 id="resultTitle">Result</h2>
+<h2 id="cardTitle"></h2>
 
-<div class="poster-preview">
-Insight Poster
+<p id="definition"></p>
+
+<p id="principle"></p>
+
+<p id="history"></p>
+
+<p id="application"></p>
+
+<p id="fact"></p>
+
+<button onclick="openBooklet()">Open Booklet</button>
+
+</div>
 </div>
 
-<button>Open Booklet</button>
-
-</div>
-</div>
+<!-- Creator -->
 
 <div id="creatorModal" class="modal">
-<div class="modal-content" id="creatorContent">
+<div class="modal-content">
 
 <span class="close" onclick="closeCreator()">×</span>
 
@@ -362,93 +257,120 @@ Insight Poster
 
 <script>
 
-const pupil=document.getElementById("pupil")
-const halo=document.getElementById("halo")
-const input=document.getElementById("topic")
+/* knowledge generator */
 
-document.addEventListener("mousemove",e=>{
+function generateKnowledge(topic){
 
-const rect=pupil.ownerSVGElement.getBoundingClientRect()
+return{
 
-const centerX=rect.left+rect.width/2
-const centerY=rect.top+rect.height/2
+title:topic,
 
-const dx=(e.clientX-centerX)/25
-const dy=(e.clientY-centerY)/25
+definition:
+topic+" is a subject of study with important scientific, historical, or cultural significance.",
 
-pupil.setAttribute("cx",70+dx)
-pupil.setAttribute("cy",45+dy)
+principle:
+"The core principle of "+topic+" involves understanding its underlying mechanisms and relationships.",
 
-})
+history:
+"The study of "+topic+" developed through centuries of intellectual inquiry and discovery.",
 
-input.addEventListener("focus",()=>{
-pupil.setAttribute("cx",70)
-pupil.setAttribute("cy",55)
-})
+application:
+topic+" has modern applications in science, technology, and everyday life.",
 
-input.addEventListener("blur",()=>{
-pupil.setAttribute("cx",70)
-pupil.setAttribute("cy",45)
-})
+fact:
+"One fascinating aspect of "+topic+" is how it connects multiple fields of knowledge."
 
-setInterval(()=>{
+}
 
-pupil.setAttribute("cx",60)
+}
 
-setTimeout(()=>{
-pupil.setAttribute("cx",80)
-},700)
+/* research */
 
-setTimeout(()=>{
-pupil.setAttribute("cx",70)
-},1400)
-
-},12000)
+let currentBooklet=""
 
 function startResearch(){
 
 let topic=document.getElementById("topic").value
+
 if(topic==="") topic="Subject"
 
-document.getElementById("resultTitle").innerText=topic
+let data=generateKnowledge(topic)
 
-pupil.classList.add("active")
-halo.classList.add("active")
+document.getElementById("cardTitle").innerText=data.title
+document.getElementById("definition").innerText=data.definition
+document.getElementById("principle").innerText=data.principle
+document.getElementById("history").innerText=data.history
+document.getElementById("application").innerText=data.application
+document.getElementById("fact").innerText=data.fact
 
-setTimeout(()=>{
-pupil.classList.remove("active")
-halo.classList.remove("active")
-},700)
+currentBooklet=generateBooklet(data)
 
-setTimeout(()=>{
 document.getElementById("resultModal").style.display="block"
-setTimeout(()=>{
-document.getElementById("resultContent").classList.add("active")
-},10)
-},350)
 
 }
 
+/* booklet generator */
+
+function generateBooklet(data){
+
+let pages=[
+
+["Title",data.title],
+
+["Definition",data.definition],
+
+["Principle",data.principle],
+
+["History",data.history],
+
+["Key Figures","Important thinkers contributed to "+data.title+"."],
+
+["Mechanism","Understanding how "+data.title+" works requires detailed study."],
+
+["Applications",data.application],
+
+["Modern Research","Scientists continue exploring "+data.title+" today."],
+
+["Interesting Facts",data.fact],
+
+["Summary",data.title+" remains a fascinating topic for exploration."]
+
+]
+
+let html="<html><head><title>"+data.title+"</title></head><body style='font-family:Neue Einstellung, sans-serif;background:#111;color:white;padding:40px'>"
+
+pages.forEach(p=>{
+html+="<h1>"+p[0]+"</h1><p>"+p[1]+"</p><hr>"
+})
+
+html+="</body></html>"
+
+return html
+
+}
+
+/* open booklet */
+
+function openBooklet(){
+
+let win=window.open()
+win.document.write(currentBooklet)
+
+}
+
+/* modals */
+
 function closeResult(){
 document.getElementById("resultModal").style.display="none"
-document.getElementById("resultContent").classList.remove("active")
 }
 
 function openCreator(){
 document.getElementById("creatorModal").style.display="block"
-setTimeout(()=>{
-document.getElementById("creatorContent").classList.add("active")
-},10)
 }
 
 function closeCreator(){
 document.getElementById("creatorModal").style.display="none"
-document.getElementById("creatorContent").classList.remove("active")
 }
-
-document.getElementById("topic").addEventListener("keydown",function(e){
-if(e.key==="Enter") startResearch()
-})
 
 </script>
 
