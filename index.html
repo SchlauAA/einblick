@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EINBLICK</title>
 
 <style>
-
-/* ---------- BASE ---------- */
 
 body{
 margin:0;
@@ -18,9 +16,37 @@ flex-direction:column;
 align-items:center;
 min-height:100vh;
 background-color:#0B0B0C;
+overflow-x:hidden;
 }
 
-/* ---------- STAGE ---------- */
+/* subtle atmospheric background */
+
+.space{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+
+background-image:
+radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+
+background-size:
+80px 80px,
+140px 140px;
+
+animation:spaceDrift 60s linear infinite;
+opacity:0.25;
+}
+
+@keyframes spaceDrift{
+0%{transform:translate(0px,0px);}
+100%{transform:translate(-120px,-80px);}
+}
+
+/* stage */
 
 .stage{
 display:flex;
@@ -31,7 +57,7 @@ max-width:480px;
 margin-top:64px;
 }
 
-/* ---------- EYE ---------- */
+/* eye */
 
 .eye{
 width:160px;
@@ -48,8 +74,8 @@ filter:drop-shadow(0 0 3px rgba(255,255,255,0.25));
 }
 
 @keyframes blink{
-0%,92%,100%{transform:scaleY(1)}
-95%{transform:scaleY(.08)}
+0%,92%,100%{transform:scaleY(1);}
+95%{transform:scaleY(.08);}
 }
 
 @keyframes breathe{
@@ -60,7 +86,7 @@ filter:drop-shadow(0 0 3px rgba(255,255,255,0.25));
 
 #pupil{
 animation:breathe 4.5s ease-in-out infinite;
-transition:all .25s ease;
+transition:all .35s ease;
 }
 
 #pupil.active{
@@ -68,7 +94,18 @@ transform:scale(1.6);
 filter:drop-shadow(0 0 14px white);
 }
 
-/* ---------- TITLE ---------- */
+/* halo */
+
+#halo{
+transition:all .4s ease;
+}
+
+#halo.active{
+opacity:0.35;
+transform:scale(1.05);
+}
+
+/* title */
 
 h1{
 margin:0;
@@ -78,7 +115,7 @@ text-shadow:0 0 8px rgba(255,255,255,0.08);
 margin-top:-6px;
 }
 
-/* ---------- INPUT CONSOLE ---------- */
+/* input */
 
 .generator{
 margin-top:48px;
@@ -106,7 +143,7 @@ border-bottom:1.5px solid white;
 box-shadow:0 2px 6px rgba(255,255,255,0.2);
 }
 
-/* ---------- BUTTON ---------- */
+/* button */
 
 button{
 width:100%;
@@ -132,7 +169,7 @@ transform:scale(0.97);
 background:rgba(255,255,255,0.28);
 }
 
-/* ---------- MODALS ---------- */
+/* modals */
 
 .modal{
 display:none;
@@ -173,8 +210,6 @@ font-size:22px;
 cursor:pointer;
 }
 
-/* ---------- POSTER PLACEHOLDER ---------- */
-
 .poster-preview{
 margin:30px 0;
 height:220px;
@@ -186,11 +221,14 @@ background:#F4F1E8;
 color:black;
 }
 
-/* ---------- FOOTER ---------- */
+/* footer */
 
 footer{
-margin-top:auto;
-padding:60px;
+margin-top:140px;
+width:100%;
+display:flex;
+justify-content:center;
+align-items:center;
 font-size:14px;
 opacity:.6;
 }
@@ -219,29 +257,19 @@ opacity:1;
 
 <body>
 
+<div class="space"></div>
+
 <div class="stage">
 
 <div class="eye">
 
 <svg width="160" height="100" viewBox="0 0 140 90">
 
-<ellipse
-cx="70"
-cy="45"
-rx="55"
-ry="25"
-stroke="white"
-stroke-width="2.6"
-fill="none"
-/>
+<ellipse cx="70" cy="45" rx="55" ry="25" stroke="white" stroke-width="2.6" fill="none"/>
 
-<circle
-cx="70"
-cy="45"
-r="8"
-fill="white"
-id="pupil"
-/>
+<ellipse cx="70" cy="45" rx="60" ry="30" stroke="white" stroke-width="1.2" fill="none" id="halo" opacity="0"/>
+
+<circle cx="70" cy="45" r="8" fill="white" id="pupil"/>
 
 </svg>
 
@@ -259,10 +287,7 @@ id="pupil"
 
 </div>
 
-<!-- RESULT POPUP -->
-
 <div id="resultModal" class="modal">
-
 <div class="modal-content" id="resultContent">
 
 <span class="close" onclick="closeResult()">×</span>
@@ -270,21 +295,15 @@ id="pupil"
 <h2 id="resultTitle">Result</h2>
 
 <div class="poster-preview">
-
 Insight Poster
-
 </div>
 
 <button>Open Booklet</button>
 
 </div>
-
 </div>
 
-<!-- CREATOR POPUP -->
-
 <div id="creatorModal" class="modal">
-
 <div class="modal-content" id="creatorContent">
 
 <span class="close" onclick="closeCreator()">×</span>
@@ -295,25 +314,22 @@ Insight Poster
 <p>Founder of Einblick</p>
 
 </div>
-
 </div>
 
 <footer>
 
 <span class="creator" onclick="openCreator()">
-
 <span class="creator-label">Creator</span>
 <span class="creator-name">Dr. Aishvarya Adhaulia</span>
-
 </span>
 
 </footer>
 
 <script>
 
-/* ---------- PUPIL TRACKING ---------- */
-
 const pupil=document.getElementById("pupil")
+const halo=document.getElementById("halo")
+const input=document.getElementById("topic")
 
 document.addEventListener("mousemove",e=>{
 
@@ -330,7 +346,29 @@ pupil.setAttribute("cy",45+dy)
 
 })
 
-/* ---------- RESEARCH ACTION ---------- */
+input.addEventListener("focus",()=>{
+pupil.setAttribute("cx",70)
+pupil.setAttribute("cy",55)
+})
+
+input.addEventListener("blur",()=>{
+pupil.setAttribute("cx",70)
+pupil.setAttribute("cy",45)
+})
+
+setInterval(()=>{
+
+pupil.setAttribute("cx",60)
+
+setTimeout(()=>{
+pupil.setAttribute("cx",80)
+},700)
+
+setTimeout(()=>{
+pupil.setAttribute("cx",70)
+},1400)
+
+},12000)
 
 function startResearch(){
 
@@ -340,57 +378,41 @@ if(topic==="") topic="Subject"
 document.getElementById("resultTitle").innerText=topic
 
 pupil.classList.add("active")
+halo.classList.add("active")
 
 setTimeout(()=>{
 pupil.classList.remove("active")
-},800)
+halo.classList.remove("active")
+},700)
 
 setTimeout(()=>{
-
 document.getElementById("resultModal").style.display="block"
-
 setTimeout(()=>{
 document.getElementById("resultContent").classList.add("active")
 },10)
-
 },350)
 
 }
 
-/* ---------- CLOSE RESULT ---------- */
-
 function closeResult(){
-
 document.getElementById("resultModal").style.display="none"
 document.getElementById("resultContent").classList.remove("active")
-
 }
 
-/* ---------- CREATOR POPUP ---------- */
-
 function openCreator(){
-
 document.getElementById("creatorModal").style.display="block"
-
 setTimeout(()=>{
 document.getElementById("creatorContent").classList.add("active")
 },10)
-
 }
 
 function closeCreator(){
-
 document.getElementById("creatorModal").style.display="none"
 document.getElementById("creatorContent").classList.remove("active")
-
 }
 
-/* ---------- ENTER KEY ---------- */
-
 document.getElementById("topic").addEventListener("keydown",function(e){
-
 if(e.key==="Enter") startResearch()
-
 })
 
 </script>
