@@ -12,14 +12,14 @@ margin:0;
 font-family:"Neue Einstellung",sans-serif;
 color:#EAEAEA;
 display:flex;
-flex-direction:column;
+justify-content:center;
 align-items:center;
 min-height:100vh;
-background-color:#0B0B0C;
-overflow-x:hidden;
+background:#0B0B0C;
+overflow:hidden;
 }
 
-/* subtle atmospheric background */
+/* atmospheric background */
 
 .space{
 position:fixed;
@@ -33,17 +33,16 @@ background-image:
 radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
 radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
 
-background-size:
-80px 80px,
-140px 140px;
+background-size:80px 80px,140px 140px;
 
 animation:spaceDrift 60s linear infinite;
-opacity:0.25;
+
+opacity:.25;
 }
 
 @keyframes spaceDrift{
-0%{transform:translate(0px,0px);}
-100%{transform:translate(-120px,-80px);}
+0%{transform:translate(0,0)}
+100%{transform:translate(-120px,-80px)}
 }
 
 /* stage */
@@ -52,9 +51,10 @@ opacity:0.25;
 display:flex;
 flex-direction:column;
 align-items:center;
+justify-content:center;
 width:100%;
 max-width:480px;
-margin-top:64px;
+gap:48px;
 }
 
 /* eye */
@@ -66,16 +66,17 @@ display:flex;
 align-items:center;
 justify-content:center;
 animation:blink 7s infinite;
+margin-bottom:-10px;
 }
 
 .eye svg{
 shape-rendering:geometricPrecision;
-filter:drop-shadow(0 0 3px rgba(255,255,255,0.25));
+filter:drop-shadow(0 0 3px rgba(255,255,255,.25));
 }
 
 @keyframes blink{
-0%,92%,100%{transform:scaleY(1);}
-95%{transform:scaleY(.08);}
+0%,92%,100%{transform:scaleY(1)}
+95%{transform:scaleY(.08)}
 }
 
 @keyframes breathe{
@@ -86,7 +87,7 @@ filter:drop-shadow(0 0 3px rgba(255,255,255,0.25));
 
 #pupil{
 animation:breathe 4.5s ease-in-out infinite;
-transition:all .35s ease;
+transition:.35s ease;
 }
 
 #pupil.active{
@@ -97,11 +98,11 @@ filter:drop-shadow(0 0 14px white);
 /* halo */
 
 #halo{
-transition:all .4s ease;
+transition:.4s ease;
 }
 
 #halo.active{
-opacity:0.35;
+opacity:.35;
 transform:scale(1.05);
 }
 
@@ -109,16 +110,14 @@ transform:scale(1.05);
 
 h1{
 margin:0;
+letter-spacing:.18em;
 font-weight:500;
-letter-spacing:0.22em;
-text-shadow:0 0 8px rgba(255,255,255,0.08);
-margin-top:-6px;
+text-shadow:0 0 8px rgba(255,255,255,.08);
 }
 
-/* input */
+/* generator */
 
 .generator{
-margin-top:48px;
 display:flex;
 flex-direction:column;
 align-items:center;
@@ -140,36 +139,53 @@ text-align:center;
 input:focus{
 outline:none;
 border-bottom:1.5px solid white;
-box-shadow:0 2px 6px rgba(255,255,255,0.2);
+box-shadow:0 2px 6px rgba(255,255,255,.2);
 }
 
-/* button */
+/* research control */
 
 button{
 width:100%;
-padding:16px;
+padding:13px;
+
 border-radius:2px;
-border:1px solid rgba(255,255,255,0.25);
-background:rgba(255,255,255,0.08);
+
+border:1px solid rgba(255,255,255,.25);
+
+background:linear-gradient(
+to bottom,
+rgba(255,255,255,.12),
+rgba(255,255,255,.06)
+);
+
 color:#EAEAEA;
+
 font-weight:600;
-letter-spacing:0.06em;
-text-transform:uppercase;
+
+letter-spacing:.06em;
+
 cursor:pointer;
-transition:all .18s ease;
+
+transition:.18s ease;
 }
 
 button:hover{
-background:rgba(255,255,255,0.18);
-border-color:rgba(255,255,255,0.45);
+background:rgba(255,255,255,.18);
+border-color:rgba(255,255,255,.45);
+}
+
+@keyframes activate{
+0%{box-shadow:0 0 0 rgba(255,255,255,0)}
+50%{box-shadow:0 0 12px rgba(255,255,255,.35)}
+100%{box-shadow:0 0 0 rgba(255,255,255,0)}
 }
 
 button:active{
-transform:scale(0.97);
-background:rgba(255,255,255,0.28);
+animation:activate .35s ease;
+transform:scale(.97);
 }
 
-/* modals */
+/* modal */
 
 .modal{
 display:none;
@@ -178,7 +194,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.7);
+background:rgba(0,0,0,.7);
 backdrop-filter:blur(6px);
 z-index:10;
 }
@@ -194,7 +210,7 @@ color:white;
 position:relative;
 opacity:0;
 transform:translateY(20px);
-transition:all .35s ease;
+transition:.35s ease;
 }
 
 .modal-content.active{
@@ -221,11 +237,9 @@ background:#F4F1E8;
 color:black;
 }
 
-/* footer */
+/* creator */
 
 footer{
-margin-top:140px;
-width:100%;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -235,13 +249,13 @@ opacity:.6;
 
 .creator{
 cursor:pointer;
-transition:opacity .25s ease;
+transition:.25s ease;
 }
 
 .creator-name{
 opacity:0;
 margin-left:6px;
-transition:opacity .25s ease;
+transition:.25s ease;
 }
 
 .creator:hover .creator-name{
@@ -265,11 +279,15 @@ opacity:1;
 
 <svg width="160" height="100" viewBox="0 0 140 90">
 
-<ellipse cx="70" cy="45" rx="55" ry="25" stroke="white" stroke-width="2.6" fill="none"/>
+<ellipse cx="70" cy="45" rx="55" ry="25"
+stroke="white" stroke-width="2.6" fill="none"/>
 
-<ellipse cx="70" cy="45" rx="60" ry="30" stroke="white" stroke-width="1.2" fill="none" id="halo" opacity="0"/>
+<ellipse cx="70" cy="45" rx="60" ry="30"
+stroke="white" stroke-width="1.2" fill="none"
+id="halo" opacity="0"/>
 
-<circle cx="70" cy="45" r="8" fill="white" id="pupil"/>
+<circle cx="70" cy="45" r="8"
+fill="white" id="pupil"/>
 
 </svg>
 
@@ -284,6 +302,15 @@ opacity:1;
 <button onclick="startResearch()">Research</button>
 
 </div>
+
+<footer>
+
+<span class="creator" onclick="openCreator()">
+<span>Creator</span>
+<span class="creator-name">Dr. Aishvarya Adhaulia</span>
+</span>
+
+</footer>
 
 </div>
 
@@ -315,15 +342,6 @@ Insight Poster
 
 </div>
 </div>
-
-<footer>
-
-<span class="creator" onclick="openCreator()">
-<span class="creator-label">Creator</span>
-<span class="creator-name">Dr. Aishvarya Adhaulia</span>
-</span>
-
-</footer>
 
 <script>
 
