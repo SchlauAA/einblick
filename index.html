@@ -7,6 +7,8 @@
 
 <style>
 
+/* ---------- BASE ---------- */
+
 body{
 margin:0;
 font-family:"Neue Einstellung",sans-serif;
@@ -15,43 +17,40 @@ display:flex;
 flex-direction:column;
 align-items:center;
 min-height:100vh;
-
-background:
-radial-gradient(
-circle at center,
-rgba(255,255,255,0.06) 0%,
-rgba(255,255,255,0.02) 20%,
-#0B0B0C 60%
-);
+background-color:#0B0B0C;
 }
 
-/* HEADER */
+/* ---------- STAGE ---------- */
 
-header{
-margin-top:80px;
+.stage{
 display:flex;
 flex-direction:column;
 align-items:center;
-gap:32px;
+width:100%;
+max-width:480px;
+margin-top:64px;
 }
 
-/* EYE */
+/* ---------- EYE ---------- */
 
 .eye{
-width:140px;
-height:90px;
+width:160px;
+height:100px;
 display:flex;
 align-items:center;
 justify-content:center;
 animation:blink 7s infinite;
 }
 
+.eye svg{
+shape-rendering:geometricPrecision;
+filter:drop-shadow(0 0 3px rgba(255,255,255,0.25));
+}
+
 @keyframes blink{
 0%,92%,100%{transform:scaleY(1)}
 95%{transform:scaleY(.08)}
 }
-
-/* pupil breathing glow */
 
 @keyframes breathe{
 0%{filter:drop-shadow(0 0 3px rgba(255,255,255,.25))}
@@ -69,7 +68,7 @@ transform:scale(1.6);
 filter:drop-shadow(0 0 14px white);
 }
 
-/* TITLE */
+/* ---------- TITLE ---------- */
 
 h1{
 margin:0;
@@ -79,25 +78,22 @@ text-shadow:0 0 8px rgba(255,255,255,0.08);
 margin-top:-6px;
 }
 
-/* GENERATOR */
+/* ---------- INPUT CONSOLE ---------- */
 
 .generator{
-margin-top:56px;
+margin-top:48px;
 display:flex;
 flex-direction:column;
 align-items:center;
-gap:28px;
+gap:26px;
 width:100%;
-max-width:480px;
 }
-
-/* CONSOLE INPUT */
 
 input{
 width:100%;
 background:transparent;
 border:none;
-border-bottom:1px solid #333;
+border-bottom:1.5px solid #444;
 padding:14px 0;
 font-size:16px;
 color:#EAEAEA;
@@ -106,30 +102,37 @@ text-align:center;
 
 input:focus{
 outline:none;
-border-bottom:1px solid white;
+border-bottom:1.5px solid white;
 box-shadow:0 2px 6px rgba(255,255,255,0.2);
 }
 
-/* BUTTON */
+/* ---------- BUTTON ---------- */
 
 button{
 width:100%;
 padding:16px;
-border-radius:6px;
-border:none;
-background:#EAEAEA;
-color:#000;
+border-radius:2px;
+border:1px solid rgba(255,255,255,0.25);
+background:rgba(255,255,255,0.08);
+color:#EAEAEA;
 font-weight:600;
-letter-spacing:0.05em;
+letter-spacing:0.06em;
+text-transform:uppercase;
 cursor:pointer;
-transition:transform .12s ease;
+transition:all .18s ease;
+}
+
+button:hover{
+background:rgba(255,255,255,0.18);
+border-color:rgba(255,255,255,0.45);
 }
 
 button:active{
-transform:scale(0.96);
+transform:scale(0.97);
+background:rgba(255,255,255,0.28);
 }
 
-/* MODALS */
+/* ---------- MODALS ---------- */
 
 .modal{
 display:none;
@@ -145,9 +148,9 @@ z-index:10;
 
 .modal-content{
 background:#111;
-margin:10% auto;
+margin:12% auto;
 padding:40px;
-border-radius:12px;
+border-radius:10px;
 width:90%;
 max-width:600px;
 color:white;
@@ -170,11 +173,11 @@ font-size:22px;
 cursor:pointer;
 }
 
-/* POSTER */
+/* ---------- POSTER PLACEHOLDER ---------- */
 
 .poster-preview{
 margin:30px 0;
-height:240px;
+height:220px;
 border:1px solid #333;
 display:flex;
 align-items:center;
@@ -183,7 +186,7 @@ background:#F4F1E8;
 color:black;
 }
 
-/* FOOTER */
+/* ---------- FOOTER ---------- */
 
 footer{
 margin-top:auto;
@@ -216,11 +219,11 @@ opacity:1;
 
 <body>
 
-<header>
+<div class="stage">
 
 <div class="eye">
 
-<svg width="140" height="90" viewBox="0 0 140 90">
+<svg width="160" height="100" viewBox="0 0 140 90">
 
 <ellipse
 cx="70"
@@ -228,7 +231,7 @@ cy="45"
 rx="55"
 ry="25"
 stroke="white"
-stroke-width="2"
+stroke-width="2.6"
 fill="none"
 />
 
@@ -246,8 +249,6 @@ id="pupil"
 
 <h1>EINBLICK</h1>
 
-</header>
-
 <div class="generator">
 
 <input id="topic" placeholder="Subject">
@@ -256,7 +257,9 @@ id="pupil"
 
 </div>
 
-<!-- RESULT MODAL -->
+</div>
+
+<!-- RESULT POPUP -->
 
 <div id="resultModal" class="modal">
 
@@ -278,7 +281,7 @@ Insight Poster
 
 </div>
 
-<!-- CREATOR MODAL -->
+<!-- CREATOR POPUP -->
 
 <div id="creatorModal" class="modal">
 
@@ -289,7 +292,6 @@ Insight Poster
 <h2>Creator</h2>
 
 <p>Dr. Aishvarya Adhaulia</p>
-
 <p>Founder of Einblick</p>
 
 </div>
@@ -309,7 +311,7 @@ Insight Poster
 
 <script>
 
-/* pupil tracking */
+/* ---------- PUPIL TRACKING ---------- */
 
 const pupil=document.getElementById("pupil")
 
@@ -328,12 +330,11 @@ pupil.setAttribute("cy",45+dy)
 
 })
 
-/* research sequence */
+/* ---------- RESEARCH ACTION ---------- */
 
 function startResearch(){
 
 let topic=document.getElementById("topic").value
-
 if(topic==="") topic="Subject"
 
 document.getElementById("resultTitle").innerText=topic
@@ -356,7 +357,7 @@ document.getElementById("resultContent").classList.add("active")
 
 }
 
-/* close result */
+/* ---------- CLOSE RESULT ---------- */
 
 function closeResult(){
 
@@ -365,7 +366,7 @@ document.getElementById("resultContent").classList.remove("active")
 
 }
 
-/* creator popup */
+/* ---------- CREATOR POPUP ---------- */
 
 function openCreator(){
 
@@ -384,7 +385,7 @@ document.getElementById("creatorContent").classList.remove("active")
 
 }
 
-/* ENTER key trigger */
+/* ---------- ENTER KEY ---------- */
 
 document.getElementById("topic").addEventListener("keydown",function(e){
 
