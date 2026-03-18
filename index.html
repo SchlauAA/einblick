@@ -64,9 +64,7 @@ margin-bottom:-10px;
 95%{transform:scaleY(.08)}
 }
 
-#pupil{
-transition:.25s ease;
-}
+#pupil{transition:.25s ease;}
 
 h1{
 margin:0;
@@ -168,13 +166,9 @@ justify-content:center;
 margin-bottom:25px;
 }
 
-.card-section{
-margin-bottom:14px;
-}
+.card-section{margin-bottom:14px;}
 
-.card-button{
-margin-top:24px;
-}
+.card-button{margin-top:24px;}
 
 .card-button button{
 background:#111;
@@ -216,8 +210,7 @@ color:white;
 <svg width="160" height="100" viewBox="0 0 140 90">
 <ellipse cx="70" cy="45" rx="55" ry="25"
 stroke="white" stroke-width="2.6" fill="none"/>
-<circle cx="70" cy="45" r="8"
-fill="white" id="pupil"/>
+<circle cx="70" cy="45" r="8" fill="white" id="pupil"/>
 </svg>
 </div>
 
@@ -235,7 +228,6 @@ fill="white" id="pupil"/>
 </footer>
 
 <div id="resultModal" class="modal">
-
 <div class="insight-card">
 
 <span class="close" onclick="closeResult()">×</span>
@@ -272,25 +264,48 @@ fill="white" id="pupil"/>
 
 <script>
 
+/* ---------------- RESEARCH MEMORY ---------------- */
+
+let researchHistory=[]
+let researchTrail=[]
+
+function storeResearch(topic){
+if(!researchHistory.includes(topic)){researchHistory.push(topic)}
+}
+
+function recordTrail(topic){researchTrail.push(topic)}
+
+function getResearchTrail(){return researchTrail.join(" → ")}
+
+/* ---------------- TOPIC CLASSIFIER ---------------- */
+
+function classifyTopic(topic){
+
+topic=topic.toLowerCase()
+
+if(topic.includes("quantum")) return "physics"
+if(topic.includes("black hole")) return "astrophysics"
+if(topic.includes("car")||topic.includes("ferrari")) return "automotive"
+if(topic.includes("ai")||topic.includes("android")) return "technology"
+
+return "general"
+
+}
+
 /* ---------------- EYE ENGINE ---------------- */
 
 const pupil=document.getElementById("pupil")
 const eye=document.querySelector(".eye")
 
-let eyeCenterX
-let eyeCenterY
+let eyeCenterX,eyeCenterY
 
 function updateEyeCenter(){
-
 const rect=eye.getBoundingClientRect()
-
 eyeCenterX=rect.left+rect.width/2
 eyeCenterY=rect.top+rect.height/2
-
 }
 
 updateEyeCenter()
-
 window.addEventListener("resize",updateEyeCenter)
 
 document.addEventListener("mousemove",e=>{
@@ -299,28 +314,6 @@ let dx=e.clientX-eyeCenterX
 let dy=e.clientY-eyeCenterY
 
 let dist=Math.sqrt(dx*dx+dy*dy)
-
-let max=12
-
-if(dist>max){
-dx=dx/dist*max
-dy=dy/dist*max
-}
-
-pupil.setAttribute("cx",70+dx)
-pupil.setAttribute("cy",45+dy)
-
-})
-
-document.addEventListener("touchmove",e=>{
-
-const t=e.touches[0]
-
-let dx=t.clientX-eyeCenterX
-let dy=t.clientY-eyeCenterY
-
-let dist=Math.sqrt(dx*dx+dy*dy)
-
 let max=12
 
 if(dist>max){
@@ -334,13 +327,8 @@ pupil.setAttribute("cy",45+dy)
 })
 
 setInterval(()=>{
-
 pupil.setAttribute("r",9)
-
-setTimeout(()=>{
-pupil.setAttribute("r",7)
-},600)
-
+setTimeout(()=>{pupil.setAttribute("r",7)},600)
 },4000)
 
 function activateEye(){
@@ -349,10 +337,8 @@ pupil.style.filter="drop-shadow(0 0 10px white)"
 pupil.setAttribute("r",14)
 
 setTimeout(()=>{
-
 pupil.style.filter="none"
 pupil.setAttribute("r",8)
-
 },700)
 
 }
@@ -368,11 +354,8 @@ setTimeout(()=>{pupil.setAttribute("cx",80)},600)
 setTimeout(()=>{pupil.setAttribute("cx",70)},900)
 
 setTimeout(()=>{
-
 activateEye()
-
 if(callback) callback()
-
 },1100)
 
 }
@@ -384,24 +367,20 @@ function generateDiagram(topic){
 topic=topic.toLowerCase()
 
 if(topic.includes("quantum")){
-
 return `<svg width="220" height="80">
 <circle cx="40" cy="40" r="6" fill="black"/>
 <circle cx="180" cy="40" r="6" fill="black"/>
 <line x1="46" y1="40" x2="174" y2="40"
 stroke="black" stroke-width="2"/>
 </svg>`
-
 }
 
 if(topic.includes("black hole")){
-
 return `<svg width="200" height="120">
 <ellipse cx="100" cy="60" rx="60" ry="20"
 fill="none" stroke="black"/>
 <circle cx="100" cy="60" r="8" fill="black"/>
 </svg>`
-
 }
 
 return `<svg width="200" height="120">
@@ -421,59 +400,51 @@ function generateConstellation(topic){
 topic=topic.toLowerCase()
 
 if(topic.includes("quantum")){
-
 return [
 "Quantum Mechanics",
 "Bell's Theorem",
 "Quantum Computing",
 "Quantum Teleportation"
 ]
-
 }
 
 if(topic.includes("black hole")){
-
 return [
 "Event Horizon",
 "Hawking Radiation",
 "General Relativity",
 "Singularity"
 ]
-
 }
 
-return [
-"History",
-"Theory",
-"Applications",
-"Modern Research"
-]
+return ["History","Theory","Applications","Modern Research"]
 
 }
 
 /* ---------------- KNOWLEDGE ENGINE ---------------- */
 
-function generateKnowledge(topic){
+function generateKnowledge(topic,category){
+
+if(category==="physics"){
 
 return{
-
 title:topic,
+definition:topic+" refers to a phenomenon studied in quantum physics.",
+principle:"It involves interactions governed by quantum mechanical laws.",
+history:"The concept emerged during early quantum theory research.",
+application:"Important for quantum computing and cryptography.",
+fact:"Einstein called quantum entanglement 'spooky action at a distance'."
+}
 
-definition:
-topic+" is a subject of study with important scientific or cultural significance.",
+}
 
-principle:
-"The core principle of "+topic+" involves understanding its fundamental mechanisms.",
-
-history:
-"The study of "+topic+" evolved through decades of discovery.",
-
-application:
-topic+" has practical applications in science, technology and society.",
-
-fact:
-"One fascinating aspect of "+topic+" is how it connects multiple domains of knowledge."
-
+return{
+title:topic,
+definition:topic+" is a subject studied across multiple domains.",
+principle:"It involves mechanisms explaining how the system functions.",
+history:"The topic developed through scientific research.",
+application:"It influences modern science and technology.",
+fact:"It remains an active area of investigation."
 }
 
 }
@@ -484,10 +455,14 @@ let currentBooklet=""
 
 function showInsight(topic){
 
-let data=generateKnowledge(topic)
+recordTrail(topic)
+storeResearch(topic)
+
+let category=classifyTopic(topic)
+
+let data=generateKnowledge(topic,category)
 
 document.getElementById("cardTitle").innerText=data.title
-
 document.getElementById("definition").innerText=data.definition
 document.getElementById("principle").innerText=data.principle
 document.getElementById("history").innerText=data.history
@@ -506,15 +481,11 @@ let nodes=generateConstellation(topic)
 nodes.forEach(n=>{
 
 let node=document.createElement("div")
-
 node.innerText="● "+n
 
 node.onclick=()=>{
-
 document.getElementById("topic").value=n
-
 startResearch()
-
 }
 
 constellation.appendChild(node)
@@ -532,14 +503,9 @@ document.getElementById("resultModal").style.display="block"
 function startResearch(){
 
 let topic=document.getElementById("topic").value
-
 if(topic==="") topic="Subject"
 
-scanEye(()=>{
-
-showInsight(topic)
-
-})
+scanEye(()=>{showInsight(topic)})
 
 }
 
@@ -566,24 +532,13 @@ return html
 }
 
 function openBooklet(){
-
 let win=window.open()
-
 win.document.write(currentBooklet)
-
 }
 
-function closeResult(){
-document.getElementById("resultModal").style.display="none"
-}
-
-function openCreator(){
-document.getElementById("creatorModal").style.display="block"
-}
-
-function closeCreator(){
-document.getElementById("creatorModal").style.display="none"
-}
+function closeResult(){document.getElementById("resultModal").style.display="none"}
+function openCreator(){document.getElementById("creatorModal").style.display="block"}
+function closeCreator(){document.getElementById("creatorModal").style.display="none"}
 
 </script>
 
