@@ -20,8 +20,6 @@ min-height:100vh;
 overflow:hidden;
 }
 
-/* background */
-
 .space{
 position:fixed;
 top:0;
@@ -42,8 +40,6 @@ opacity:.25;
 100%{transform:translate(-120px,-80px)}
 }
 
-/* stage */
-
 .stage{
 display:flex;
 flex-direction:column;
@@ -52,8 +48,6 @@ gap:48px;
 width:100%;
 max-width:480px;
 }
-
-/* eye */
 
 .eye{
 width:160px;
@@ -74,8 +68,6 @@ margin-bottom:-10px;
 transition:.25s ease;
 }
 
-/* title */
-
 h1{
 margin:0;
 letter-spacing:.18em;
@@ -83,8 +75,6 @@ font-weight:500;
 position:relative;
 left:2px;
 }
-
-/* generator */
 
 .generator{
 display:flex;
@@ -126,8 +116,6 @@ letter-spacing:.06em;
 cursor:pointer;
 }
 
-/* creator */
-
 footer{
 position:fixed;
 bottom:60px;
@@ -140,8 +128,6 @@ justify-content:center;
 font-size:14px;
 opacity:.6;
 }
-
-/* insight card */
 
 .modal{
 display:none;
@@ -196,13 +182,16 @@ color:#F4F1E8;
 border:none;
 }
 
+#constellation div{
+margin-top:6px;
+cursor:pointer;
+}
+
 .close{
 float:right;
 font-size:22px;
 cursor:pointer;
 }
-
-/* creator modal */
 
 .modal-content{
 background:#111;
@@ -224,27 +213,19 @@ color:white;
 <div class="stage">
 
 <div class="eye">
-
 <svg width="160" height="100" viewBox="0 0 140 90">
-
 <ellipse cx="70" cy="45" rx="55" ry="25"
 stroke="white" stroke-width="2.6" fill="none"/>
-
 <circle cx="70" cy="45" r="8"
 fill="white" id="pupil"/>
-
 </svg>
-
 </div>
 
 <h1>EINBLICK</h1>
 
 <div class="generator">
-
 <input id="topic" placeholder="Subject">
-
 <button onclick="startResearch()">Research</button>
-
 </div>
 
 </div>
@@ -252,8 +233,6 @@ fill="white" id="pupil"/>
 <footer>
 <span onclick="openCreator()">Creator</span>
 </footer>
-
-<!-- insight card -->
 
 <div id="resultModal" class="modal">
 
@@ -271,24 +250,23 @@ fill="white" id="pupil"/>
 <div class="card-section"><strong>Application</strong><span id="application"></span></div>
 <div class="card-section"><strong>Interesting Fact</strong><span id="fact"></span></div>
 
+<div class="card-section">
+<strong>Related Insights</strong>
+<div id="constellation"></div>
+</div>
+
 <div class="card-button">
 <button onclick="openBooklet()">Open Booklet</button>
 </div>
 
 </div>
-
 </div>
-
-<!-- creator -->
 
 <div id="creatorModal" class="modal">
 <div class="modal-content">
-
 <span class="close" onclick="closeCreator()">×</span>
-
 <h2>Creator</h2>
 <p>Dr. Aishvarya Adhaulia</p>
-
 </div>
 </div>
 
@@ -296,26 +274,24 @@ fill="white" id="pupil"/>
 
 /* ---------------- EYE ENGINE ---------------- */
 
-const pupil = document.getElementById("pupil")
-const eye = document.querySelector(".eye")
+const pupil=document.getElementById("pupil")
+const eye=document.querySelector(".eye")
 
 let eyeCenterX
 let eyeCenterY
 
 function updateEyeCenter(){
 
-const rect = eye.getBoundingClientRect()
+const rect=eye.getBoundingClientRect()
 
-eyeCenterX = rect.left + rect.width/2
-eyeCenterY = rect.top + rect.height/2
+eyeCenterX=rect.left+rect.width/2
+eyeCenterY=rect.top+rect.height/2
 
 }
 
 updateEyeCenter()
 
 window.addEventListener("resize",updateEyeCenter)
-
-/* cursor tracking */
 
 document.addEventListener("mousemove",e=>{
 
@@ -335,8 +311,6 @@ pupil.setAttribute("cx",70+dx)
 pupil.setAttribute("cy",45+dy)
 
 })
-
-/* touch tracking */
 
 document.addEventListener("touchmove",e=>{
 
@@ -359,8 +333,6 @@ pupil.setAttribute("cy",45+dy)
 
 })
 
-/* breathing */
-
 setInterval(()=>{
 
 pupil.setAttribute("r",9)
@@ -371,21 +343,37 @@ pupil.setAttribute("r",7)
 
 },4000)
 
-/* research pulse */
-
 function activateEye(){
 
 pupil.style.filter="drop-shadow(0 0 10px white)"
-
 pupil.setAttribute("r",14)
 
 setTimeout(()=>{
 
 pupil.style.filter="none"
-
 pupil.setAttribute("r",8)
 
 },700)
+
+}
+
+/* ---------------- SCAN ---------------- */
+
+function scanEye(callback){
+
+pupil.setAttribute("cx",70)
+
+setTimeout(()=>{pupil.setAttribute("cx",60)},300)
+setTimeout(()=>{pupil.setAttribute("cx",80)},600)
+setTimeout(()=>{pupil.setAttribute("cx",70)},900)
+
+setTimeout(()=>{
+
+activateEye()
+
+if(callback) callback()
+
+},1100)
 
 }
 
@@ -406,7 +394,7 @@ stroke="black" stroke-width="2"/>
 
 }
 
-if(topic.includes("black hole")||topic.includes("galaxy")){
+if(topic.includes("black hole")){
 
 return `<svg width="200" height="120">
 <ellipse cx="100" cy="60" rx="60" ry="20"
@@ -423,6 +411,43 @@ return `<svg width="200" height="120">
 <line x1="100" y1="48" x2="60" y2="74" stroke="black"/>
 <line x1="100" y1="48" x2="140" y2="74" stroke="black"/>
 </svg>`
+
+}
+
+/* ---------------- CONSTELLATION ENGINE ---------------- */
+
+function generateConstellation(topic){
+
+topic=topic.toLowerCase()
+
+if(topic.includes("quantum")){
+
+return [
+"Quantum Mechanics",
+"Bell's Theorem",
+"Quantum Computing",
+"Quantum Teleportation"
+]
+
+}
+
+if(topic.includes("black hole")){
+
+return [
+"Event Horizon",
+"Hawking Radiation",
+"General Relativity",
+"Singularity"
+]
+
+}
+
+return [
+"History",
+"Theory",
+"Applications",
+"Modern Research"
+]
 
 }
 
@@ -453,17 +478,11 @@ fact:
 
 }
 
-/* ---------------- RESEARCH ENGINE ---------------- */
+/* ---------------- INSIGHT ---------------- */
 
 let currentBooklet=""
 
-function startResearch(){
-
-activateEye()
-
-let topic=document.getElementById("topic").value
-
-if(topic==="") topic="Subject"
+function showInsight(topic){
 
 let data=generateKnowledge(topic)
 
@@ -477,13 +496,54 @@ document.getElementById("fact").innerText=data.fact
 
 document.getElementById("diagramArea").innerHTML=generateDiagram(topic)
 
+/* constellation */
+
+let constellation=document.getElementById("constellation")
+constellation.innerHTML=""
+
+let nodes=generateConstellation(topic)
+
+nodes.forEach(n=>{
+
+let node=document.createElement("div")
+
+node.innerText="● "+n
+
+node.onclick=()=>{
+
+document.getElementById("topic").value=n
+
+startResearch()
+
+}
+
+constellation.appendChild(node)
+
+})
+
 currentBooklet=generateBooklet(data,topic)
 
 document.getElementById("resultModal").style.display="block"
 
 }
 
-/* booklet */
+/* ---------------- RESEARCH ---------------- */
+
+function startResearch(){
+
+let topic=document.getElementById("topic").value
+
+if(topic==="") topic="Subject"
+
+scanEye(()=>{
+
+showInsight(topic)
+
+})
+
+}
+
+/* ---------------- BOOKLET ---------------- */
 
 function generateBooklet(data,topic){
 
@@ -512,8 +572,6 @@ let win=window.open()
 win.document.write(currentBooklet)
 
 }
-
-/* modals */
 
 function closeResult(){
 document.getElementById("resultModal").style.display="none"
