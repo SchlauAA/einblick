@@ -156,72 +156,34 @@ z-index:10;
 }
 
 .insight-card{
-
 background:#F4F1E8;
 color:#111;
-
 margin:8% auto;
-
 padding:40px;
-
 width:90%;
 max-width:520px;
-
 border:1px solid #222;
-
-box-shadow:
-0 0 30px rgba(0,0,0,.6);
-
-animation:cardReveal .5s ease;
-
+box-shadow:0 0 30px rgba(0,0,0,.6);
 font-family:Georgia,serif;
-
-}
-
-@keyframes cardReveal{
-
-0%{
-opacity:0;
-transform:translateY(30px) scale(.95);
-}
-
-100%{
-opacity:1;
-transform:translateY(0) scale(1);
-}
-
 }
 
 .card-title{
-
 text-align:center;
 font-size:28px;
 letter-spacing:.08em;
 margin-bottom:30px;
-
 }
 
-.card-illustration{
-
-height:120px;
-border:1px solid #222;
-
+.diagram-area{
+height:140px;
 display:flex;
 align-items:center;
 justify-content:center;
-
 margin-bottom:25px;
-
-font-size:14px;
-
 }
 
 .card-section{
 margin-bottom:14px;
-}
-
-.card-section strong{
-display:block;
 }
 
 .card-button{
@@ -301,9 +263,7 @@ fill="white" id="pupil"/>
 
 <div class="card-title" id="cardTitle"></div>
 
-<div class="card-illustration">
-Illustration Placeholder
-</div>
+<div class="diagram-area" id="diagramArea"></div>
 
 <div class="card-section"><strong>Definition</strong><span id="definition"></span></div>
 <div class="card-section"><strong>Principle</strong><span id="principle"></span></div>
@@ -334,72 +294,70 @@ Illustration Placeholder
 
 <script>
 
-/* Eye system */
+/* DIAGRAM ENGINE */
 
-const pupil=document.getElementById("pupil")
-const eye=document.querySelector(".eye")
+function generateDiagram(topic){
 
-let eyeCenterX
-let eyeCenterY
+topic = topic.toLowerCase()
 
-function updateEyeCenter(){
-const rect=eye.getBoundingClientRect()
-eyeCenterX=rect.left+rect.width/2
-eyeCenterY=rect.top+rect.height/2
+if(topic.includes("quantum")){
+
+return `<svg width="220" height="80">
+<circle cx="40" cy="40" r="6" fill="black"/>
+<circle cx="180" cy="40" r="6" fill="black"/>
+<line x1="46" y1="40" x2="174" y2="40"
+stroke="black" stroke-width="2"/>
+</svg>`
+
 }
 
-updateEyeCenter()
+if(topic.includes("black hole") || topic.includes("galaxy")){
 
-document.addEventListener("mousemove",e=>{
+return `<svg width="200" height="120">
+<ellipse cx="100" cy="60" rx="60" ry="20"
+fill="none" stroke="black"/>
+<circle cx="100" cy="60" r="8" fill="black"/>
+</svg>`
 
-let dx=e.clientX-eyeCenterX
-let dy=e.clientY-eyeCenterY
-
-let dist=Math.sqrt(dx*dx+dy*dy)
-
-let max=12
-
-if(dist>max){
-dx=dx/dist*max
-dy=dy/dist*max
 }
 
-pupil.setAttribute("cx",70+dx)
-pupil.setAttribute("cy",45+dy)
+if(topic.includes("car") || topic.includes("ferrari") || topic.includes("porsche")){
 
-})
+return `<svg width="220" height="80">
+<rect x="40" y="40" width="120" height="20"
+fill="none" stroke="black"/>
+<circle cx="70" cy="65" r="8" fill="black"/>
+<circle cx="150" cy="65" r="8" fill="black"/>
+</svg>`
 
-document.addEventListener("touchmove",e=>{
-
-const t=e.touches[0]
-
-let dx=t.clientX-eyeCenterX
-let dy=t.clientY-eyeCenterY
-
-let dist=Math.sqrt(dx*dx+dy*dy)
-
-let max=12
-
-if(dist>max){
-dx=dx/dist*max
-dy=dy/dist*max
 }
 
-pupil.setAttribute("cx",70+dx)
-pupil.setAttribute("cy",45+dy)
+if(topic.includes("ai") || topic.includes("android")){
 
-})
+return `<svg width="180" height="120">
+<rect x="50" y="30" width="80" height="50"
+fill="none" stroke="black"/>
+<line x1="90" y1="80" x2="90" y2="110"
+stroke="black"/>
+</svg>`
 
-/* breathing */
+}
 
-setInterval(()=>{
-pupil.setAttribute("r",9)
-setTimeout(()=>{
-pupil.setAttribute("r",7)
-},600)
-},4000)
+/* default */
 
-/* knowledge generator */
+return `<svg width="200" height="120">
+<circle cx="100" cy="40" r="8" fill="black"/>
+<circle cx="60" cy="80" r="6" fill="black"/>
+<circle cx="140" cy="80" r="6" fill="black"/>
+<line x1="100" y1="48" x2="60" y2="74"
+stroke="black"/>
+<line x1="100" y1="48" x2="140" y2="74"
+stroke="black"/>
+</svg>`
+
+}
+
+/* KNOWLEDGE ENGINE */
 
 function generateKnowledge(topic){
 
@@ -426,7 +384,7 @@ fact:
 
 }
 
-/* research engine */
+/* RESEARCH ENGINE */
 
 let currentBooklet=""
 
@@ -439,44 +397,39 @@ if(topic==="") topic="Subject"
 let data=generateKnowledge(topic)
 
 document.getElementById("cardTitle").innerText=data.title
+
 document.getElementById("definition").innerText=data.definition
 document.getElementById("principle").innerText=data.principle
 document.getElementById("history").innerText=data.history
 document.getElementById("application").innerText=data.application
 document.getElementById("fact").innerText=data.fact
 
-currentBooklet=generateBooklet(data)
+document.getElementById("diagramArea").innerHTML =
+generateDiagram(topic)
+
+currentBooklet=generateBooklet(data,topic)
 
 document.getElementById("resultModal").style.display="block"
 
 }
 
-/* booklet */
+/* BOOKLET */
 
-function generateBooklet(data){
+function generateBooklet(data,topic){
 
-let pages=[
-
-["Title",data.title],
-["Definition",data.definition],
-["Principle",data.principle],
-["History",data.history],
-["Key Figures","Important thinkers contributed to "+data.title],
-["Mechanism","Understanding "+data.title+" requires deeper investigation"],
-["Applications",data.application],
-["Modern Research","Scientists continue exploring "+data.title],
-["Interesting Facts",data.fact],
-["Summary",data.title+" remains a fascinating topic"]
-
-]
+let diagram = generateDiagram(topic)
 
 let html="<html><body style='font-family:Georgia;background:#111;color:white;padding:40px'>"
 
-pages.forEach(p=>{
-html+="<h1>"+p[0]+"</h1><p>"+p[1]+"</p><hr>"
-})
+html += "<h1>"+data.title+"</h1>"+diagram
 
-html+="</body></html>"
+html += "<h2>Definition</h2><p>"+data.definition+"</p>"
+html += "<h2>Principle</h2><p>"+data.principle+"</p>"
+html += "<h2>History</h2><p>"+data.history+"</p>"
+html += "<h2>Applications</h2><p>"+data.application+"</p>"
+html += "<h2>Interesting Fact</h2><p>"+data.fact+"</p>"
+
+html += "</body></html>"
 
 return html
 
