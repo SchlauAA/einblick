@@ -2,315 +2,177 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EINBLICK</title>
-
-<link href="https://fonts.cdnfonts.com/css/neue-einstellung" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
-:root{
---widget:150px;
---icon:120px;
-
---space-xl:70px;
---space-md:22px;
-
---bg:#050505;
---panel:#0b0b0b;
---border:rgba(255,255,255,0.06);
-
---text:#e6e6e6;
---muted:#8c8c8c;
-}
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:"Neue Einstellung",sans-serif;
-}
-
 body{
-background:var(--bg);
-color:var(--text);
+background:#0B0B0C;
+color:#EAEAEA;
+font-family:"Neue Einstellung",sans-serif;
+margin:0;
 display:flex;
-justify-content:center;
+flex-direction:column;
+align-items:center;
+min-height:100vh;
 }
 
-/* wallpaper */
+header{
+text-align:center;
+margin-top:60px;
+}
 
-body::before{
-content:"";
+.eye{
+width:60px;
+height:60px;
+border-radius:50%;
+border:2px solid #EAEAEA;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+}
+
+.pupil{
+width:16px;
+height:16px;
+background:#EAEAEA;
+border-radius:50%;
+}
+
+h1{
+margin-top:20px;
+letter-spacing:6px;
+font-weight:600;
+}
+
+.generator{
+margin-top:50px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:20px;
+}
+
+input{
+width:420px;
+padding:14px;
+border-radius:6px;
+border:1px solid #444;
+background:#111;
+color:#EAEAEA;
+font-size:16px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+background:#EAEAEA;
+color:#000;
+font-weight:600;
+cursor:pointer;
+border-radius:4px;
+}
+
+button:hover{
+opacity:0.85;
+}
+
+.controls{
+display:flex;
+gap:16px;
+}
+
+.poster-stage{
+margin-top:70px;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.poster{
+width:420px;
+height:560px;
+background:#F4F1E8;
+color:#000;
+border:2px solid #222;
+position:relative;
+display:none;
+padding:40px;
+box-sizing:border-box;
+}
+
+.poster h2{
+margin-top:0;
+font-size:24px;
+letter-spacing:2px;
+}
+
+.poster .illustration{
+height:240px;
+border:1px dashed #333;
+margin:20px 0;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+}
+
+.poster .facts{
+font-size:14px;
+margin-top:10px;
+}
+
+.poster .metadata{
+position:absolute;
+bottom:20px;
+right:20px;
+font-size:12px;
+}
+
+.downloads{
+margin-top:20px;
+display:none;
+gap:16px;
+}
+
+.booklet{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:
-linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
-linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
-background-size:60px 60px;
-z-index:-1;
+background:#0B0B0C;
+overflow-y:auto;
+display:none;
+padding:60px;
+box-sizing:border-box;
 }
 
-/* container */
-
-.container{
-width:100%;
-max-width:1000px;
+.page{
+max-width:720px;
 margin:auto;
-
-display:flex;
-flex-direction:column;
-
-gap:var(--space-xl);
-
-padding:90px 24px;
-
-border:1px solid var(--border);
-border-radius:18px;
-
-background:rgba(10,10,10,.9);
+margin-bottom:120px;
 }
 
-.zone{
-width:100%;
+.page h2{
+margin-bottom:20px;
 }
 
-/* eye */
-
-.logo-eye{
-display:flex;
-justify-content:center;
-margin-bottom:10px;
-}
-
-.eye{
-width:90px;
-height:56px;
-border:2px solid rgba(255,255,255,0.55);
-border-radius:60px/36px;
-display:flex;
-align-items:center;
-justify-content:center;
-position:relative;
-overflow:hidden;
-
-background:rgba(255,255,255,0.02);
-
-box-shadow:
-0 0 18px rgba(255,255,255,0.08),
-inset 0 0 12px rgba(255,255,255,0.08),
-inset 0 0 30px rgba(0,0,0,0.6);
-}
-
-.pupil{
-width:14px;
-height:14px;
-background:white;
-border-radius:50%;
-position:absolute;
-
-box-shadow:
-0 0 10px rgba(255,255,255,0.9),
-0 0 20px rgba(255,255,255,0.6);
-}
-
-.glint{
-position:absolute;
-width:5px;
-height:5px;
-background:white;
-border-radius:50%;
-top:3px;
-left:3px;
-}
-
-.eyelid{
-position:absolute;
-width:100%;
-height:100%;
-background:var(--bg);
-top:-100%;
-}
-
-/* blink */
-
-@keyframes blink{
-0%{top:-100%}
-50%{top:0}
-100%{top:-100%}
-}
-
-/* brand */
-
-.brand-name{
-text-align:center;
-font-size:36px;
-letter-spacing:3px;
-}
-
-.slogan{
-text-align:center;
-color:var(--muted);
-margin-top:6px;
-}
-
-/* widgets */
-
-.widget-row{
-display:grid;
-grid-template-columns:repeat(4,var(--widget));
-justify-content:space-between;
-}
-
-.widget{
-width:var(--widget);
-height:var(--widget);
-
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:12px;
-
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-
-transition:.25s;
-}
-
-.widget:hover{
-transform:translateY(-4px);
-}
-
-/* clock */
-
-.clock{
-width:70px;
-height:70px;
-border:1px solid var(--border);
-border-radius:50%;
-position:relative;
-margin-bottom:10px;
-}
-
-.hand{
-position:absolute;
-bottom:50%;
-left:50%;
-transform-origin:center bottom;
-background:white;
-}
-
-.hour{width:2px;height:18px}
-.minute{width:2px;height:26px}
-.second{width:1px;height:30px}
-
-/* calendar */
-
-.calendar-widget{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:6px;
-}
-
-.calendar-date{
-font-size:42px;
-font-weight:600;
-}
-
-/* search */
-
-.search-panel{
-display:flex;
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:12px;
-overflow:hidden;
-}
-
-.attach{
-width:60px;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.search-input{
-flex:1;
-background:transparent;
-border:none;
-color:white;
-padding:16px;
-}
-
-.search-btn{
-width:120px;
-background:#111;
-border:none;
-color:white;
+.close{
+position:fixed;
+top:20px;
+right:30px;
 cursor:pointer;
+font-size:22px;
 }
 
-/* workspace */
-
-.workspace{
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:12px;
-padding:28px;
-}
-
-/* panels */
-
-.panel-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:var(--space-md);
-}
-
-.panel{
-height:var(--icon);
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:12px;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-transition:.25s;
-}
-
-.panel svg{
-width:40px;
-height:40px;
-stroke:white;
-stroke-width:1.6;
-fill:none;
-transition:.25s;
-}
-
-.panel:hover svg{
-transform:scale(1.15);
-}
-
-/* reflection */
-
-.reflection{
-background:var(--panel);
-border:1px solid var(--border);
-border-radius:12px;
-padding:28px;
-text-align:center;
-}
-
-.footer{
-text-align:center;
-color:#777;
+footer{
+margin-top:auto;
+padding:40px;
+font-size:14px;
+opacity:0.7;
 }
 
 </style>
@@ -318,222 +180,147 @@ color:#777;
 
 <body>
 
-<div class="container">
-
-<!-- ZONE 1 -->
-
-<div class="zone">
-
-<div class="logo-eye">
-<div class="eye" id="eye">
-
-<div class="pupil" id="pupil">
-<div class="glint"></div>
+<header>
+<div class="eye">
+<div class="pupil"></div>
 </div>
+<h1>EINBLICK</h1>
+</header>
 
-<div class="eyelid" id="eyelid"></div>
+<div class="generator">
+<input id="topic" placeholder="Explore a concept...">
 
+<div class="controls">
+<button onclick="generatePoster()">Generate Card</button>
+<button onclick="randomTopic()">Random Card</button>
 </div>
 </div>
 
-<div class="brand-name">EINBLICK</div>
-<div class="slogan">Where Knowledge Becomes Insight</div>
+<div class="poster-stage">
 
+<div class="poster" id="poster" onmousedown="startPress()" onmouseup="cancelPress()">
+
+<h2 id="posterTitle">TOPIC</h2>
+
+<div class="illustration">
+Scientific Diagram
 </div>
 
-<!-- ZONE 2 WIDGETS -->
-
-<div class="zone widget-row">
-
-<div class="widget">
-
-<div class="clock">
-<div class="hand hour" id="hour"></div>
-<div class="hand minute" id="minute"></div>
-<div class="hand second" id="second"></div>
+<div class="facts">
+• Key fact one<br>
+• Key fact two<br>
+• Key fact three<br>
+• Key fact four
 </div>
 
-<div id="digital"></div>
-
-</div>
-
-<div class="widget" id="calendar"></div>
-
-<div class="widget">News</div>
-
-<div class="widget">Weather</div>
-
-</div>
-
-<!-- ZONE 3 SEARCH -->
-
-<div class="zone">
-
-<div class="search-panel">
-
-<div class="attach">📎</div>
-
-<input id="searchInput" class="search-input" placeholder="Search Einblick">
-
-<button class="search-btn">Search</button>
-
+<div class="metadata">
+Plate No. EC-00001<br>
+⟐ EINBLICK
 </div>
 
 </div>
 
-<!-- ZONE 4 WORKSPACE -->
-
-<div class="zone workspace">
-
-<h2>Workspace</h2>
-
-<p style="color:var(--muted);margin-top:10px">
-Ready for research.
-</p>
-
-<div style="margin-top:16px;font-size:22px">
-● ● ●
+<div class="downloads" id="downloads">
+<button>Download Poster</button>
+<button>Download Booklet</button>
 </div>
 
 </div>
 
-<!-- ZONE 5 PANELS -->
+<div class="booklet" id="booklet">
 
-<div class="zone panel-grid">
+<div class="close" onclick="closeBooklet()">✕</div>
 
-<div class="panel">
-
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="3"/>
-<circle cx="5" cy="12" r="2"/>
-<circle cx="19" cy="12" r="2"/>
-</svg>
-
+<div class="page">
+<h2>Overview</h2>
+<p>This page introduces the concept and provides a simple explanation.</p>
 </div>
 
-<div class="panel">
-
-<svg viewBox="0 0 24 24">
-<circle cx="12" cy="12" r="9"/>
-<line x1="12" y1="12" x2="18" y2="6"/>
-</svg>
-
+<div class="page">
+<h2>Historical Background</h2>
+<p>Origins, discoveries, and timeline.</p>
 </div>
 
-<div class="panel">
-
-<svg viewBox="0 0 24 24">
-<polygon points="12,3 4,12 20,12"/>
-<line x1="12" y1="12" x2="12" y2="20"/>
-</svg>
-
+<div class="page">
+<h2>How It Works</h2>
+<p>Mechanism explanation and diagram.</p>
 </div>
 
-<div class="panel">
-
-<!-- processor -->
-
-<svg viewBox="0 0 24 24">
-<rect x="7" y="7" width="10" height="10"/>
-<line x1="9" y1="1" x2="9" y2="7"/>
-<line x1="15" y1="1" x2="15" y2="7"/>
-<line x1="9" y1="17" x2="9" y2="23"/>
-<line x1="15" y1="17" x2="15" y2="23"/>
-</svg>
-
+<div class="page">
+<h2>Visual Explanation</h2>
+<p>Infographic-style explanation.</p>
 </div>
 
+<div class="page">
+<h2>Applications</h2>
+<p>Real world uses and examples.</p>
 </div>
 
-<!-- ZONE 6 REFLECTION -->
-
-<div class="zone reflection">
-
-<div>Today's Reflection</div>
-
-<div style="margin-top:10px">
-"The important thing is not to stop questioning."
+<div class="page">
+<h2>Deeper Insight</h2>
+<p>Advanced implications and theory.</p>
 </div>
 
-<div style="margin-top:10px;color:var(--muted)">
-— Albert Einstein
+<div class="page">
+<h2>Comparisons</h2>
+<p>Related concepts comparison.</p>
+</div>
+
+<div class="page">
+<h2>Interesting Facts</h2>
+<p>Additional notable insights.</p>
+</div>
+
+<div class="page">
+<h2>Summary</h2>
+<p>Concise recap of the concept.</p>
 </div>
 
 </div>
 
-<!-- ZONE 7 FOOTER -->
-
-<div class="zone footer">
+<footer>
 Created by Dr. Aishvarya Adhaulia
-</div>
-
-</div>
+</footer>
 
 <script>
 
-/* pupil tracking */
+let pressTimer;
 
-const pupil=document.getElementById("pupil")
-const eye=document.getElementById("eye")
-const eyelid=document.getElementById("eyelid")
-
-document.addEventListener("mousemove",e=>{
-
-const rect=eye.getBoundingClientRect()
-
-const x=e.clientX-rect.left
-const y=e.clientY-rect.top
-
-const centerX=rect.width/2
-const centerY=rect.height/2
-
-const moveX=(x-centerX)/14
-const moveY=(y-centerY)/14
-
-pupil.style.transform=`translate(${moveX}px,${moveY}px)`
-
-})
-
-/* blink */
-
-setInterval(()=>{
-eyelid.style.animation="blink .4s ease"
-setTimeout(()=>{eyelid.style.animation=""},400)
-},5000)
-
-/* clock */
-
-function updateClock(){
-
-const now=new Date()
-
-const sec=now.getSeconds()
-const min=now.getMinutes()
-const hr=now.getHours()%12
-
-document.getElementById("second").style.transform=`translateX(-50%) rotate(${sec*6}deg)`
-document.getElementById("minute").style.transform=`translateX(-50%) rotate(${min*6}deg)`
-document.getElementById("hour").style.transform=`translateX(-50%) rotate(${hr*30+min/2}deg)`
-
-document.getElementById("digital").textContent=
-now.toLocaleTimeString()
-
+function generatePoster(){
+let topic=document.getElementById("topic").value;
+if(topic==="")topic="Sample Topic";
+document.getElementById("posterTitle").innerText=topic.toUpperCase();
+document.getElementById("poster").style.display="block";
+document.getElementById("downloads").style.display="flex";
 }
 
-setInterval(updateClock,1000)
-updateClock()
+function randomTopic(){
+const topics=[
+"Quantum Entanglement",
+"Black Holes",
+"Stoicism",
+"DNA",
+"Porsche 911"
+];
+document.getElementById("topic").value=
+topics[Math.floor(Math.random()*topics.length)];
+}
 
-/* calendar */
+function startPress(){
+pressTimer=setTimeout(openBooklet,600);
+}
 
-const now=new Date()
+function cancelPress(){
+clearTimeout(pressTimer);
+}
 
-document.getElementById("calendar").innerHTML=`
-<div class="calendar-widget">
-<div>${now.toLocaleDateString(undefined,{weekday:'long'})}</div>
-<div class="calendar-date">${now.getDate()}</div>
-<div>${now.toLocaleDateString(undefined,{month:'short'})} ${now.getFullYear()}</div>
-</div>
-`
+function openBooklet(){
+document.getElementById("booklet").style.display="block";
+}
+
+function closeBooklet(){
+document.getElementById("booklet").style.display="none";
+}
 
 </script>
 
