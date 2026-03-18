@@ -71,7 +71,7 @@ margin-bottom:-10px;
 }
 
 #pupil{
-transition:.35s ease;
+transition:.25s ease;
 }
 
 /* title */
@@ -141,7 +141,7 @@ font-size:14px;
 opacity:.6;
 }
 
-/* Insight Card */
+/* insight card */
 
 .modal{
 display:none;
@@ -202,7 +202,7 @@ font-size:22px;
 cursor:pointer;
 }
 
-/* Creator modal */
+/* creator modal */
 
 .modal-content{
 background:#111;
@@ -253,7 +253,7 @@ fill="white" id="pupil"/>
 <span onclick="openCreator()">Creator</span>
 </footer>
 
-<!-- Insight Card -->
+<!-- insight card -->
 
 <div id="resultModal" class="modal">
 
@@ -279,7 +279,7 @@ fill="white" id="pupil"/>
 
 </div>
 
-<!-- Creator -->
+<!-- creator -->
 
 <div id="creatorModal" class="modal">
 <div class="modal-content">
@@ -294,11 +294,106 @@ fill="white" id="pupil"/>
 
 <script>
 
-/* DIAGRAM ENGINE */
+/* ---------------- EYE ENGINE ---------------- */
+
+const pupil = document.getElementById("pupil")
+const eye = document.querySelector(".eye")
+
+let eyeCenterX
+let eyeCenterY
+
+function updateEyeCenter(){
+
+const rect = eye.getBoundingClientRect()
+
+eyeCenterX = rect.left + rect.width/2
+eyeCenterY = rect.top + rect.height/2
+
+}
+
+updateEyeCenter()
+
+window.addEventListener("resize",updateEyeCenter)
+
+/* cursor tracking */
+
+document.addEventListener("mousemove",e=>{
+
+let dx=e.clientX-eyeCenterX
+let dy=e.clientY-eyeCenterY
+
+let dist=Math.sqrt(dx*dx+dy*dy)
+
+let max=12
+
+if(dist>max){
+dx=dx/dist*max
+dy=dy/dist*max
+}
+
+pupil.setAttribute("cx",70+dx)
+pupil.setAttribute("cy",45+dy)
+
+})
+
+/* touch tracking */
+
+document.addEventListener("touchmove",e=>{
+
+const t=e.touches[0]
+
+let dx=t.clientX-eyeCenterX
+let dy=t.clientY-eyeCenterY
+
+let dist=Math.sqrt(dx*dx+dy*dy)
+
+let max=12
+
+if(dist>max){
+dx=dx/dist*max
+dy=dy/dist*max
+}
+
+pupil.setAttribute("cx",70+dx)
+pupil.setAttribute("cy",45+dy)
+
+})
+
+/* breathing */
+
+setInterval(()=>{
+
+pupil.setAttribute("r",9)
+
+setTimeout(()=>{
+pupil.setAttribute("r",7)
+},600)
+
+},4000)
+
+/* research pulse */
+
+function activateEye(){
+
+pupil.style.filter="drop-shadow(0 0 10px white)"
+
+pupil.setAttribute("r",14)
+
+setTimeout(()=>{
+
+pupil.style.filter="none"
+
+pupil.setAttribute("r",8)
+
+},700)
+
+}
+
+/* ---------------- DIAGRAM ENGINE ---------------- */
 
 function generateDiagram(topic){
 
-topic = topic.toLowerCase()
+topic=topic.toLowerCase()
 
 if(topic.includes("quantum")){
 
@@ -311,7 +406,7 @@ stroke="black" stroke-width="2"/>
 
 }
 
-if(topic.includes("black hole") || topic.includes("galaxy")){
+if(topic.includes("black hole")||topic.includes("galaxy")){
 
 return `<svg width="200" height="120">
 <ellipse cx="100" cy="60" rx="60" ry="20"
@@ -321,43 +416,17 @@ fill="none" stroke="black"/>
 
 }
 
-if(topic.includes("car") || topic.includes("ferrari") || topic.includes("porsche")){
-
-return `<svg width="220" height="80">
-<rect x="40" y="40" width="120" height="20"
-fill="none" stroke="black"/>
-<circle cx="70" cy="65" r="8" fill="black"/>
-<circle cx="150" cy="65" r="8" fill="black"/>
-</svg>`
-
-}
-
-if(topic.includes("ai") || topic.includes("android")){
-
-return `<svg width="180" height="120">
-<rect x="50" y="30" width="80" height="50"
-fill="none" stroke="black"/>
-<line x1="90" y1="80" x2="90" y2="110"
-stroke="black"/>
-</svg>`
-
-}
-
-/* default */
-
 return `<svg width="200" height="120">
 <circle cx="100" cy="40" r="8" fill="black"/>
 <circle cx="60" cy="80" r="6" fill="black"/>
 <circle cx="140" cy="80" r="6" fill="black"/>
-<line x1="100" y1="48" x2="60" y2="74"
-stroke="black"/>
-<line x1="100" y1="48" x2="140" y2="74"
-stroke="black"/>
+<line x1="100" y1="48" x2="60" y2="74" stroke="black"/>
+<line x1="100" y1="48" x2="140" y2="74" stroke="black"/>
 </svg>`
 
 }
 
-/* KNOWLEDGE ENGINE */
+/* ---------------- KNOWLEDGE ENGINE ---------------- */
 
 function generateKnowledge(topic){
 
@@ -384,11 +453,13 @@ fact:
 
 }
 
-/* RESEARCH ENGINE */
+/* ---------------- RESEARCH ENGINE ---------------- */
 
 let currentBooklet=""
 
 function startResearch(){
+
+activateEye()
 
 let topic=document.getElementById("topic").value
 
@@ -404,8 +475,7 @@ document.getElementById("history").innerText=data.history
 document.getElementById("application").innerText=data.application
 document.getElementById("fact").innerText=data.fact
 
-document.getElementById("diagramArea").innerHTML =
-generateDiagram(topic)
+document.getElementById("diagramArea").innerHTML=generateDiagram(topic)
 
 currentBooklet=generateBooklet(data,topic)
 
@@ -413,23 +483,23 @@ document.getElementById("resultModal").style.display="block"
 
 }
 
-/* BOOKLET */
+/* booklet */
 
 function generateBooklet(data,topic){
 
-let diagram = generateDiagram(topic)
+let diagram=generateDiagram(topic)
 
 let html="<html><body style='font-family:Georgia;background:#111;color:white;padding:40px'>"
 
-html += "<h1>"+data.title+"</h1>"+diagram
+html+="<h1>"+data.title+"</h1>"+diagram
 
-html += "<h2>Definition</h2><p>"+data.definition+"</p>"
-html += "<h2>Principle</h2><p>"+data.principle+"</p>"
-html += "<h2>History</h2><p>"+data.history+"</p>"
-html += "<h2>Applications</h2><p>"+data.application+"</p>"
-html += "<h2>Interesting Fact</h2><p>"+data.fact+"</p>"
+html+="<h2>Definition</h2><p>"+data.definition+"</p>"
+html+="<h2>Principle</h2><p>"+data.principle+"</p>"
+html+="<h2>History</h2><p>"+data.history+"</p>"
+html+="<h2>Applications</h2><p>"+data.application+"</p>"
+html+="<h2>Interesting Fact</h2><p>"+data.fact+"</p>"
 
-html += "</body></html>"
+html+="</body></html>"
 
 return html
 
